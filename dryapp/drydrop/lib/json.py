@@ -1,11 +1,11 @@
 import types
-from django.utils import simplejson as json
+import simplejson
 from decimal import *
 import datetime
 
-json_parse = lambda s: json.loads(s.decode("utf-8"))
+json_parse = lambda s: simplejson.loads(s.decode("utf-8"))
 
-class DateTimeAwareJSONEncoder(json.JSONEncoder):
+class DateTimeAwareJSONEncoder(simplejson.JSONEncoder):
     """
     JSONEncoder subclass that knows how to encode date/time types
     """
@@ -25,7 +25,7 @@ class DateTimeAwareJSONEncoder(json.JSONEncoder):
 
 def json_encode(data,**kwargs):
     """
-    The main issues with django's default json serializer is that properties that
+    The main issues with default json serializer is that properties that
     had been added to a object dynamically are being ignored (and it also has 
     problems with some models).
     """
@@ -37,13 +37,8 @@ def json_encode(data,**kwargs):
         elif type(data) is types.DictType:
             ret = _dict(data)
         elif isinstance(data, Decimal):
-            # json.dumps() cant handle Decimal
+            # simplejson.dumps() cant handle Decimal
             ret = str(data)
-        # elif isinstance(data, models.query.QuerySet):
-        #     # Actually its the same as a list ...
-        #     ret = _list(data)
-        # elif isinstance(data, models.Model):
-        #     ret = _model(data)
         else:
             ret = data
         return ret
@@ -62,6 +57,6 @@ def json_encode(data,**kwargs):
     
     ret = _any(data)
     if kwargs.get('nice'):
-        return json.dumps(ret, cls=DateTimeAwareJSONEncoder, indent=4, ensure_ascii=False)
+        return simplejson.dumps(ret, cls=DateTimeAwareJSONEncoder, indent=4, ensure_ascii=False)
     else:
-        return json.dumps(ret, cls=DateTimeAwareJSONEncoder, ensure_ascii=False)
+        return simplejson.dumps(ret, cls=DateTimeAwareJSONEncoder, ensure_ascii=False)

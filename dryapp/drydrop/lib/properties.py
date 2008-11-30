@@ -1,12 +1,11 @@
 # -*- mode: python; coding: utf-8 -*-
 import logging
-from google.appengine.ext import db
-from google.appengine.api import datastore_types
-from django.utils import simplejson
-from drydrop.lib.utils import *
-from drydrop.lib.json import *
 import pickle
 import base64
+from google.appengine.ext import db
+from google.appengine.api import datastore_types
+from drydrop.lib.utils import *
+from drydrop.lib.json import *
 
 CUSTOM_DATETIME_INPUT_FORMATS = (
     '%d/%m/%y',              

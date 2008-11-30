@@ -5,10 +5,11 @@ import logging
 import datetime
 import mimetypes
 import time
+import jinja2
 import email.Utils
 from Cookie import BaseCookie
 from routes import url_for
-from google.appengine.ext.webapp import template, Response
+from google.appengine.ext.webapp import Response
 from google.appengine.api import memcache
 from drydrop.lib.json import json_encode
 from drydrop_handler import DRY_ROOT, APP_ROOT, APP_ID, VER_ID
@@ -21,11 +22,20 @@ class AbstractController(object):
         self.request = request
         self.response = response
         self.handler = handler
-        self.view = {}
+        self.view = {'params': request.params }
         self.params = request.params
         self.emited = False
         self.cookies = request.cookies
     
+    def render(self, template_name):
+        env = jinja2.Environment(loader = jinja2.FileSystemLoader([os.path.join(APP_ROOT, 'views')]))
+        try:
+            template = env.get_template(template_name)
+        except jinja2.TemplateNotFound:
+            raise jinja2.TemplateNotFound(template_name)
+        content = template.render(self.view)
+        self.response.out.write(content)
+            
     def before_action(self):
         pass
     
@@ -33,9 +43,8 @@ class AbstractController(object):
         pass
     
     def render_view(self, file_name):
-        path = (os.path.join(APP_ROOT, 'views', file_name))
         self.response.headers['Content-Type'] = 'text/html'
-        self.response.out.write(template.render(path, self.view))
+        self.render(file_name)
         self.emited = True
     
     def render_text(self, text):
@@ -48,9 +57,8 @@ class AbstractController(object):
         self.emited = True
     
     def render_xml(self, xml):
-        path = (os.path.join(APP_ROOT, 'views', file_name))
         self.response.headers['Content-Type'] = 'text/xml'
-        self.response.out.write(template.render(path, self.view))
+        self.render(file_name)
         self.emited = True
     
     def render_json(self, json):
