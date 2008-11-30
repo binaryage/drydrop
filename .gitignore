@@ -1,0 +1,16 @@
+gae
+log/*.log
+tmp
+tmp/**/*
+*.pyc
+.DS_Store
+tmtags
+.tmtags
+.dotest
+*.tmproj
+.deploy
+.svn
+tmtags
+.pdbrc
+index.yaml
+Thumbs.db

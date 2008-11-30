@@ -1,0 +1,534 @@
+#!/usr/bin/env ruby
+
+# mac users should have all in place
+# 1. $gem install rake
+# 2. $cd some/path/drydrop
+# 3. $rake
+#
+# jeste je dobre nainstalovat: http://ericanderson.us/2008/03/02/terminalapp-tab-namer-v01-alpha/
+#
+# unix users?
+# 1. $sudo apt-get install ruby
+# 2. install rubygems -> http://www.rubygems.org/read/chapter/3
+# 3. follow same steps as mac users
+#
+# win users:
+# 1. install binary ruby (unzip to C:\ruby)
+# 2. set C:\ruby\bin to system path
+# 3. download and install ruby gems (http://www.rubygems.org/read/chapter/3)
+# 5. solve dll problems:
+# 5.a) download openssl 0.98e or later here (http://smithii.com/openssl), copy ssleay32.dll and libeay32.dll to your C:\ruby\bin
+# 5.b) download zlib binary here (http://gnuwin32.sourceforge.net/downlinks/zlib-bin-zip.php), rename zlib1.dll to zlib.dll, and copy it to your C:\ruby\bin
+# 6. >gem install win32console
+# 7. >gem install rake
+# 8. install zip to system path (http://www.info-zip.org/Zip.html)
+# 9. >cd some\path\drydrop
+#10. >rake
+#
+
+ROOT = File.expand_path('.')
+TMP = File.join(ROOT, 'tmp')
+DEPLOY = File.join(ROOT, '.deploy')
+DATASTORE = File.join(TMP, 'drydrop.datastore')
+HISTORY = File.join(TMP, 'drydrop.datastore.history')
+DRYAPP = File.join(ROOT, 'dryapp')
+GAE = File.join(ROOT, 'gae')
+
+NEED_GEMS = %w(rubyzip)
+NEED_EGGS = %w()
+
+OSX = PLATFORM =~ /darwin/
+WIN = PLATFORM =~ /win32/
+NIX = !(OSX || WIN)
+
+APPSERVER_OPTS = "" #"--debug --debug_imports"
+APPSERVER_OPTS_WOID_LOCAL = "-a 192.168.5.2"
+APPCFG_OPTS = ""
+
+DRYAPP_TERM_COLOR = [10000,0,10000]
+
+require "rubygems"
+require 'yaml'
+
+# http://kpumuk.info/ruby-on-rails/colorizing-console-ruby-script-output/
+begin
+  require 'Win32/Console/ANSI' if WIN
+rescue LoadError
+  raise 'You must "sudo gem install win32console" to use terminal colors on Windows'
+end
+
+begin
+  require 'appscript' if OSX
+  include Appscript if OSX
+rescue LoadError
+  raise 'You must "sudo gem install rb-appscript"'
+end
+
+begin
+  require 'zip/zip'
+rescue LoadError
+  raise 'You must "sudo gem install rubyzip"'
+end
+
+def colorize(text, color_code)
+  "#{color_code}#{text}\e[0m"
+end
+
+def red(text); colorize(text, "\e[31m"); end
+def green(text); colorize(text, "\e[32m"); end
+def yellow(text); colorize(text, "\e[33m"); end
+def blue(text); colorize(text, "\e[34m"); end
+def magenta(text); colorize(text, "\e[35m"); end
+def azure(text); colorize(text, "\e[36m"); end
+def white(text); colorize(text, "\e[37m"); end
+def black(text); colorize(text, "\e[30m"); end
+
+def file_color(text); yellow(text); end
+def dir_color(text); blue(text); end
+def cmd_color(text); azure(text); end
+
+#
+# you can use FileUtils: http://corelib.rubyonrails.org/classes/FileUtils.html
+#
+require 'find'
+
+def cp_dir(src, dst)
+    puts "#{cmd_color('Copying')} #{dir_color(src)}"
+    puts "     -> #{dir_color(dst)}"
+    Find.find(src) do |fn|
+      next if fn =~ /\.(svn|git)/ 
+      next if fn =~ /\.pyc$/ 
+      next if fn =~ /\.DS_Store$/ 
+      next if fn =~ /Thumbs\.db$/ 
+      next if fn =~ /^\./ 
+      r = fn[src.size..-1]
+      if File.directory? fn
+        mkdir(File.join(dst,r), {:verbose => false}) unless File.exist? File.join(dst,r)
+      else
+        cp(fn, File.join(dst,r), {:verbose => false})
+      end
+    end
+end
+
+def cp_file(src, dst)
+  puts "#{cmd_color('Copying')} #{file_color(src)}"
+  puts "     -> #{file_color(dst)}"
+  cp(src, dst, {:verbose => false})
+end
+
+def my_mkdir(dir)
+  puts "#{cmd_color('Creating directory')} #{dir_color(dir)}"
+  mkdir dir, {:verbose => false}
+end
+
+def dep_dir(src)
+  cp_dir(File.join(DRYAPP, src), File.join($DEPLOY_DIR, src))
+end
+
+def dep_file(src)
+  cp_file(File.join(DRYAPP, src), File.join($DEPLOY_DIR, src))
+end
+
+def sanitize_path(path)
+  path = path.gsub('/', '\\') if WIN
+  path = path.gsub('sudo ', '') if WIN
+  path
+end
+
+def system(path, *params)
+  path = sanitize_path(path)
+  puts yellow(">> #{path} #{params.join(' ')}")
+  Kernel.system(path, *params)
+end
+
+def sys(cmd, verbose = true)
+  puts yellow("> #{cmd}") if verbose
+  `#{sanitize_path(cmd)}`
+end
+
+#############################################################################
+# helpers
+
+def die(s)
+  puts red(s)
+  exit(1)
+end
+
+def update_sources()
+  sys("cd \"#{ROOT}\" && git pull 1>&2")
+end
+
+def install_gems(gems)
+  gems.each do |g|
+    sys("sudo gem install #{g} 1>&2")
+  end
+end
+
+#
+def install_eggs(eggs)
+  eggs.each do |e|
+    sys("sudo easy_install #{e} 1>&2")
+  end
+end
+
+def prepare_gae()
+  return if File.exists?(GAE)
+  sys("svn co http://googleappengine.googlecode.com/svn/trunk/ \"#{GAE}\" 1>&2")
+end
+
+def update_gae()
+  die "GAE not present at #{GAE}" unless File.exists?(GAE)
+  sys("cd \"#{GAE}\" && svn up 1>&2")
+end
+
+def remove_gae()
+  return unless File.exists?(GAE)
+  die "dir \"#{GAE}\" seems to be invalid" if GAE.size<"/gae".size
+  sys("rm -Rf \"#{GAE}\" 1>&2")
+end
+
+def get_app_server_pid()
+  if NIX
+    res = sys("ps au|grep dev_appserver")
+    return unless res
+    lines = res.split("\n")
+    return unless lines[1]
+    return lines[1].split(' ')[1] unless lines[1]=~/grep/i
+    nil
+  else
+    res = sys("ps -a|grep dev_appserver")
+    return unless res
+    lines = res.split("\n")
+    lines.each do |line|
+      return line.split(' ').first unless line=~/grep/i
+    end
+    nil
+  end
+end
+
+def shutdown_dryapp()
+  pid = get_app_server_pid()
+  return unless pid
+  puts "Shutdowning DryApp (PID=#{pid})"
+  sys("kill #{pid} 1>&2")
+end
+
+def run_in_terminal(cmd, title, background=[0,0,0])
+  if OSX
+    # see http://www.nach-vorne.de/2007/11/22/terminal-trick
+    # and http://onrails.org/articles/2007/11/28/scripting-the-leopard-terminal
+    # and http://blog.cbciweb.com/articles/2008/05/02/scripting-mac-terminal-using-ruby
+    begin
+      puts yellow("!> #{cmd}")
+      term = app('Terminal')
+      term.activate()
+      current_window = term.windows.first
+      old_tab = current_window.selected_tab.get()
+
+      tab = find_terminal_tab(background)
+      unless tab
+        app("System Events").application_processes["Terminal.app"].keystroke("t", :using => :command_down)
+        tab = current_window.tabs.last
+      end
+      term.do_script(cmd, :in => tab)
+      tab.background_color.set(background)
+      tab.title_displays_custom_title.set(true)
+      tab.custom_title.set(title)
+      current_window.selected_tab.set(old_tab)
+      sleep 0.1
+    rescue
+      die "OSX command failed"
+    end
+  else
+    system(cmd)
+  end
+end
+
+def find_terminal_tab(color)
+  return unless OSX
+
+  term = app('Terminal')
+  term.windows.get.each do |win|
+    begin
+      win.tabs.get.each do |tab|
+        return tab if color == tab.background_color.get()
+      end
+    rescue
+    end
+  end
+  nil
+end
+
+def app_server_cmd(special=false)
+  server = 'dev_appserver.py'
+  server = "#{GAE}/#{server}" if File.exists?(GAE)
+  opts = special ? APPSERVER_OPTS_WOID_LOCAL : APPSERVER_OPTS
+  "#{server} #{opts} --datastore_path=#{DATASTORE} --history_path=#{HISTORY} #{DRYAPP}"
+end
+
+def appcfg_cmd(command='')
+  server = 'appcfg.py'
+  server = "#{GAE}/#{server}" if File.exists?(GAE)
+  "#{server} #{APPCFG_OPTS} #{command}"
+end
+
+def run_dryapp(special=false)
+  puts 'Running DryApp (server-side) ...'
+  run_in_terminal("cd #{DRYAPP} && clear && #{app_server_cmd(special)}", 'DryApp', DRYAPP_TERM_COLOR)
+end
+
+def clear_datastore()
+  sys("#{app_server_cmd('--clear_datastore')} 1>&2")
+end
+
+
+def git_info_from_working_copy
+  $git_info = sys("git show | grep commit | cut -d\" \" -f2").strip
+end
+
+def zip_python_module(name)
+  dep_dir(name)
+  $modules << name
+end
+
+def patch_main_py()
+  path = File.expand_path(File.join($DEPLOY_DIR, 'drydrop_handler.py'))
+  puts "#{cmd_color('Patching')} #{file_color(path)}"
+  
+  lines = []
+  File.open(path, "r") do |f|
+    f.each do |line|
+      if line =~ /# GENERATED: here we will setup import paths for baked version !!!/
+        $modules.each do |m|
+          lines << line.gsub(/# GENERATED: here we will setup import paths for baked version !!!/, 
+            "if '#{m}.zip' not in sys.path: sys.path.insert(0, '#{m}.zip');")
+        end
+      else
+        lines << line
+      end
+    end
+  end
+  File.open(path, "w") do |f|
+    f << lines
+  end
+end
+
+# force persistent timestamps inside zip for uploading only incremental changes
+module Zip
+  class ZipFile
+    def add(entry, srcPath, &continueOnExistsProc)
+      continueOnExistsProc ||= proc { false }
+      check_entry_exists(entry, continueOnExistsProc, "add")
+      newEntry = entry.kind_of?(ZipEntry) ? entry : ZipEntry.new(@name, entry.to_s, "", "", 0, 0, 
+        ZipEntry::DEFLATED, 0, time  = Time.local(2000,"jan",1,0,0,0))
+      newEntry.gather_fileinfo_from_srcpath(srcPath)
+      @entrySet << newEntry
+    end
+  end
+end
+
+def zipit(fn, prefix = "")
+  puts "#{cmd_color('Zipping')} #{dir_color(fn)}"
+  dst = "#{fn}.zip"
+  Zip::ZipFile.open(dst, Zip::ZipFile::CREATE) { |zipfile|
+    Find.find(fn) do |f|
+      next if File.directory? f
+      r = f[fn.size+1..-1]
+      r = prefix+"/"+r if prefix.size>0
+      zipfile.add(r, f)
+    end
+  }
+  File.chmod(0644, dst)
+  sys("rm -rf \"#{fn}\"", false)
+end
+
+def bake(name)
+  $modules = []
+  
+  git_info_from_working_copy()
+  die('not under git version control!') if $git_info == ''
+  version = $git_info[0..6]
+
+  $DEPLOY_DIR = File.join(DEPLOY, "#{version}")
+  die "something bad with deploy dir #{deploy_dir}" if $DEPLOY_DIR.size<=".deploy".size
+  
+  sys("rm -rf \"#{$DEPLOY_DIR}\" 1>&2") if File.exists?($DEPLOY_DIR)
+  my_mkdir($DEPLOY_DIR)
+  
+  dep_file('app.yaml')
+  dep_file('drydrop_handler.py')
+
+  dep_dir('views')
+
+  zip_python_module('drydrop')
+  zip_python_module('routes')
+  zip_python_module('yaml')
+  zip_python_module('simplejson')
+  zip_python_module('firepython')
+  
+  $modules.each do |mod|
+    src = File.join($DEPLOY_DIR, mod)
+    zipit(src, mod)
+  end
+
+  patch_app_yaml(version, name)
+  patch_main_py()
+
+  sys("cd \"#{$DEPLOY_DIR}\" && find . -exec touch -am -t 01010000.00 '{}' ';'")
+end
+
+def remove_from_deploy_dir(path)
+  die "something bad with dir #{path}" if path.size<"deploy".size
+  puts "#{cmd_color('Removing')} #{dir_color(path)}"
+  sys("rm -rf \"#{path}\"")
+end
+
+def patch_app_yaml(version, name)
+  path = File.expand_path(File.join($DEPLOY_DIR, 'app.yaml'))
+  puts "#{cmd_color('Patching')} #{file_color(path)}"
+  lines = []
+  File.open(path, "r") do |f|
+    f.each do |line|
+      lines << line.gsub(/^version:.*$/, "version: #{version}").gsub(/^application:.*$/, "application: #{name}")
+    end
+  end
+  File.open(path, "w") do |f|
+    f << lines
+  end
+end
+
+def clear_pyc()
+  puts "#{cmd_color('Removing all *.pyc in '+DRYAPP)}"
+  sys("cd \"#{ROOT}\" && find . -name \"*.pyc\" -exec rm '{}' ';'")
+end
+
+def touch_js()
+  puts "#{cmd_color('Touching all *.js in '+DRYAPP)}"
+  sys("cd \"#{ROOT}\" && find . -name \"*.js\" -exec touch '{}' ';'")
+end
+
+def touch_html()
+  puts "#{cmd_color('Touching all *.html in '+DRYAPP)}"
+  sys("cd \"#{ROOT}\" && find . -name \"*.html\" -exec touch '{}' ';'")
+end
+
+def cache_buster()
+  clear_pyc()
+  touch_js()
+  touch_html()
+end
+
+#############################################################################
+
+#----------------------------------------------------------------------------
+desc "(re)starts server (=> http://localhost:8080)"
+task :start do
+  shutdown_dryapp()
+  cache_buster()
+  run_dryapp()
+  puts blue('-> http://localhost:8080/')
+end
+
+desc "(re)starts server @ 192.168.5.2 (special case for virtualbox)"
+task :start2 do
+  shutdown_dryapp()
+  cache_buster()
+  run_dryapp(true)
+  puts blue('-> http://localhost:8080/')
+end
+
+#----------------------------------------------------------------------------
+desc "stops server"
+task :stop do
+  shutdown_dryapp()
+end
+
+#----------------------------------------------------------------------------
+desc "updates project sources from github"
+task :update do
+  update_sources()
+end
+
+#----------------------------------------------------------------------------
+desc "installs dependencies"
+task :setup do
+  sys("mkdir \"#{TMP}\" 1>&2") unless File.exists?(TMP)
+  install_gems(NEED_GEMS)
+  install_eggs(NEED_EGGS)
+end
+
+#----------------------------------------------------------------------------
+desc "switches to edge GAE (svn checkout from code.google.com)"
+task :edge_gae do
+  prepare_gae()
+  update_gae()
+end
+
+#----------------------------------------------------------------------------
+desc "switches to system GAE (!!! removes $drydrop/gae directory)"
+task :site_gae do
+  remove_gae()
+end
+
+#----------------------------------------------------------------------------
+desc "clears datastore"
+task :clear do
+  clear_datastore()
+end
+
+#----------------------------------------------------------------------------
+desc "removes all *.pyc in subtree, touches *.(js|html)"
+task :cache_buster do
+  cache_buster()
+end
+
+#----------------------------------------------------------------------------
+desc "bakes version for deploy"
+task :bake do
+  name = ARGV[1] || "drydroptest"
+  
+  # otestuju jestli je working copy clean
+  answer = sys("git status")
+  is_clean = !!answer.match(/working directory clean/)
+
+  # vypecu verzi
+  puts 'Baking version ...'
+  sys("mkdir \"#{DEPLOY}\" 1>&2") unless File.exists?(DEPLOY)
+  bake(name)
+  puts red("Your working copy is not clean. You should commit all changes.") unless is_clean
+end
+
+#----------------------------------------------------------------------------
+desc "uploads baked version to appspot"
+task :upload => :bake do
+  puts 'Uploading version to appspot ...'
+  system(appcfg_cmd("update \"#{$DEPLOY_DIR}\""))
+end
+
+#----------------------------------------------------------------------------
+desc "removes all .svn in dryapp"
+task :remove_svn do
+  puts "#{cmd_color('Removing all .svn directories in '+DRYAPP)}"
+  sys("cd \"#{DRYAPP}\" && find . -name \".svn\" -exec rm -rf '{}' ';'")
+end
+
+#----------------------------------------------------------------------------
+desc "smaze deploy adresar"
+task :clean_deploy do
+  sys("rm -rf \"#{DEPLOY}\"")
+end
+
+#----------------------------------------------------------------------------
+desc "updates firepython to latest"
+task :edge_firepython do
+  # TODO
+end
+
+task :cp_fp do
+  Dir.chdir(ROOT) do
+    sys('cp -r dryapp/firepython/* ~/code/firepython')
+  end
+end
+
+#----------------------------------------------------------------------------
+task :default => :start

@@ -1,0 +1,3 @@
+[submodule "dryapp/firepython"]
+	path = dryapp/firepython
+	url = git://github.com/woid/firepython.git
