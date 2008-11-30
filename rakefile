@@ -358,12 +358,11 @@ def bake(name)
   dep_file('app.yaml')
   dep_file('drydrop_handler.py')
 
-  dep_dir('views')
-
   zip_python_module('drydrop')
   zip_python_module('routes')
   zip_python_module('yaml')
   zip_python_module('simplejson')
+  zip_python_module('jinja2')
   zip_python_module('firepython')
   
   $modules.each do |mod|

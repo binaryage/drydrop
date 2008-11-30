@@ -16,6 +16,7 @@ from drydrop_handler import DRY_ROOT, APP_ROOT, APP_ID, VER_ID
 from drydrop.app.models import *
 from drydrop.app.core.appceptions import *
 from drydrop.lib.utils import *
+from drydrop.lib.jinja_loaders import InternalTemplateLoader
 
 class AbstractController(object):
     def __init__(self, request, response, handler):
@@ -28,7 +29,7 @@ class AbstractController(object):
         self.cookies = request.cookies
     
     def render(self, template_name):
-        env = jinja2.Environment(loader = jinja2.FileSystemLoader([os.path.join(APP_ROOT, 'views')]))
+        env = jinja2.Environment(loader = InternalTemplateLoader(os.path.join(DRY_ROOT, 'app', 'views')))
         try:
             template = env.get_template(template_name)
         except jinja2.TemplateNotFound:
