@@ -1,0 +1,9 @@
+body {
+    text-align: left;
+    font-size: 100%;
+    margin: 20px;
+}
+
+body div.info {
+    margin-top: 10px;
+}

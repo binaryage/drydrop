@@ -1,0 +1,19 @@
+{% extends "admin/layout.html" %}
+{% block title %}Access denied{% endblock %}
+{% block error %}
+  <div class="top">
+    <h1>Access denied</h1>
+    <h2>You are not admin of this site</h2>
+    <p class="description">
+      You are logged as <b>{{ user.nickname() }}</b>, but this user is not set as admin of this site. 
+      Please <a href="{{users.create_login_url('/admin')}}">log in</a> under some admin account.
+    </p>
+  </div>
+{% endblock %}
+{% block appbar %}
+{% endblock %}
+{% block main %}
+{% endblock %}
+{% block side %}
+{% endblock %}
+

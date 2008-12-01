@@ -1,0 +1,80 @@
+#admin {
+    text-align: left;
+}
+
+#doc4 {
+    margin-left: 0;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+#hd {
+    margin-bottom: 20px;
+}
+
+#userinfo {
+    text-align: right;
+    white-space: nowrap;
+}
+
+#userinfo ul {
+    padding: 0 0 1em 1.2em;
+    float: right;
+}
+
+#userinfo li {
+    display: inline;
+    line-height:1.5em;
+    padding:0 0 0.5em;    
+}
+
+#appbar {
+    background-color:#E5ECF9;
+    border-top:1px solid #3366CC;
+    margin:0 0 1.25em;
+    padding:0.25em 0.5em;
+}
+
+#appbar .sitename {
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+#nav {
+    border-right:3px solid #E5ECF9;
+}
+
+#nav ul {
+    list-style-type:none;
+    margin:0;
+    padding:1em 0;    
+}
+
+#nav li {
+    padding:0 0 0.5em;
+    padding-left: 0.5em;
+}
+
+#nav li a {
+    padding-left: 0.5em;
+}
+
+.index #nav-index a,
+.browser #nav-browser a,
+.settings #nav-settings a
+{
+    -moz-border-radius-bottomleft:4px;
+    -moz-border-radius-topleft:4px;
+    background-color:#E5ECF9;
+    display:block;
+    font-weight:bold;
+    margin-right:-1px;
+}
+
+.has_error #appbar {
+    display:none;
+}
+
+.has_error #yui-main {
+    display:none;
+}

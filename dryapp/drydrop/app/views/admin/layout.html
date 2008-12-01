@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="/drydrop-static/styles/reset-fonts-grids.css">
+    <link type="text/css" rel="stylesheet" href="/drydrop-static/styles/default.css" />
+    <link type="text/css" rel="stylesheet" href="/drydrop-static/styles/admin.css" />
+    <title>DryDrop Admin - {% block title %}{% endblock %}</title>
+  </head>
+  <body id="admin" class="{{params.action}} {{body_class}}">
+    <div id="doc4" class="yui-t2">
+      <div id="hd">
+        <div class="yui-g">
+          <div id="logo" class="yui-u first">
+            {% block logo %}
+              <span>DryDrop</span><span class="motto">free static sites for git lovers</span>
+            {% endblock %}
+          </div>
+          <div id="userinfo" class="yui-u">
+            {% block userinfo %}
+            <ul>
+              <li>
+                <strong>{{user.nickname()}}</strong> |
+              </li>
+              <li>
+                <a href="https://www.google.com/accounts/ManageAccount">My Account</a> |
+              </li>
+              <li>
+                <a href="http://code.google.com/appengine">Help</a> |
+              </li>
+              <li>
+                <a href="{{users.create_logout_url('/')}}">Sign out</a>
+              </li>
+            </ul>
+            {% endblock %}
+          </div>
+        </div>
+      </div>
+      <div id="bd">
+        <div id="error">
+          {% block error %}
+          {% endblock %}
+        </div>
+        <div id="appbar">
+          {% block appbar %}
+            <span class="sitename">Site Name</span>
+          {% endblock %}
+        </div>
+        <div id="yui-main">
+          <div class="yui-b">
+            {% block main %}
+            {% endblock %}
+          </div>
+        </div>
+        <div class="yui-b">
+          {% block side %}
+          <div id="nav">
+            <ul>
+              <li id="nav-index">
+                <a title="Review application status" href="/admin/index">Dashboard</a>
+              </li>
+              <li id="nav-browser">
+                <a title="Browse files" href="/admin/browser">Browser</a>
+              </li>
+              <li id="nav-settings">
+                <a title="Browse files" href="/admin/settings">Settings</a>
+              </li>
+            </ul>
+          </div>
+          {% endblock %}
+        </div>
+      </div>
+      <div id="ft" class="yui-g">
+      </div>
+    </div>
+  </body>
+</html>

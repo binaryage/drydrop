@@ -1,1 +1,69 @@
-html { font-family: arial; }
+html { 
+    font-family: Arial, sans-serif;
+    font-size: 130%;
+}
+
+strong, em, b {
+    font-weight: bold;
+}
+
+a, a:visited, a:hover {
+    color: #00d;
+}
+
+#hd a, #hd a:visited, #hd a:hover {
+    color: #00f;
+}
+
+h1 {
+    font-size: 180%;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+h2 {
+    font-size: 120%;
+    font-weight: bold;
+}
+
+li {
+    line-height: 1.5em;
+}
+
+#error .top {
+    padding: 10px;
+    padding-left: 20px;
+    border-top: 2px solid #f00;
+    background-color: #fdd;
+}
+
+#error h1 {
+    color: #d00;
+    display: inline;
+}
+
+#error h2 {
+    color: #d00;
+    display: inline;
+    padding-left: 6px;
+}
+
+#error .description {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 20px;
+}
+
+#logo {
+    font-size: 200%;
+    font-weight: bold;
+}
+
+#logo .motto {
+    font-size: 50%;
+    margin-left: 6px;
+    font-weight: normal;
+    position: relative;
+    top: 5px;
+    color: gray;
+}

@@ -58,7 +58,7 @@ def routing(m):
   # see http://routes.groovie.org/class-routes.base.Mapper.html#resource for all options
   
   m.connect('/drydrop-static/*path', controller="static", action="static")
-  m.connect('/admin', controller="admin", action="index")
+  m.connect('/admin/:action', controller="admin", action="index")
   m.connect('/', controller="welcome", action="index")
   
   # Install the default routes as the lowest priority.  
@@ -206,7 +206,6 @@ class Application(object):
 def main():
     import sys
     import logging
-    logging.error("enter")
 
     if LOCAL:
         sys.meta_path = [] # disables python sandbox in local version
@@ -225,7 +224,7 @@ def main():
 
     logging.getLogger().setLevel(logging.DEBUG)
     from firepython.middleware import FirePythonWSGI
-    run_wsgi_app(FirePythonWSGI(Application()))
+    run_wsgi_app(FirePythonWSGI(webapp.WSGIApplication([(r'.*', AppHandler)], debug=True)))
 
 if __name__ == "__main__":
     main()

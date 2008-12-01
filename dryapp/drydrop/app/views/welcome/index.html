@@ -1,14 +1,8 @@
-<html>
-<head>
-  <link type="text/css" rel="stylesheet" href="/drydrop-static/styles/default.css" />
-</head>
-<body>
-  <h1>DryDrop</h1>
+{% extends "welcome/layout.html" %}
+{% block title %}Welcome!{% endblock %}
+{% block body %}
+<div class="info">
   <p>Congratulations! You've just uploaded your DryDrop application.</p>
-
-  <h2>Links</h2>
-  <ul>
-    <li><a href="/admin">/admin</a> - admin section</li>
-  </ul>
-</body>
-</html>
+  <p>Now, please log into <a href="/admin">admin section</a> and configure your site.</p>
+</div>
+{% endblock %}

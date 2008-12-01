@@ -10,7 +10,7 @@ import email.Utils
 from Cookie import BaseCookie
 from routes import url_for
 from google.appengine.ext.webapp import Response
-from google.appengine.api import memcache
+from google.appengine.api import memcache, users
 from drydrop.lib.json import json_encode
 from drydrop_handler import DRY_ROOT, APP_ROOT, APP_ID, VER_ID
 from drydrop.app.models import *
@@ -43,7 +43,9 @@ class AbstractController(object):
     def after_action(self):
         pass
     
-    def render_view(self, file_name):
+    def render_view(self, file_name, params = None):
+        if params:
+            self.view.update(params)
         self.response.headers['Content-Type'] = 'text/html'
         self.render(file_name)
         self.emited = True
@@ -53,7 +55,9 @@ class AbstractController(object):
         self.response.out.write(text)
         self.emited = True
     
-    def render_html(self, html):
+    def render_html(self, html, params = None):
+        if params:
+            self.view.update(params)
         self.response.out.write(html)
         self.emited = True
     
@@ -245,15 +249,17 @@ class SessionController(BaseController):
 
 class AuthenticatedController(SessionController):
     
-    def authenticate_user(self):
-        pass
-        # if not self.load_session():
-        #     self.clear_session_cookie()
-        #     return self.redirect_to(url_for('login'))
-        # 
-        # self.user = self.session.get_user()
-        # logging.info('Authenticated as user %s' % self.user)
+    def __init__(self, *arguments, **keywords):
+        super(AuthenticatedController, self).__init__(*arguments, **keywords)
+        self.user = None
+        
+    def authenticate_user(self, url=None):
+        self.user = users.get_current_user()
+        if not self.user:
+            return self.redirect_to(users.create_login_url(url or self.request.url))
+        logging.info('Authenticated as user %s', self.user)
     
     def before_action(self, *arguments, **keywords):
         if super(AuthenticatedController, self).before_action(*arguments, **keywords): return True
         return self.authenticate_user()
+        

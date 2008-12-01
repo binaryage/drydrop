@@ -27,13 +27,17 @@ In planning, but some code exists. I need this for myself, so expect first versi
 ### Bugs / Feature requests
 [The support forum is here][support].
 
+## Issues filled in GAE
+
+* [Hook into admin section][gae-admin-hook]
+
 ### IRC
 IRC channel [#drydrop][irc] at freenode
 
 # History
 
-* v0.1 (to be released) 
-  * public alpha release
+  * v0.1 (to be released) 
+    * public alpha release
 
 [appengine]: http://code.google.com/appengine
 [github]: http://github.com
@@ -42,3 +46,4 @@ IRC channel [#drydrop][irc] at freenode
 [workaround]: http://getsatisfaction.com/xrefresh/topics/unable_to_download_rainbow_for_firebug
 [support]: http://drydrop.uservoice.com/
 [irc]:irc://irc.freenode.net/#drydrop
+[gae-admin-hook]:http://code.google.com/p/googleappengine/issues/detail?id=893
