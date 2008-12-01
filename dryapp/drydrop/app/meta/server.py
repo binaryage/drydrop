@@ -71,7 +71,6 @@ from google.pyglib import gexcept
 from drydrop.app.meta import appinfo
 from drydrop.app.meta import yaml_errors
 from google.appengine.api import users
-from drydrop_handler import vfs
 
 FILE_MISSING_EXCEPTIONS = frozenset([errno.ENOENT, errno.ENOTDIR])
 
@@ -655,7 +654,7 @@ class StaticFileConfigMatcher(object):
 
 
 
-def ReadDataFile(data_path, openfile=file):
+def ReadDataFile(data_path, vfs):
   """Reads a file on disk, returning a corresponding HTTP status and data.
 
   Args:
@@ -667,7 +666,7 @@ def ReadDataFile(data_path, openfile=file):
       the data read; will be an empty string if an error occurred or the
       file was empty.
   """
-  data = vfs[0].get(data_path)
+  data = vfs.get(data_path)
   if data:
       return httplib.OK, data
   logging.error('Missing file "%s"', data_path)
@@ -680,6 +679,7 @@ class FileDispatcher(URLDispatcher):
   def __init__(self,
                path_adjuster,
                static_file_config_matcher,
+               vfs,
                read_data_file=ReadDataFile):
     """Initializer.
 
@@ -692,6 +692,7 @@ class FileDispatcher(URLDispatcher):
     self._path_adjuster = path_adjuster
     self._static_file_config_matcher = static_file_config_matcher
     self._read_data_file = read_data_file
+    self._vfs = vfs
 
   def Dispatch(self,
                relative_url,
@@ -702,7 +703,7 @@ class FileDispatcher(URLDispatcher):
                base_env_dict=None):
     """Reads the file and returns the response status and data."""
     full_path = self._path_adjuster.AdjustPath(path)
-    status, data = self._read_data_file(full_path)
+    status, data = self._read_data_file(full_path, self._vfs)
     content_type = self._static_file_config_matcher.GetMimeType(path)
     expiration = self._static_file_config_matcher.GetExpiration(path)
 
@@ -786,6 +787,7 @@ def CreateURLMatcherFromMaps(root_path,
                              url_map_list,
                              module_dict,
                              default_expiration,
+                             vfs,
                              create_url_matcher=URLMatcher,
                              create_cgi_dispatcher=CGIDispatcher,
                              create_file_dispatcher=FileDispatcher,
@@ -817,7 +819,7 @@ def CreateURLMatcherFromMaps(root_path,
   path_adjuster = create_path_adjuster(root_path)
   cgi_dispatcher = create_cgi_dispatcher(module_dict, root_path, path_adjuster)
   file_dispatcher = create_file_dispatcher(path_adjuster,
-      StaticFileConfigMatcher(url_map_list, path_adjuster, default_expiration))
+      StaticFileConfigMatcher(url_map_list, path_adjuster, default_expiration), vfs)
 
   for url_map in url_map_list:
     admin_only = url_map.login == appinfo.LOGIN_ADMIN
@@ -856,7 +858,7 @@ def CreateURLMatcherFromMaps(root_path,
 
 def ParseAppConfig(root_path,
                   config_source,
-                  module_dict,
+                  vfs,
                   static_caching=True,
                   create_matcher=CreateURLMatcherFromMaps):
     config = appinfo.LoadSingleAppInfo(config_source)
@@ -871,7 +873,8 @@ def ParseAppConfig(root_path,
 
     matcher = create_matcher(root_path,
                              config.handlers,
-                             module_dict,
-                             default_expiration)
+                             {},
+                             default_expiration,
+                             vfs)
 
     return (config, matcher)

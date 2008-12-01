@@ -89,7 +89,6 @@ class AbstractController(object):
         raise PageRedirect, (url)
     
     def error(self, code, message = None):
-        logging.error("error: %d: %s" % (code, str(message)))
         self.response.set_status(code, str(message))
         if message is None: message = Response.http_status_message(code)
         self.view['message'] = message

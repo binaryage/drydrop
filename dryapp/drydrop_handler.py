@@ -22,11 +22,11 @@ DEVELOPMENT_PROJECT_ROOT = "/Users/woid/code/drydrop/dryapp/"
 DEFAULT_CONFIG_SOURCE = """\
 handlers:
 - url: '/'
+  static_files: 'index.html'
+  upload: '.*'
+- url: '/.+'
   static_dir: '/'
 """
-
-# TODO: do this better
-vfs = [None]
 
 def routing(m):
   # Routes from http://routes.groovie.org/
@@ -94,12 +94,17 @@ class AppHandler(webapp.RequestHandler):
         #         controllers.append(name)
         # self.mapper.create_regs(controllers)
     
+    def get_base_controller(self):
+        from drydrop.app.core.controller import BaseController
+        return BaseController(self.request, self.response, self)
+    
     def meta_dispatch(self, root, config_source):
         from drydrop.app.meta.server import *
         import string
-        logging.info("config: %s", config_source)
+        import logging
+
         login_url = "/login" # TODO
-        config, matcher = ParseAppConfig(self.settings.source, config_source, {}, static_caching=True)
+        config, matcher = ParseAppConfig(self.settings.source, config_source, self.vfs, static_caching=True)
         dispatcher = MatcherDispatcher(login_url, [matcher])
 
         infile = cStringIO.StringIO()
@@ -127,55 +132,25 @@ class AppHandler(webapp.RequestHandler):
         self.response.set_status(status_code, status_message)
         self.response.out.write(body)
         return True
-    
-    def route(self):
+        
+    def system_dispatch(self):
         import logging
+        import drydrop.app as app
         import datetime
         from drydrop.lib.utils import import_module
-        from drydrop.app.core.appceptions import PageException, UnableToServe
-        from drydrop.lib.vfs import DevVFS, GAEVFS
-        from drydrop.app.models import Settings
-        
-        # fetch settings
-        settings = Settings.all().fetch(1)
-        if len(settings)==0:
-            s = Settings()
-            s.source = "/Users/woid/code/drydrop/test_site"
-            s.config = "site.yaml"
-            s.put()
-            settings = [s]
+        from drydrop.app.core.appceptions import PageException
 
-        # create VFS
-        self.settings = settings[0]
-        if LOCAL:
-            vfs_class=DevVFS
-        else:
-            vfs_class=GAEVFS
-        self.vfs = vfs_class(self.settings.source)
-        
-        global vfs
-        vfs[0] = self.vfs
-        
-        config_source = self.vfs.get(self.settings.config)
-        if config_source:
-            config_source = config_source.decode('utf-8')
-        else:
-            config_source = DEFAULT_CONFIG_SOURCE
-            
-        if self.meta_dispatch(self.settings.source, config_source):
-            return
-        
         # match internal route
         self.mapper.environ = self.request.environ
         controller = self.mapper.match(self.request.path)
         if controller == None:
-            raise Exception('No route for '+self.request.path)
+            base_controller = self.get_base_controller()
+            base_controller.error(404, '404 File %s Not Found' % self.request.path)
             return
 
         logging.debug("Dispatching %s to %s", self.request.path, controller)
 
         # find the controller class
-        import drydrop.app as app
         action = controller['action']
         name = controller['controller']
         mod = import_module('drydrop.app.controllers.%s' % name)
@@ -214,7 +189,34 @@ class AppHandler(webapp.RequestHandler):
                 return
         except PageException:
             pass 
+            
+    def load_or_init_settings(self):
+        from drydrop.app.models import Settings
         
+        # fetch settings
+        settings = Settings.all().fetch(1)
+        if len(settings)==0:
+            s = Settings()
+            s.source = "/Users/woid/code/drydrop/tests/sites/flat_witout_config"
+            s.config = "site.yaml"
+            s.put()
+            settings = [s]
+        self.settings = settings[0]
+    
+    def init_vfs(self):
+        from drydrop.lib.vfs import DevVFS, GAEVFS
+        # TODO: cache this?
+        vfs_class = (GAEVFS, DevVFS)[LOCAL]
+        self.vfs = vfs_class(self.settings.source)
+    
+    def read_config_source_or_provide_default_one(self):
+        config_source = self.vfs.get(self.settings.config)
+        if config_source:
+            config_source = config_source.decode('utf-8')
+        else:
+            config_source = DEFAULT_CONFIG_SOURCE
+        return config_source
+    
     def post(self, *args, **kvargs):
         if self.request.POST.has_key('_method'):
             if self.request.POST['_method'] == 'put':
@@ -232,6 +234,23 @@ class AppHandler(webapp.RequestHandler):
 
     def delete(self, *args, **kvargs):
         self.route(*args, **kvargs)
+
+    def route(self):
+        # load self.settings
+        self.load_or_init_settings()
+
+        # init self.vfs
+        self.init_vfs()
+
+        # read site.yaml
+        config_source = self.read_config_source_or_provide_default_one()
+
+        # perform dispatch on meta server and finish if response was successfull
+        if self.meta_dispatch(self.settings.source, config_source): return
+
+        # perform system dispatch (/admin section, welcome page, etc.)
+        self.system_dispatch()
+
                         
 class Application(object):
 
