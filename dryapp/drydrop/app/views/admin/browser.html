@@ -1,5 +1,9 @@
 {% extends "admin/layout.html" %}
 {% block title %}Commands{% endblock %}
 {% block main %}
-  TODO: browser content
+<pre>
+  {% for file in files %}
+    {{ file[0] }}
+  {% endfor %}
+</pre>
 {% endblock %}

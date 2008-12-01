@@ -273,6 +273,7 @@ def appcfg_cmd(command='')
 end
 
 def run_dryapp(special=false)
+  sys("mkdir \"#{TMP}\" 1>&2") unless File.exists?(TMP)
   puts 'Running DryApp (server-side) ...'
   run_in_terminal("cd #{DRYAPP} && clear && #{app_server_cmd(special)}", 'DryApp', DRYAPP_TERM_COLOR)
 end
@@ -451,7 +452,6 @@ end
 #----------------------------------------------------------------------------
 desc "installs dependencies"
 task :setup do
-  sys("mkdir \"#{TMP}\" 1>&2") unless File.exists?(TMP)
   install_gems(NEED_GEMS)
   install_eggs(NEED_EGGS)
 end

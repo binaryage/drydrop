@@ -89,9 +89,33 @@ class AppHandler(webapp.RequestHandler):
         import logging
         import datetime
         from drydrop.lib.utils import import_module
-        from drydrop.app.core.appceptions import PageException
+        from drydrop.app.core.appceptions import PageException, UnableToServe
+        from drydrop.lib.vfs import DevVFS, GAEVFS
+        from drydrop.app.models import Settings
+        
+        # fetch settings
+        settings = Settings.all().fetch(1)
+        if len(settings)==0:
+            s = Settings()
+            s.source = ""
+            s.config = ""
+            s.put()
+            settings = [s]
 
-        # match the route
+        # create VFS
+        self.settings = settings[0]
+        if LOCAL:
+            vfs_class=DevVFS
+        else:
+            vfs_class=GAEVFS
+        self.vfs = vfs_class(self.settings.source)
+        
+        #
+        # contents = self.vfs.get(self.request.path)
+        # if contents is not None:
+        #     return
+
+        # match internal route
         self.mapper.environ = self.request.environ
         controller = self.mapper.match(self.request.path)
         if controller == None:

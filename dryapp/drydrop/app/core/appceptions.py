@@ -19,3 +19,7 @@ class DownloadError(PageException):
     def __init__(self, msg):
         self.args = (msg)
         self.errmsg = msg
+        
+class UnableToServe(PageException):
+    def __init__(self):
+        self.args = ()

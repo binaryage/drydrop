@@ -1,7 +1,6 @@
 # -*- mode: python; coding: utf-8 -*-
 import os
 import os.path
-import glob
 import re
 import string
 import time

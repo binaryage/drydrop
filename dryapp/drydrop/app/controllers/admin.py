@@ -18,7 +18,12 @@ class AdminController(AuthenticatedController):
     def index(self):
         self.render_view("admin/index.html")
     
+    def _generate_file_list(self):
+        file_list = self.handler.vfs.list()
+        return file_list
+    
     def browser(self):
+        self.view['files'] = self._generate_file_list()
         self.render_view("admin/browser.html")
 
     def settings(self):

@@ -1,6 +1,7 @@
 # -*- mode: python; coding: utf-8 -*-
 import os
 import os.path
+import errno
 from string import *
 from random import choice
 from string import digits, letters
@@ -136,6 +137,13 @@ _base_js_escapes = (
     ("\n", "\\\n"),
     
 )
+
+def open_if_exists(filename, mode='r'):
+    """Returns a file descriptor for the filename if that file exists, otherwise `None`."""
+    try:
+        return file(filename, mode)
+    except IOError, e:
+        pass
 
 def escape_codes(start, stop):
     return tuple([('%c' % z, '\\x%02X' % z) for z in range(start, stop)])
