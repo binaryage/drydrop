@@ -12,7 +12,7 @@ from routes import url_for
 from google.appengine.ext.webapp import Response
 from google.appengine.api import memcache, users
 from drydrop.lib.json import json_encode
-from drydrop_handler import DRY_ROOT, APP_ROOT, APP_ID, VER_ID
+from drydrop_handler import DRY_ROOT, APP_ROOT, APP_ID, VER_ID, LOCAL
 from drydrop.app.models import *
 from drydrop.app.core.appceptions import *
 from drydrop.lib.utils import *
@@ -181,6 +181,34 @@ class BaseController(CookieController):
         if public: cache_control.append('public')
         cache_control.append('max-age=%d' % max_age)
         self.response.headers['Cache-Control'] = ', '.join(cache_control)
+
+    def render_json_response(self, data):
+        json = json_encode(data, nice=LOCAL)
+
+        is_test = self.params.get('test')
+        if is_test:
+            # this branch is here for testing purposes
+            return self.render_html("<html><body><pre>%s</pre></body></html>" % json)
+
+        callback = self.params.get('callback')
+        if callback:
+            # JSONP style
+            self.render_text("__callback__(%s);" % json)
+        else:
+            # classic style
+            self.render_json(json)
+
+    def format_json_response(self, message, code=1):
+        return {
+            "status": code,
+            "message": message,
+        }
+        
+    def json_error(self, message, code=1):
+        self.render_json_response(self.format_json_response(message, code))
+        
+    def json_ok(self, message = "OK"):
+        self.render_json_response(self.format_json_response(message, 0))
 
 class SessionController(BaseController):
     SESSION_KEY = 'session'

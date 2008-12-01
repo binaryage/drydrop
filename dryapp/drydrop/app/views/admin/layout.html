@@ -3,9 +3,12 @@
 <html>
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <link rel="stylesheet" type="text/css" href="/drydrop-static/styles/reset-fonts-grids.css">
+    <link type="text/css" rel="stylesheet" href="/drydrop-static/styles/reset-fonts-grids.css">
     <link type="text/css" rel="stylesheet" href="/drydrop-static/styles/default.css" />
     <link type="text/css" rel="stylesheet" href="/drydrop-static/styles/admin.css" />
+    <script type="text/javascript" charset="utf-8" src="/drydrop-static/scripts/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/drydrop-static/scripts/jquery.jeditable.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/drydrop-static/scripts/admin.js"></script>
     <title>DryDrop Admin - {% block title %}{% endblock %}</title>
   </head>
   <body id="admin" class="{{params.action}} {{body_class}}">
@@ -44,7 +47,7 @@
         </div>
         <div id="appbar">
           {% block appbar %}
-            <span class="sitename">Site Name</span>
+            Pushing from <span class="sitename"><a href="{{settings.source}}">{{ settings.source }}</a></span>
           {% endblock %}
         </div>
         <div id="yui-main">
@@ -60,11 +63,14 @@
               <li id="nav-index">
                 <a title="Review application status" href="/admin/index">Dashboard</a>
               </li>
+              <li id="nav-settings">
+                <a title="Browse files" href="/admin/settings">Settings</a>
+              </li>
               <li id="nav-browser">
                 <a title="Browse files" href="/admin/browser">Browser</a>
               </li>
-              <li id="nav-settings">
-                <a title="Browse files" href="/admin/settings">Settings</a>
+              <li id="nav-config">
+                <a title="See config" href="/admin/config">Config</a>
               </li>
             </ul>
           </div>

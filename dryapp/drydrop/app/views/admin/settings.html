@@ -1,5 +1,17 @@
 {% extends "admin/layout.html" %}
-{% block title %}Commands{% endblock %}
+{% block title %}Settings{% endblock %}
 {% block main %}
-  TODO: settings content
+<div class="form-section">
+  <span>Main settings</span>
+</div>
+<table class="form">
+  <tr id="source-field" class="field">
+    <td class="label">Pushing from: </td>
+    <td id="source" class="edit">{{ settings.source }}</td>
+  </tr>
+  <tr id="config-field" class="field">
+    <td class="label">Config file: </td>
+    <td id="config" class="edit">{{ settings.config }}</td>
+  </tr>
+</table>
 {% endblock %}

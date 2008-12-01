@@ -19,7 +19,7 @@ VER_ID = os.environ["CURRENT_VERSION_ID"]
 # tohle musi byt tvrda cesta, slouzi pro generovani nice tracebacku na ostrem serveru
 DEVELOPMENT_PROJECT_ROOT = "/Users/woid/code/drydrop/dryapp/"
 
-DEFAULT_CONFIG_SOURCE = """\
+DEFAULT_CONFIG_SOURCE = """
 handlers:
 - url: '/'
   static_files: 'index.html'
@@ -120,7 +120,7 @@ class AppHandler(webapp.RequestHandler):
         outfile.seek(0)
 
         status_code, status_message, header_list, body = RewriteResponse(outfile)
-        logging.info("META: %s %s", status_code, status_message)
+        logging.debug("Meta result: %s %s", status_code, status_message)
         
         if status_code == 404:
             return False

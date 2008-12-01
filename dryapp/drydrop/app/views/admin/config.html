@@ -1,0 +1,10 @@
+{% extends "admin/layout.html" %}
+{% block title %}Config{% endblock %}
+{% block main %}
+<div class="form-section">
+  <span>Config file</span>
+</div>
+<pre>
+  {{ config_source }}
+</pre>
+{% endblock %}

@@ -29,15 +29,16 @@
 }
 
 #appbar {
-    background-color:#E5ECF9;
-    border-top:1px solid #3366CC;
-    margin:0 0 1.25em;
-    padding:0.25em 0.5em;
+    background-color: #E5ECF9;
+    border-top: 1px solid #3366CC;
+    margin: 0 0 1.25em;
+    padding: 0.35em 0.5em;
+    font-weight: bold;
+    padding-left: 4px;
+    font-size: 120%;
 }
 
 #appbar .sitename {
-    font-weight: bold;
-    padding-left: 10px;
 }
 
 #nav {
@@ -61,6 +62,7 @@
 
 .index #nav-index a,
 .browser #nav-browser a,
+.config #nav-config a,
 .settings #nav-settings a
 {
     -moz-border-radius-bottomleft:4px;

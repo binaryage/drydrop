@@ -67,3 +67,70 @@ li {
     top: 5px;
     color: gray;
 }
+
+.form {
+    width: 100%;
+}
+
+.form .field {
+    line-height: 23px;
+    font-size: 110%;
+    border-bottom: 1px solid #efe;
+    border-top: 1px solid #efe;
+    margin-bottom: 10px;
+    height: 32px;
+}
+
+.form .label {
+    font-size: 90%;
+    width: 100px;
+    color: black;
+    background-color:#E5F9EC;
+    padding: 4px 6px;
+    font-weight: bold;
+    text-align: right;
+    -moz-border-radius-topleft: 2px;
+    -moz-border-radius-bottomleft: 2px;
+    -webkit-border-top-left-radius: 2px;    
+    -webkit-border-bottom-left-radius: 2px;
+    vertical-align: top;
+}
+
+.form .edit:hover {
+    background-color: #ffa;
+}
+
+.form .edit {
+    cursor: pointer;
+    font-weight: bold;
+    margin: 0px 10px;
+    padding: 4px 10px;
+    font-family: 'Courier';
+    overflow: hidden;
+    color: #00a;
+}
+
+.form .edit input {
+    font-weight: bold;
+    font-family: 'Courier';
+    margin: 0px;
+    padding: 0px;
+}
+
+.form .field button {
+    margin-left: 8px;
+}
+
+.form .placeholder {
+    color: gray;
+}
+
+.form-section {
+    background-color: #E5F9EC;
+    border-top: 1px solid #33CC66;
+    font-size: 140%;
+    margin-bottom: 10px;
+    font-weight: bold;
+    padding-left: 10px;
+    padding: 5px 10px;
+}
