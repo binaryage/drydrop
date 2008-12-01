@@ -141,7 +141,7 @@ _base_js_escapes = (
 def open_if_exists(filename, mode='r'):
     """Returns a file descriptor for the filename if that file exists, otherwise `None`."""
     try:
-        return file(filename, mode)
+        return open(filename, mode)
     except IOError, e:
         pass
 

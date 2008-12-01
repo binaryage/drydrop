@@ -19,6 +19,15 @@ VER_ID = os.environ["CURRENT_VERSION_ID"]
 # tohle musi byt tvrda cesta, slouzi pro generovani nice tracebacku na ostrem serveru
 DEVELOPMENT_PROJECT_ROOT = "/Users/woid/code/drydrop/dryapp/"
 
+DEFAULT_CONFIG_SOURCE = """\
+handlers:
+- url: '/'
+  static_dir: '/'
+"""
+
+# TODO: do this better
+vfs = [None]
+
 def routing(m):
   # Routes from http://routes.groovie.org/
   # see the full documentaiton at http://routes.groovie.org/docs/
@@ -85,6 +94,40 @@ class AppHandler(webapp.RequestHandler):
         #         controllers.append(name)
         # self.mapper.create_regs(controllers)
     
+    def meta_dispatch(self, root, config_source):
+        from drydrop.app.meta.server import *
+        import string
+        logging.info("config: %s", config_source)
+        login_url = "/login" # TODO
+        config, matcher = ParseAppConfig(self.settings.source, config_source, {}, static_caching=True)
+        dispatcher = MatcherDispatcher(login_url, [matcher])
+
+        infile = cStringIO.StringIO()
+        outfile = cStringIO.StringIO()
+        dispatcher.Dispatch(self.request.path,
+                          None,
+                          self.request.headers,
+                          infile,
+                          outfile,
+                          base_env_dict=self.request.environ)
+
+        outfile.flush()
+        outfile.seek(0)
+
+        status_code, status_message, header_list, body = RewriteResponse(outfile)
+        logging.info("META: %s %s", status_code, status_message)
+        
+        if status_code == 404:
+            return False
+
+        self.response.clear()
+        for h in header_list:
+            parts = h.split(':')
+            self.response.headers.add_header(parts.pop(0), string.join(parts, ':'))
+        self.response.set_status(status_code, status_message)
+        self.response.out.write(body)
+        return True
+    
     def route(self):
         import logging
         import datetime
@@ -97,8 +140,8 @@ class AppHandler(webapp.RequestHandler):
         settings = Settings.all().fetch(1)
         if len(settings)==0:
             s = Settings()
-            s.source = ""
-            s.config = ""
+            s.source = "/Users/woid/code/drydrop/test_site"
+            s.config = "site.yaml"
             s.put()
             settings = [s]
 
@@ -110,11 +153,18 @@ class AppHandler(webapp.RequestHandler):
             vfs_class=GAEVFS
         self.vfs = vfs_class(self.settings.source)
         
-        #
-        # contents = self.vfs.get(self.request.path)
-        # if contents is not None:
-        #     return
-
+        global vfs
+        vfs[0] = self.vfs
+        
+        config_source = self.vfs.get(self.settings.config)
+        if config_source:
+            config_source = config_source.decode('utf-8')
+        else:
+            config_source = DEFAULT_CONFIG_SOURCE
+            
+        if self.meta_dispatch(self.settings.source, config_source):
+            return
+        
         # match internal route
         self.mapper.environ = self.request.environ
         controller = self.mapper.match(self.request.path)
@@ -232,6 +282,8 @@ def main():
     import logging
 
     if LOCAL:
+        from google.appengine.tools.dev_appserver import FakeFile
+        FakeFile.SetAllowedPaths('/')
         sys.meta_path = [] # disables python sandbox in local version
     
     # GENERATED: here we will setup import paths for baked version !!!
