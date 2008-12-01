@@ -262,4 +262,3 @@ class AuthenticatedController(SessionController):
     def before_action(self, *arguments, **keywords):
         if super(AuthenticatedController, self).before_action(*arguments, **keywords): return True
         return self.authenticate_user()
-        

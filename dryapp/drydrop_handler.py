@@ -224,7 +224,7 @@ def main():
 
     logging.getLogger().setLevel(logging.DEBUG)
     from firepython.middleware import FirePythonWSGI
-    run_wsgi_app(FirePythonWSGI(webapp.WSGIApplication([(r'.*', AppHandler)], debug=True)))
+    run_wsgi_app(FirePythonWSGI(Application()))
 
 if __name__ == "__main__":
     main()
