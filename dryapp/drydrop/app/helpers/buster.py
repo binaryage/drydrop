@@ -4,12 +4,11 @@ import os.path
 import re
 import string
 import time
-from app.consts import *
-from lib.utils import *
 import urlparse
+import logging
 from drydrop_handler import DRY_ROOT
 
-def cache_buster(html, dev):
+def cache_buster(html):
     def url_replacer(match):
         def get_stamp(files):
             stamp = ""
@@ -22,6 +21,9 @@ def cache_buster(html, dev):
                     pass
             return stamp
         
+        def adhoc_remapper(path):
+            return path.replace('drydrop-static', 'static').replace('.zip', '')
+        
         # break url into parts
         url = match.groups(1)[1]
         parts = urlparse.urlparse(url)
@@ -32,13 +34,16 @@ def cache_buster(html, dev):
         if is_absolute:
             return original
         
-        path = os.path.join(DRY_ROOT, 'sys', parts[2].lstrip('/'))
-        dir = os.path.dirname(path)
+        path = os.path.join(DRY_ROOT, parts[2].lstrip('/'))
         
+        path = adhoc_remapper(path)
+        
+        dir = os.path.dirname(path)
         files = [path]
         base = os.path.basename(path)
-        
         stamp = get_stamp(files)
+        if not stamp:
+            return original
         
         if parts[3]=='':
             part3 = stamp

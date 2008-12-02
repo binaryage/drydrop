@@ -17,6 +17,7 @@ from drydrop.app.models import *
 from drydrop.app.core.appceptions import *
 from drydrop.lib.utils import *
 from drydrop.lib.jinja_loaders import InternalTemplateLoader
+from drydrop.app.helpers.buster import cache_buster
 
 class AbstractController(object):
     def __init__(self, request, response, handler):
@@ -35,6 +36,8 @@ class AbstractController(object):
         except jinja2.TemplateNotFound:
             raise jinja2.TemplateNotFound(template_name)
         content = template.render(self.view)
+        if LOCAL:
+            content = cache_buster(content)
         self.response.out.write(content)
             
     def before_action(self):
@@ -52,12 +55,16 @@ class AbstractController(object):
     
     def render_text(self, text):
         self.response.headers['Content-Type'] = 'text/html'
+        if LOCAL:
+            text = cache_buster(text)
         self.response.out.write(text)
         self.emited = True
     
     def render_html(self, html, params = None):
         if params:
             self.view.update(params)
+        if LOCAL:
+            html = cache_buster(html)
         self.response.out.write(html)
         self.emited = True
     
