@@ -32,8 +32,13 @@ class AdminController(AuthenticatedController):
         self.render_view("admin/settings.html")
 
     def config(self):
-        config_source = self.handler.read_config_source_or_provide_default_one()
-        self.render_view("admin/config.html", { 'config_source': config_source })
+        import pygments
+        import pygments.lexers
+        import pygments.formatters
+        lexer = pygments.lexers.get_lexer_by_name('yaml')
+        formatter = pygments.formatters.HtmlFormatter()
+        config_source_formatted = pygments.highlight(self.handler.read_config_source_or_provide_default_one(), lexer, formatter)
+        self.render_view("admin/config.html", { 'config_source_formatted': config_source_formatted })
 
     def flush_memcache(self):
         memcache.flush_all()

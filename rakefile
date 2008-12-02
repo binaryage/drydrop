@@ -365,6 +365,7 @@ def bake(name)
   zip_python_module('simplejson')
   zip_python_module('jinja2')
   zip_python_module('firepython')
+  zip_python_module('pygments')
   
   $modules.each do |mod|
     src = File.join($DEPLOY_DIR, mod)

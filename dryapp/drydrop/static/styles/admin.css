@@ -80,3 +80,7 @@
 .has_error #yui-main {
     display:none;
 }
+
+.highlight {
+    margin-left: 10px;
+}

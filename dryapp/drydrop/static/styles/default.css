@@ -75,9 +75,7 @@ li {
 .form .field {
     line-height: 23px;
     font-size: 110%;
-    border-bottom: 1px solid #efe;
-    border-top: 1px solid #efe;
-    margin-bottom: 10px;
+    border-bottom: 10px solid #fff;
     height: 32px;
 }
 
@@ -89,10 +87,6 @@ li {
     padding: 4px 6px;
     font-weight: bold;
     text-align: right;
-    -moz-border-radius-topleft: 2px;
-    -moz-border-radius-bottomleft: 2px;
-    -webkit-border-top-left-radius: 2px;    
-    -webkit-border-bottom-left-radius: 2px;
     vertical-align: top;
 }
 
