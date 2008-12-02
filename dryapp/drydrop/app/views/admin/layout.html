@@ -11,6 +11,11 @@
     <script type="text/javascript" charset="utf-8" src="/drydrop-static/scripts/admin.js"></script>
     <title>DryDrop Admin - {% block title %}{% endblock %}</title>
     {% block head %}
+    <script type="text/javascript" charset="utf-8">
+      var state = {
+        source: '{{ settings.source }}'
+      }
+    </script>
     {% endblock %}
   </head>
   <body id="admin" class="{{params.action}} {{body_class}}">

@@ -12,6 +12,7 @@ $(document).ready(function() {
         height: '16px',
         width: '590px',
         callback: function(value, settings) {
+            state.source = value;
             $('.sitename').html('<a href="'+value+'">'+value+'</a>')
         }
     });
@@ -25,3 +26,40 @@ $(document).ready(function() {
         style: 'inherit'
     });
 });
+
+var dashboard = {
+    reindex: function() {
+        if (!confirm("Do you really want rebuild index from\n"+state.source+" ?\
+        \n\nReindexing is a process where we obtain file list from github by traversing project's directory structure.\n\n\
+        This may take a while ...")) return;
+
+        var rconsole = $('#reindexing-console')
+        rconsole.html('');
+        
+        var append = function(msg) { 
+            rconsole.append('<div class="reindex-msg">'+msg+'</div>');
+        };
+
+        var finisher = function(result) {
+            append(result.message);
+        };
+        
+        var presenter = function(result) {
+            append(result.message);
+        };
+        var fetcher = function(data) {
+            $.post("/admin/reindex", data, function(response) {
+                if (response.finished) {
+                    finisher(response);
+                } else {
+                    setTimeout(function() {
+                        fetcher(response);
+                        presenter(response);
+                    }, 100);
+                }
+            }, "json");
+        };
+        
+        fetcher({ command: 'go' });
+    }
+};

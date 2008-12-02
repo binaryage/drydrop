@@ -666,7 +666,7 @@ def ReadDataFile(data_path, vfs):
       the data read; will be an empty string if an error occurred or the
       file was empty.
   """
-  data = vfs.get(data_path)
+  data = vfs.get_content(data_path)
   if data:
       return httplib.OK, data
   logging.error('Missing file "%s"', data_path)

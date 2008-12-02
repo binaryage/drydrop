@@ -1,6 +1,9 @@
 {% extends "admin/layout.html" %}
 {% block title %}Commands{% endblock %}
 {% block main %}
+<div class="form-section">
+  <span>Browser</span>
+</div>
 <pre>
   {% for file in files %}
     {{ file[0] }}

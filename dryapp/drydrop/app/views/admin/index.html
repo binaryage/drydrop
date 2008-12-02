@@ -1,5 +1,14 @@
 {% extends "admin/layout.html" %}
 {% block title %}Commands{% endblock %}
 {% block main %}
-  TODO: dashboard content
+<div class="form-section">
+  <span>Dashboard</span>
+</div>
+<button onclick="dashboard.reindex()">REINDEX!</button>
+<div id="reindexing-console">
+  
+</div>
+<div class="form-section">
+  <span>Events</span>
+</div>
 {% endblock %} 

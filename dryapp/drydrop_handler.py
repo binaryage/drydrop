@@ -199,6 +199,7 @@ class AppHandler(webapp.RequestHandler):
             s = Settings()
             s.source = "/Users/woid/code/drydrop/tests/sites/flat_witout_config"
             s.config = "site.yaml"
+            s.index = dict()
             s.put()
             settings = [s]
         self.settings = settings[0]
@@ -207,10 +208,10 @@ class AppHandler(webapp.RequestHandler):
         from drydrop.lib.vfs import DevVFS, GAEVFS
         # TODO: cache this?
         vfs_class = (GAEVFS, DevVFS)[LOCAL]
-        self.vfs = vfs_class(self.settings.source)
+        self.vfs = vfs_class(self.settings)
     
     def read_config_source_or_provide_default_one(self):
-        config_source = self.vfs.get(self.settings.config)
+        config_source = self.vfs.get_content(self.settings.config)
         if config_source:
             config_source = config_source.decode('utf-8')
         else:
@@ -246,10 +247,13 @@ class AppHandler(webapp.RequestHandler):
         config_source = self.read_config_source_or_provide_default_one()
 
         # perform dispatch on meta server and finish if response was successfull
-        if self.meta_dispatch(self.settings.source, config_source): return
+        dispatched = self.meta_dispatch(self.settings.source, config_source)
 
         # perform system dispatch (/admin section, welcome page, etc.)
-        self.system_dispatch()
+        if not dispatched: self.system_dispatch()
+        
+        # store pottentionaly modified settings
+        self.settings.put()
 
                         
 class Application(object):

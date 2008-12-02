@@ -19,13 +19,35 @@ class AdminController(AuthenticatedController):
         
     def index(self):
         self.render_view("admin/index.html")
+        
+    def reindex(self):
+        command = self.params.get('command')
+        if command=='go':
+            return self.render_json_response({
+                'counter': 0,
+                'message': 'start!'
+            })
+        else:
+            counter = int(self.params.get('counter'))
+            if counter==10:
+                return self.render_json_response({
+                    'finished': True,
+                    'message': 'done!'
+                })
+            else:
+                counter = counter + 1
+                return self.render_json_response({
+                    'counter': counter,
+                    'message': 'counting %d' % counter
+                })
+                
     
-    def _generate_file_list(self):
-        file_list = self.handler.vfs.list()
-        return file_list
+    def _generate_file_index(self):
+        file_index = self.handler.vfs.list_index()
+        return file_index
     
     def browser(self):
-        self.view['files'] = self._generate_file_list()
+        self.view['files'] = self._generate_file_index()
         self.render_view("admin/browser.html")
 
     def settings(self):

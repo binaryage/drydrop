@@ -3,6 +3,6 @@ import logging
 import google.appengine.ext.db as db
 from drydrop.app.core.model import Model
 
-class Session(db.Expando, Model):
-    
-    pass
+class File(db.Expando, Model):
+    name = db.StringProperty()
+    content = db.BlobProperty()
