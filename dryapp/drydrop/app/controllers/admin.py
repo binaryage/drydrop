@@ -20,35 +20,27 @@ class AdminController(AuthenticatedController):
     def index(self):
         self.render_view("admin/index.html")
         
-    def reindex(self):
+    def flusher(self):
         command = self.params.get('command')
-        if command=='go':
-            return self.render_json_response({
-                'counter': 0,
-                'message': 'start!'
-            })
-        else:
-            counter = int(self.params.get('counter'))
-            if counter==10:
-                return self.render_json_response({
-                    'finished': True,
-                    'message': 'done!'
-                })
-            else:
-                counter = counter + 1
-                return self.render_json_response({
-                    'counter': counter,
-                    'message': 'counting %d' % counter
-                })
-                
+        vfs = self.handler.vfs
+        done, num = vfs.flush_resources()
+        message = 'flushed %d resource(s)' % num
+        if not done: message += ' ...'
+        return self.render_json_response({
+            'finished': done,
+            'message': message
+        })
     
-    def _generate_file_index(self):
-        file_index = self.handler.vfs.list_index()
-        return file_index
+    def _generate_resource_index(self):
+        vfs = self.handler.vfs
+        resources = vfs.get_all_resources()
+        if resources is None:
+            resources = []
+        return resources
     
-    def browser(self):
-        self.view['files'] = self._generate_file_index()
-        self.render_view("admin/browser.html")
+    def cache(self):
+        self.view['resources'] = self._generate_resource_index()
+        self.render_view("admin/cache.html")
 
     def settings(self):
         self.render_view("admin/settings.html")
@@ -66,10 +58,6 @@ class AdminController(AuthenticatedController):
         memcache.flush_all()
         self.render_text("OK")
 
-    def clear_datastore(self):
-        clear_store()
-        self.render_text("removed up to 100 objects from each kind")
-        
     def update_option(self):
         id = self.params.get('id')
         if not id:
@@ -80,7 +68,9 @@ class AdminController(AuthenticatedController):
             return self.json_error('Unknown option id (%s)' % id)
 
         value = self.params.get('value') or ""
-        self.handler.settings.__setattr__(id, value)
-        self.handler.settings.put()
+        settings = self.handler.settings
+        settings.__setattr__(id, value)
+        settings.version = settings.version + 1 # this effectively invalidates cache
+        settings.put()
             
         return self.render_text(value)

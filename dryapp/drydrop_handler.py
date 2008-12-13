@@ -22,11 +22,24 @@ DEVELOPMENT_PROJECT_ROOT = "/Users/woid/code/drydrop/dryapp/"
 DEFAULT_CONFIG_SOURCE = """
 handlers:
 - url: '/'
-  static_files: 'index.html'
+  static_files: 'index.html index.htm readme.txt readme.markdown Readme.txt README.txt README README.textile README.markdown'
   upload: '.*'
-- url: '/.+'
+- url: '/'
   static_dir: '/'
 """
+
+import sys
+import traceback
+import logging
+
+def correctCurrentframe():
+    try:
+        raise Exception
+    except:
+        return sys.exc_traceback.tb_frame.f_back.f_back.f_back.f_back # wtf?
+
+# needed to fix pathname inside log records, is this broken in python2.5 on OSX?
+logging.currentframe = correctCurrentframe
 
 def routing(m):
   # Routes from http://routes.groovie.org/
@@ -76,6 +89,15 @@ def routing(m):
   # returns the mapper object. Do not remove.
   return m
   
+def ReadDataFile(path, vfs):
+    import httplib
+    import logging
+    resource = vfs.get_resource(path)
+    if resource.content is None:
+        logging.warning('Missing file "%s"', path)
+        return httplib.NOT_FOUND, ""
+    return httplib.OK, resource.content
+
 class AppHandler(webapp.RequestHandler):
     
     def __init__(self):
@@ -98,29 +120,31 @@ class AppHandler(webapp.RequestHandler):
         from drydrop.app.core.controller import BaseController
         return BaseController(self.request, self.response, self)
     
-    def meta_dispatch(self, root, config_source):
+    def meta_dispatch(self, root, config_source, request_path, request_headers, request_environ):
         from drydrop.app.meta.server import *
         import string
         import logging
 
+        logging.debug("Meta: dispatching %s", request_path)
+        
         login_url = "/login" # TODO
         config, matcher = ParseAppConfig(self.settings.source, config_source, self.vfs, static_caching=True)
         dispatcher = MatcherDispatcher(login_url, [matcher])
 
         infile = cStringIO.StringIO()
         outfile = cStringIO.StringIO()
-        dispatcher.Dispatch(self.request.path,
+        dispatcher.Dispatch(request_path,
                           None,
-                          self.request.headers,
+                          request_headers,
                           infile,
                           outfile,
-                          base_env_dict=self.request.environ)
+                          base_env_dict=request_environ)
 
         outfile.flush()
         outfile.seek(0)
 
         status_code, status_message, header_list, body = RewriteResponse(outfile)
-        logging.debug("Meta result: %s %s", status_code, status_message)
+        logging.debug("Meta: result: %s %s", status_code, status_message)
         
         if status_code == 404:
             return False
@@ -144,11 +168,9 @@ class AppHandler(webapp.RequestHandler):
         self.mapper.environ = self.request.environ
         controller = self.mapper.match(self.request.path)
         if controller == None:
-            base_controller = self.get_base_controller()
-            base_controller.error(404, '404 File %s Not Found' % self.request.path)
-            return
+            return False
 
-        logging.debug("Dispatching %s to %s", self.request.path, controller)
+        logging.debug("System: dispatching %s to %s", self.request.path, controller)
 
         # find the controller class
         action = controller['action']
@@ -197,22 +219,23 @@ class AppHandler(webapp.RequestHandler):
         settings = Settings.all().fetch(1)
         if len(settings)==0:
             s = Settings()
-            s.source = "/Users/woid/code/drydrop/tests/sites/flat_witout_config"
+            s.source = "/Users/woid/code/drydrop/tests/sites/hello_world"
             s.config = "site.yaml"
-            s.index = dict()
             s.put()
             settings = [s]
         self.settings = settings[0]
     
     def init_vfs(self):
-        from drydrop.lib.vfs import DevVFS, GAEVFS
+        from drydrop.app.core.vfs import LocalVFS, GAEVFS
         # TODO: cache this?
-        vfs_class = (GAEVFS, DevVFS)[LOCAL]
+        vfs_class = (GAEVFS, LocalVFS)[LOCAL]
         self.vfs = vfs_class(self.settings)
     
     def read_config_source_or_provide_default_one(self):
-        config_source = self.vfs.get_content(self.settings.config)
-        if config_source:
+        config_source = None
+        if self.settings.config:
+            config_source = self.vfs.get_resource(self.settings.config).content
+        if config_source is not None:
             config_source = config_source.decode('utf-8')
         else:
             config_source = DEFAULT_CONFIG_SOURCE
@@ -237,6 +260,8 @@ class AppHandler(webapp.RequestHandler):
         self.route(*args, **kvargs)
 
     def route(self):
+        from drydrop.app.core.appceptions import PageError
+        
         # load self.settings
         self.load_or_init_settings()
 
@@ -247,14 +272,24 @@ class AppHandler(webapp.RequestHandler):
         config_source = self.read_config_source_or_provide_default_one()
 
         # perform dispatch on meta server and finish if response was successfull
-        dispatched = self.meta_dispatch(self.settings.source, config_source)
+        dispatched = self.meta_dispatch(self.settings.source, config_source, self.request.path, self.request.headers, self.request.environ)
 
         # perform system dispatch (/admin section, welcome page, etc.)
-        if not dispatched: self.system_dispatch()
-        
+        if not dispatched: 
+            res = self.system_dispatch()
+            if res == False:
+                # prepare 404 response
+                # TODO: fake headers and environ
+                dispatched404 = self.meta_dispatch(self.settings.source, config_source, "/404.html", self.request.headers, self.request.environ)
+                if not dispatched404:
+                    # need to dispatch our stock 404 response
+                    base_controller = self.get_base_controller()
+                    try:
+                        base_controller.error(404, 'File "%s" Not Found' % self.request.path)        
+                    except PageError:
+                        pass
         # store pottentionaly modified settings
         self.settings.put()
-
                         
 class Application(object):
 
@@ -289,11 +324,8 @@ class Application(object):
             else:
                 handler.error(501)
         except Exception, e:
-            # beep
             logging.exception(sys.exc_info()[1])
             import sys
-            sys.__stdout__.write('\a')
-            sys.__stdout__.flush()
             from drydrop.lib.nice_traceback import show_error
             show_error(handler, 500)
 

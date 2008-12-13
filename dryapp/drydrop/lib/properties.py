@@ -6,33 +6,6 @@ from google.appengine.ext import db
 from google.appengine.api import datastore_types
 from drydrop.lib.utils import *
 from drydrop.lib.json import *
-
-CUSTOM_DATETIME_INPUT_FORMATS = (
-    '%d/%m/%y',              
-    '%d-%m-%y',              
-    '%d.%m.%y',              
-    '%d/%m/%Y',              
-    '%d-%m-%Y',              
-    '%d.%m.%Y',
-    '%Y-%m-%d %H:%M:%S',     # '2006-10-25 14:30:59'
-    '%Y-%m-%d %H:%M',        # '2006-10-25 14:30'
-    '%Y-%m-%d',              # '2006-10-25'              
-)
-
-class NiceDateTimeProperty(db.DateTimeProperty):
-
-    def get_value_for_form(self,instance):
-        value = getattr(instance, self.name)
-        if not value:
-            return None
-        else:
-            return value.strftime("%d-%m-%Y")
-    
-    def get_timestamp(self):
-        value = getattr(instance, self.name)
-        if not value:
-            return None
-        return value.strftime("%H%M%S")
         
 class JSONProperty(db.TextProperty):
 

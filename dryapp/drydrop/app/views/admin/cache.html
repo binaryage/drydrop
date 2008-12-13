@@ -2,11 +2,11 @@
 {% block title %}Commands{% endblock %}
 {% block main %}
 <div class="form-section">
-  <span>Browser</span>
+  <span>Resource cache</span>
 </div>
 <pre>
-  {% for file in files %}
-    {{ file[0] }}
+  {% for resource in resources %}
+    {{ resource.path }}
   {% endfor %}
 </pre>
 {% endblock %}

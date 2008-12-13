@@ -1,6 +1,7 @@
 # -*- mode: python; coding: utf-8 -*-
 import re
 import simplejson
+import string
 from drydrop.lib.utils import *
 from drydrop.lib.properties import *
 from google.appengine.ext import db
@@ -40,9 +41,11 @@ class Model(object):
         if verbose: logging.info("clearing %s", cls.model)
         deleted = 0
         while count>0:
-            records = cls.all().fetch(100)
+            c = 100
+            if count<=100: c = count
+            records = cls.all().fetch(c)
             if len(records)==0: break
             deleted += len(records)
             db.delete(records)
-            count -= 100
+            count -= c
         return deleted

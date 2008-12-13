@@ -28,16 +28,14 @@ $(document).ready(function() {
 });
 
 var dashboard = {
-    reindex: function() {
-        if (!confirm("Do you really want rebuild index from\n"+state.source+" ?\
-        \n\nReindexing is a process where we obtain file list from github by traversing project's directory structure.\n\n\
-        This may take a while ...")) return;
+    flushResourceCache: function() {
+        if (!confirm("Do you really want flush resource cache?")) return;
 
-        var rconsole = $('#reindexing-console')
+        var rconsole = $('#flushing-console')
         rconsole.html('');
         
         var append = function(msg) { 
-            rconsole.append('<div class="reindex-msg">'+msg+'</div>');
+            rconsole.append('<div class="flushing-msg">'+msg+'</div>');
         };
 
         var finisher = function(result) {
@@ -47,8 +45,9 @@ var dashboard = {
         var presenter = function(result) {
             append(result.message);
         };
+        
         var fetcher = function(data) {
-            $.post("/admin/reindex", data, function(response) {
+            $.post("/admin/flusher", data, function(response) {
                 if (response.finished) {
                     finisher(response);
                 } else {

@@ -54,7 +54,7 @@
         </div>
         <div id="appbar">
           {% block appbar %}
-            Pushing from <span class="sitename"><a href="{{settings.source}}">{{ settings.source }}</a></span>
+            Pulling from <span class="sitename"><a href="{{settings.source}}">{{ settings.source }}</a></span>
           {% endblock %}
         </div>
         <div id="yui-main">
@@ -71,13 +71,13 @@
                 <a title="Review application status" href="/admin/index">Dashboard</a>
               </li>
               <li id="nav-settings">
-                <a title="Browse files" href="/admin/settings">Settings</a>
+                <a title="Settings pane" href="/admin/settings">Settings</a>
               </li>
               <li id="nav-browser">
-                <a title="Browse files" href="/admin/browser">Browser</a>
+                <a title="Cached files" href="/admin/cache">Cache</a>
               </li>
               <li id="nav-config">
-                <a title="See config" href="/admin/config">Config</a>
+                <a title="Configuration screen" href="/admin/config">Config</a>
               </li>
             </ul>
           </div>

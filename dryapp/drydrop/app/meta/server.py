@@ -71,6 +71,7 @@ from google.pyglib import gexcept
 from drydrop.app.meta import appinfo
 from drydrop.app.meta import yaml_errors
 from google.appengine.api import users
+from drydrop_handler import ReadDataFile
 
 FILE_MISSING_EXCEPTIONS = frozenset([errno.ENOENT, errno.ENOTDIR])
 
@@ -215,6 +216,7 @@ class URLMatcher(object):
 
     for url_tuple in self._url_patterns:
       url_re, dispatcher, path, requires_login, admin_only = url_tuple
+      logging.debug("URL match: %s %s", url_re.pattern, adjusted_url)
       the_match = url_re.match(adjusted_url)
 
       if the_match:
@@ -652,27 +654,6 @@ class StaticFileConfigMatcher(object):
 
     return self._default_expiration or 0
 
-
-
-def ReadDataFile(data_path, vfs):
-  """Reads a file on disk, returning a corresponding HTTP status and data.
-
-  Args:
-    data_path: Path to the file on disk to read.
-    openfile: Used for dependency injection.
-
-  Returns:
-    Tuple (status, data) where status is an HTTP response code, and data is
-      the data read; will be an empty string if an error occurred or the
-      file was empty.
-  """
-  data = vfs.get_content(data_path)
-  if data:
-      return httplib.OK, data
-  logging.error('Missing file "%s"', data_path)
-  return httplib.NOT_FOUND, ""
-
-
 class FileDispatcher(URLDispatcher):
   """Dispatcher that reads data files from disk."""
 
@@ -702,20 +683,31 @@ class FileDispatcher(URLDispatcher):
                outfile,
                base_env_dict=None):
     """Reads the file and returns the response status and data."""
-    full_path = self._path_adjuster.AdjustPath(path)
-    status, data = self._read_data_file(full_path, self._vfs)
-    content_type = self._static_file_config_matcher.GetMimeType(path)
-    expiration = self._static_file_config_matcher.GetExpiration(path)
+    logging.debug("FileDispatcher: %s %s %s", relative_url, path, headers)
+    
+    SPACE_MARKER = '--~!-real-space-marker-!~--'
+    path = path.replace('\\ ', SPACE_MARKER)
+    parts = path.split(' ')
+    c = 0
+    for part in parts:
+        c = c + 1
+        new_path = part.replace(SPACE_MARKER, ' ')
+        full_path = self._path_adjuster.AdjustPath(new_path)
+        status, data = self._read_data_file(full_path, self._vfs)
+        if status==httplib.OK or c==len(parts):
+            content_type = self._static_file_config_matcher.GetMimeType(new_path)
+            expiration = self._static_file_config_matcher.GetExpiration(new_path)
 
-    outfile.write('Status: %d\r\n' % status)
-    outfile.write('Content-type: %s\r\n' % content_type)
-    if expiration:
-      outfile.write('Expires: %s\r\n'
-                    % email.Utils.formatdate(time.time() + expiration,
-                                             usegmt=True))
-      outfile.write('Cache-Control: public, max-age=%i\r\n' % expiration)
-    outfile.write('\r\n')
-    outfile.write(data)
+            outfile.write('Status: %d\r\n' % status)
+            outfile.write('Content-type: %s\r\n' % content_type)
+            if expiration:
+              outfile.write('Expires: %s\r\n'
+                            % email.Utils.formatdate(time.time() + expiration,
+                                                     usegmt=True))
+              outfile.write('Cache-Control: public, max-age=%i\r\n' % expiration)
+            outfile.write('\r\n')
+            outfile.write(data)
+            return
 
   def __str__(self):
     """Returns a string representation of this dispatcher."""
