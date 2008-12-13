@@ -38,7 +38,7 @@ class HookController(BaseController):
             except:
                 pass
                 
-        log_event("Received github hook for commit %s (%d changes)" % (data['after'], len(paths)), string.join(names, ','))
+        log_event("Received github hook for commit %s (%d changes)" % (data['after'], len(paths)), 0, string.join(names, ','))
 
         repo_url = data['repository']['url']
         branch = data['ref'].split('/').pop()
