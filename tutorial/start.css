@@ -1,0 +1,61 @@
+html { 
+    font-family: Arial, sans-serif;
+    font-size: 130%;
+}
+
+body {
+    font-size:100%;
+    margin:20px;
+    text-align:left;    
+}
+
+strong, em, b {
+    font-weight: bold;
+}
+
+a, a:visited, a:hover {
+    color: #00d;
+    text-decoration: none;
+}
+
+#hd a, #hd a:visited, #hd a:hover {
+    color: #00f;
+}
+
+h1 {
+    font-size: 180%;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+h2 {
+    font-size: 120%;
+    font-weight: bold;
+}
+
+#logo {
+    font-size: 200%;
+    font-weight: bold;
+}
+
+#logo .motto {
+    font-size: 50%;
+    margin-left: 6px;
+    font-weight: normal;
+    position: relative;
+    top: 5px;
+    color: gray;
+}
+
+#logo a {
+    color: black;
+    text-decoration: none;
+}
+
+.tutorials {
+    width: 800px;
+    font-size: 16px;
+}
+
+.tutorial-source {
+}

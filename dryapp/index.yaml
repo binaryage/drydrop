@@ -10,7 +10,7 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
-# Used 90 times in query history.
+# Used 101 times in query history.
 - kind: Event
   properties:
   - name: date
