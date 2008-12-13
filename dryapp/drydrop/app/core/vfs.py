@@ -5,6 +5,7 @@ import logging
 import datetime
 from drydrop.lib.utils import open_if_exists
 from drydrop.app.models import Resource
+from google.appengine.api import urlfetch
 
 class VFS(object):
     """Virtual File System == filesystem abstraction for DryDrop"""
@@ -26,9 +27,9 @@ class VFS(object):
             resource = Resource(path=path, content=content, generation=self.settings.version)
             if created_on is not None:
                 resource.created_on = created_on
-            logging.debug("VFS: creating resource %s with %s", path, content)
+            logging.debug("VFS: caching resource %s (%d bytes)", path, len(resource.content))
             resource.save()
-        logging.debug("VFS: returning resource %s", path)
+        logging.debug("VFS: serving resource %s (%d bytes)", path, len(resource.content))
         return resource
         
     def flush_resources(self, count = 1000):
@@ -87,3 +88,24 @@ class GAEVFS(VFS):
     def __init__(self, settings):
         super(GAEVFS, self).__init__()
         self.settings = settings
+        
+    def fetch_resource_content(self, path):
+        root = self.settings.source
+        if not root:
+            return None
+        if not root.endswith('/'): root = root + "/"
+        url = root + path
+        params = []
+        if self.settings.github_login:
+            params.append("login=%s" % self.settings.github_login)
+        if self.settings.github_token:
+            params.append("token=%s" % self.settings.github_token)
+        
+        # note: params should be url-safe, so no need to escape here
+        if len(params)>0:
+            url = url + "?" + string.join(params, "&")
+
+        response = urlfetch.fetch(url, follow_redirects=False)
+        if response.status_code!=200:
+            return None
+        return response.content

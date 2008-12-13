@@ -92,7 +92,12 @@ def routing(m):
 def ReadDataFile(path, vfs):
     import httplib
     import logging
-    resource = vfs.get_resource(path)
+    try:
+        resource = vfs.get_resource(path)
+    except:
+        logging.exception('Fatal error retrieveing file "%s"', path)
+        return httplib.NOT_FOUND, ""
+        
     if resource.content is None:
         logging.warning('Missing file "%s"', path)
         return httplib.NOT_FOUND, ""
@@ -227,14 +232,19 @@ class AppHandler(webapp.RequestHandler):
     
     def init_vfs(self):
         from drydrop.app.core.vfs import LocalVFS, GAEVFS
-        # TODO: cache this?
-        vfs_class = (GAEVFS, LocalVFS)[LOCAL]
+        if self.settings.source.startswith('/'):
+            vfs_class = LocalVFS
+        else:
+            vfs_class = GAEVFS
         self.vfs = vfs_class(self.settings)
     
     def read_config_source_or_provide_default_one(self):
         config_source = None
         if self.settings.config:
-            config_source = self.vfs.get_resource(self.settings.config).content
+            try:
+                config_source = self.vfs.get_resource(self.settings.config).content
+            except:
+                pass
         if config_source is not None:
             config_source = config_source.decode('utf-8')
         else:
