@@ -5,8 +5,11 @@
   <span>Dashboard</span>
 </div>
 <button onclick="dashboard.flushResourceCache()">Flush resource cache!</button>
+<button onclick="dashboard.clearEventsLog()">Clear events log!</button>
 <div id="flushing-console"></div>
 <div class="form-section">
   <span>Events</span>
 </div>
+<div id="events-list"></div>
+<div id="events-paginator"><a href="javascript:dashboard.onPrevEvents()">prev</a> | <a href="javascript:dashboard.onNextEvents()">next</a></div>
 {% endblock %} 

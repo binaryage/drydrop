@@ -6,6 +6,6 @@ from drydrop.lib.properties import JSONProperty
 
 class Event(db.Expando, Model):
     author = db.StringProperty()
-    date = db.DateTimeProperty()
-    code = db.IntegerProperty()
+    date = db.DateTimeProperty(auto_now_add=True)
+    code = db.IntegerProperty(default=0)
     action = db.StringProperty()

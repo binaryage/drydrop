@@ -2,6 +2,8 @@
 import logging
 from drydrop.app.core.controller import AuthenticatedController
 from google.appengine.api import memcache, users
+from drydrop.app.core.events import log_event
+from drydrop.app.models import Event
 
 class AdminController(AuthenticatedController):
 
@@ -20,8 +22,19 @@ class AdminController(AuthenticatedController):
     def index(self):
         self.render_view("admin/index.html")
         
+    def events_flusher(self):
+        deleted = Event.clear(False, 1000)
+        done = deleted<1000
+        log_event("Removed all events")
+        message = 'removed %d event(s)' % deleted
+        if not done: message += ' ...'
+        return self.render_json_response({
+            'finished': done,
+            'message': message
+        })
+        
     def flusher(self):
-        command = self.params.get('command')
+        log_event("Flushed resource cache")
         vfs = self.handler.vfs
         done, num = vfs.flush_resources()
         message = 'flushed %d resource(s)' % num
@@ -53,6 +66,24 @@ class AdminController(AuthenticatedController):
         formatter = pygments.formatters.HtmlFormatter()
         config_source_formatted = pygments.highlight(self.handler.read_config_source_or_provide_default_one(), lexer, formatter)
         self.render_view("admin/config.html", { 'config_source_formatted': config_source_formatted })
+    
+    def events(self):
+        offset = int(self.params.get("offset", 0))
+        limit = int(self.params.get("limit", 50))
+        events = Event.all().order('-date').fetch(limit, offset)
+        res = []
+        for e in events:
+            res.append({
+                "author": unicode(e.author),
+                "action": unicode(e.action),
+                "code": e.code,
+                "date": str(e.date)
+            })
+        
+        return self.render_json_response({
+            'status': 0,
+            'data': res
+        })
 
     def flush_memcache(self):
         memcache.flush_all()
@@ -68,6 +99,7 @@ class AdminController(AuthenticatedController):
             return self.json_error('Unknown option id (%s)' % id)
 
         value = self.params.get('value') or ""
+        log_event("Changed setting %s to %s" % (id, value))
         settings = self.handler.settings
         settings.__setattr__(id, value)
         settings.version = settings.version + 1 # this effectively invalidates cache

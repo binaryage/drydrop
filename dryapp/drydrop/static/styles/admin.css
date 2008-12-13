@@ -61,7 +61,7 @@
 }
 
 .index #nav-index a,
-.browser #nav-browser a,
+.cache #nav-cache a,
 .config #nav-config a,
 .settings #nav-settings a
 {
@@ -89,4 +89,30 @@
     width: 100%;
     margin-top: 10px;
     margin-bottom: 20px;
+}
+
+#events-list table {
+    width: 100%;
+}
+
+#events-list table td {
+    padding: 2px 4px;
+    white-space: nowrap;
+    border-bottom: 1px solid #eee;
+}
+
+#events-list table .date {
+    color: gray;
+}
+
+#events-list table .author {
+    color: brown;
+}
+
+#events-list table .action {
+    width: 100%;
+}
+
+#events-paginator {
+    text-align: right;
 }

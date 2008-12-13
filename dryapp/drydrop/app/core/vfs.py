@@ -6,6 +6,8 @@ import datetime
 from drydrop.lib.utils import open_if_exists
 from drydrop.app.models import Resource
 from google.appengine.api import urlfetch
+from google.appengine.ext import db
+from drydrop.app.core.events import log_event
 
 class VFS(object):
     """Virtual File System == filesystem abstraction for DryDrop"""
@@ -27,15 +29,30 @@ class VFS(object):
             resource = Resource(path=path, content=content, generation=self.settings.version)
             if created_on is not None:
                 resource.created_on = created_on
-            logging.debug("VFS: caching resource %s (%d bytes)", path, len(resource.content))
+            try:
+                length = len(resource.content)
+            except:
+                length = 0
+            if length>0:
+                log_event("Cached resource '%s' (%d bytes)", path, length)
+            logging.debug("VFS: caching resource %s (%d bytes)", path, length)
             resource.save()
-        logging.debug("VFS: serving resource %s (%d bytes)", path, len(resource.content))
+        try:
+            length = len(resource.content)
+        except:
+            length = 0
+        logging.debug("VFS: serving resource %s (%d bytes)", path, length)
         return resource
         
     def flush_resources(self, count = 1000):
         deleted = Resource.clear(False, count)
         finished = deleted<count
         return finished, deleted
+        
+    def flush_resource(self, path):
+        # purge all generations
+        resources = Resource.all().filter("path =", path).fetch(1000)
+        db.delete(resources)
         
     def get_all_resources(self):
         return Resource.all().filter("generation =", self.settings.version).fetch(1000)

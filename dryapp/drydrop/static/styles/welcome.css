@@ -4,6 +4,16 @@ body {
     margin: 20px;
 }
 
-body div.info {
+div.info {
+    margin-top: 10px;
+    width: 600px;
+}
+
+div.welcome {
+    margin-top: 50px;
+    width: 600px;
+}
+
+div.welcome p {
     margin-top: 10px;
 }

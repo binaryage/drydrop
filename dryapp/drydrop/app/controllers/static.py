@@ -1,5 +1,4 @@
 # -*- mode: python; coding: utf-8 -*-
-import mimetypes
 import os
 import datetime
 import logging

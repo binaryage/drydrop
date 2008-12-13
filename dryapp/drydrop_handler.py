@@ -81,6 +81,7 @@ def routing(m):
   
   m.connect('/drydrop-static/*path', controller="static", action="static")
   m.connect('/admin/:action', controller="admin", action="index")
+  m.connect('/hook/:action', controller="hook", action="index")
   m.connect('/', controller="welcome", action="index")
   
   # Install the default routes as the lowest priority.  
@@ -95,7 +96,7 @@ def ReadDataFile(path, vfs):
     try:
         resource = vfs.get_resource(path)
     except:
-        logging.exception('Fatal error retrieveing file "%s"', path)
+        logging.error('Unable to retrieve file "%s"', path)
         return httplib.NOT_FOUND, ""
         
     if resource.content is None:
@@ -226,7 +227,7 @@ class AppHandler(webapp.RequestHandler):
         settings = Settings.all().fetch(1)
         if len(settings)==0:
             s = Settings()
-            s.source = "/Users/woid/code/drydrop/tests/sites/hello_world"
+            s.source = "http://github.com/woid/drydrop/raw/master/tutorial"
             s.config = "site.yaml"
             s.put()
             settings = [s]
@@ -347,6 +348,7 @@ class Application(object):
 def main():
     import sys
     import logging
+    from google.appengine.api import users
 
     if LOCAL:
         from google.appengine.tools.dev_appserver import FakeFile
@@ -361,13 +363,17 @@ def main():
         def new_fetch(*arguments, **keywords):
             import logging
             from google.appengine.api import urlfetch
-            logging.info("Fetching: %s" % str(arguments))
+            logging.info("Fetching: %s", arguments[0])
             return urlfetch.old_fetch(*arguments, **keywords)
         urlfetch.fetch = new_fetch
 
     logging.getLogger().setLevel(logging.DEBUG)
     from firepython.middleware import FirePythonWSGI
-    run_wsgi_app(FirePythonWSGI(Application()))
+    if LOCAL or users.is_current_user_admin():
+        application = FirePythonWSGI(Application())
+    else:
+        application = Application()
+    run_wsgi_app(application)
 
 if __name__ == "__main__":
     main()
