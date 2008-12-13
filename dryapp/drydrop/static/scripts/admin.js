@@ -130,7 +130,9 @@ var dashboard = {
             g.push('<tr>');
             g.push('<td class="date">'+e.date+'</td>');
             g.push('<td class="author">'+e.author+'</td>');
-            g.push('<td class="action">'+e.action+'</td>');
+            g.push('</tr>');
+            g.push('<tr class="second">');
+            g.push('<td colspan="2" class="action">'+e.action+'</td>');
             g.push('</tr>');
         };
         g.push('</table>');

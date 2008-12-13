@@ -15,7 +15,7 @@ class HookController(BaseController):
             return
         
         data = json_parse(payload)
-        logging.debug("received payload: %s", data)
+        logging.debug("Received github hook: %s", data)
         paths = []
         for commit in data['commits']:
             try:
@@ -34,4 +34,5 @@ class HookController(BaseController):
         log_event("Received github hook for commit %s (%d changes)" % (data['after'], len(paths)))
         vfs = self.handler.vfs
         for path in paths:
+            log.info("Flushing resource %s", path)
             vfs.flush_resource(path)

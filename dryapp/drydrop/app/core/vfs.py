@@ -34,7 +34,7 @@ class VFS(object):
             except:
                 length = 0
             if length>0:
-                log_event("Cached resource '%s' (%d bytes)", path, length)
+                log_event("Caching resource '%s' (%d bytes)" % (path, length))
             logging.debug("VFS: caching resource %s (%d bytes)", path, length)
             resource.save()
         try:
@@ -123,6 +123,7 @@ class GAEVFS(VFS):
             url = url + "?" + string.join(params, "&")
 
         response = urlfetch.fetch(url, follow_redirects=False)
+        logging.info("response: %s", response)
         if response.status_code!=200:
             return None
         return response.content

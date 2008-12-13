@@ -93,11 +93,11 @@ def routing(m):
 def ReadDataFile(path, vfs):
     import httplib
     import logging
-    try:
-        resource = vfs.get_resource(path)
-    except:
-        logging.error('Unable to retrieve file "%s"', path)
-        return httplib.NOT_FOUND, ""
+    # try:
+    resource = vfs.get_resource(path)
+    # except:
+    #     logging.error('Unable to retrieve file "%s"', path)
+    #     return httplib.NOT_FOUND, ""
         
     if resource.content is None:
         logging.warning('Missing file "%s"', path)
@@ -127,7 +127,7 @@ class AppHandler(webapp.RequestHandler):
         return BaseController(self.request, self.response, self)
     
     def meta_dispatch(self, root, config_source, request_path, request_headers, request_environ):
-        from drydrop.app.meta.server import *
+        from drydrop.app.meta.server import ParseAppConfig, MatcherDispatcher, RewriteResponse, cStringIO
         import string
         import logging
 

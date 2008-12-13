@@ -98,6 +98,8 @@
 #events-list table td {
     padding: 2px 4px;
     white-space: nowrap;
+}
+#events-list tr.second {
     border-bottom: 1px solid #eee;
 }
 
@@ -107,6 +109,7 @@
 
 #events-list table .author {
     color: brown;
+    width: 100%;
 }
 
 #events-list table .action {

@@ -68,6 +68,11 @@ li {
     color: gray;
 }
 
+#logo a {
+    color: black;
+    text-decoration: none;
+}
+
 .form {
     width: 100%;
     margin-bottom: 20px;
