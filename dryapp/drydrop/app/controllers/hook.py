@@ -58,9 +58,9 @@ class HookController(BaseController):
         vfs = self.handler.vfs
         for path in paths:
             prefix = source_url[len(root_url):]
-            if not path.beginswith(prefix):
+            if not path.startswith(prefix):
                 logging.warning("Unexpected: path %s, should begin with %s. Skipping file.", path, prefix)
             else:
-                path = path[prefix:]
+                path = path[len(prefix):]
                 logging.info("Flushing resource %s", path)
                 vfs.flush_resource(path)
