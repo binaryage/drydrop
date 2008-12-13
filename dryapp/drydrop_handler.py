@@ -149,12 +149,14 @@ class AppHandler(webapp.RequestHandler):
         outfile.seek(0)
 
         status_code, status_message, header_list, body = RewriteResponse(outfile)
-        logging.debug("Meta: result: %s %s", status_code, status_message)
+        logging.debug("Meta: result: %s %s %s", status_code, status_message, header_list)
         
         if status_code == 404:
             return False
 
         self.response.clear()
+        for k in self.response.headers.keys():
+            del self.response.headers[k]
         for h in header_list:
             parts = h.split(':')
             self.response.headers.add_header(parts.pop(0), string.join(parts, ':'))

@@ -683,8 +683,6 @@ class FileDispatcher(URLDispatcher):
                outfile,
                base_env_dict=None):
     """Reads the file and returns the response status and data."""
-    logging.debug("FileDispatcher: %s %s %s", relative_url, path, headers)
-    
     SPACE_MARKER = '--~!-real-space-marker-!~--'
     path = path.replace('\\ ', SPACE_MARKER)
     parts = path.split(' ')
@@ -699,7 +697,7 @@ class FileDispatcher(URLDispatcher):
             expiration = self._static_file_config_matcher.GetExpiration(new_path)
 
             outfile.write('Status: %d\r\n' % status)
-            outfile.write('Content-type: %s\r\n' % content_type)
+            outfile.write('Content-Type: %s\r\n' % content_type)
             if expiration:
               outfile.write('Expires: %s\r\n'
                             % email.Utils.formatdate(time.time() + expiration,

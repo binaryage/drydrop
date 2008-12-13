@@ -10,4 +10,3 @@ class Settings(db.Expando, Model):
     last_updated = db.DateTimeProperty()
     github_login = db.StringProperty() # for private repos
     github_token = db.StringProperty() # for private repos
-    
