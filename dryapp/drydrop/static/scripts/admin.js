@@ -25,6 +25,24 @@ $(document).ready(function() {
         placeholder: placeholder('enter relative path to config file'),
         style: 'inherit'
     });
+    $("#github_login.edit").editable('/admin/update_option', {
+        submit: 'OK',
+        height: '16px',
+        width: '590px',
+        indicator: '<img src="/drydrop-static/images/indicator.gif">',
+        tooltip: 'for private repo you need to enter GitHub login',
+        placeholder: placeholder('enter GitHub login to access private repo'),
+        style: 'inherit'
+    });
+    $("#github_token.edit").editable('/admin/update_option', {
+        submit: 'OK',
+        height: '16px',
+        width: '590px',
+        indicator: '<img src="/drydrop-static/images/indicator.gif">',
+        tooltip: 'for private repo you need to enter GitHub token',
+        placeholder: placeholder('enter GitHub token to access private repo'),
+        style: 'inherit'
+    });
 });
 
 var dashboard = {

@@ -63,7 +63,7 @@ class AdminController(AuthenticatedController):
         if not id:
             return self.json_error('No option id specified')
             
-        known_options = ['source', 'config']
+        known_options = ['source', 'config', 'github_login', 'github_token']
         if not id in known_options:
             return self.json_error('Unknown option id (%s)' % id)
 

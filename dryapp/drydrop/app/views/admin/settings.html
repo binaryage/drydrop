@@ -6,12 +6,25 @@
 </div>
 <table class="form">
   <tr id="source-field" class="field">
-    <td class="label">Pulling from </td>
-    <td id="source" class="edit">{{ settings.source }}</td>
+    <td class="label">Pulling from </td> 
+    <td id="source" class="edit">{{ settings.source or "" }}</td>
   </tr>
   <tr id="config-field" class="field">
     <td class="label">Config file is </td>
-    <td id="config" class="edit">{{ settings.config }}</td>
+    <td id="config" class="edit">{{ settings.config or "" }}</td>
+  </tr>
+</table>
+<div class="form-section">
+  <span>GitHub authorization (optional)</span>
+</div>
+<table class="form">
+  <tr id="github-login-field" class="field">
+    <td class="label">Login is </td>
+    <td id="github_login" class="edit">{{ settings.github_login or "" }}</td>
+  </tr>
+  <tr id="github-token-field" class="field">
+    <td class="label">Token is </td>
+    <td id="github_token" class="edit">{{ settings.github_token or "" }}</td>
   </tr>
 </table>
 {% endblock %}
