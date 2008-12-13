@@ -123,7 +123,6 @@ class GAEVFS(VFS):
             url = url + "?" + string.join(params, "&")
 
         response = urlfetch.fetch(url, follow_redirects=False)
-        logging.info("response: %s", response)
         if response.status_code!=200:
             return None
         return response.content
