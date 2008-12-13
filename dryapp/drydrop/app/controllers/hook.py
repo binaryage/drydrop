@@ -10,13 +10,14 @@ from drydrop.app.core.events import log_event
 
 class HookController(BaseController):
 
+    # see http://github.com/guides/post-receive-hooks
     def github(self):
         payload = self.params.get('payload', None)
+        logging.debug("Received github hook: %s", payload)
         if not payload:
             return
         
         data = json_parse(payload)
-        logging.debug("Received github hook: %s", data)
         paths = []
         names = []
         for commit in data['commits']:
@@ -40,16 +41,21 @@ class HookController(BaseController):
                 
         log_event("Received github hook for commit %s (%d changes)" % (data['after'], len(paths)), 0, string.join(names, ','))
 
-        repo_url = data['repository']['url']
-        branch = data['ref'].split('/').pop()
+        repo_url = data['repository']['url'] # like http://github.com/woid/drydrop
+        branch = data['ref'].split('/').pop() # takes 'master' from 'refs/heads/master'
         
-        root_url = "%s/raw/%s" % (repo_url, branch)
+        root_url = "%s/raw/%s" % (repo_url, branch) # creates http://github.com/woid/drydrop/raw/master
         if not root_url.endswith('/'):
             root_url = root_url + '/'
         source_url = self.handler.settings.source
         if not source_url.endswith('/'):
             source_url = source_url + '/'
+            
+        # now we have:
+        # http://github.com/woid/drydrop/raw/master/ in root_url
+        # http://github.com/woid/drydrop/raw/master/tutorial/ in source_url
         
+        # safety check
         if not source_url.startswith(root_url):
             log_event("Source url '%s' is not affected by incoming changeset '%s'" % (source_url, root_url))
             logging.info("Source url '%s' is not affected by incoming changeset '%s'", source_url, root_url)
@@ -57,10 +63,11 @@ class HookController(BaseController):
         
         vfs = self.handler.vfs
         for path in paths:
-            prefix = source_url[len(root_url):]
+            prefix = source_url[len(root_url):] # prefix is 'tutorial/'
             if not path.startswith(prefix):
-                logging.warning("Unexpected: path %s, should begin with %s. Skipping file.", path, prefix)
+                logging.warning("Unexpected: path '%s' should begin with '%s'. Skipping file.", path, prefix)
             else:
-                path = path[len(prefix):]
+                # path is something like tutorial/start.html
+                path = path[len(prefix):] # stripped to 'start.html'
                 logging.info("Flushing resource %s", path)
                 vfs.flush_resource(path)
