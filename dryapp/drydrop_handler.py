@@ -17,7 +17,7 @@ APP_ID = os.environ["APPLICATION_ID"]
 VER_ID = os.environ["CURRENT_VERSION_ID"]
 
 # tohle musi byt tvrda cesta, slouzi pro generovani nice tracebacku na ostrem serveru
-DEVELOPMENT_PROJECT_ROOT = "/Users/woid/code/drydrop/dryapp/"
+DEVELOPMENT_PROJECT_ROOT = "/Users/darwin/code/drydrop/dryapp/"
 
 DEFAULT_CONFIG_SOURCE = """
 handlers:
@@ -227,7 +227,7 @@ class AppHandler(webapp.RequestHandler):
         settings = Settings.all().fetch(1)
         if len(settings)==0:
             s = Settings()
-            s.source = "http://github.com/woid/drydrop/raw/master/tutorial"
+            s.source = "http://github.com/darwin/drydrop/raw/master/tutorial"
             s.config = "site.yaml"
             s.put()
             settings = [s]

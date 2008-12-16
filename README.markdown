@@ -41,7 +41,7 @@ IRC channel [#drydrop][irc] at freenode
 
 [appengine]: http://code.google.com/appengine
 [github]: http://github.com
-[homepage]: http://github.com/woid/drydrop
+[homepage]: http://github.com/darwin/drydrop
 [contact]: mailto:antonin@hildebrand.cz
 [workaround]: http://getsatisfaction.com/xrefresh/topics/unable_to_download_rainbow_for_firebug
 [support]: http://drydrop.uservoice.com/

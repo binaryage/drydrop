@@ -41,10 +41,10 @@ class HookController(BaseController):
                 
         log_event("Received github hook for commit %s (%d changes)" % (data['after'], len(paths)), 0, string.join(names, ','))
 
-        repo_url = data['repository']['url'] # like http://github.com/woid/drydrop
+        repo_url = data['repository']['url'] # like http://github.com/darwin/drydrop
         branch = data['ref'].split('/').pop() # takes 'master' from 'refs/heads/master'
         
-        root_url = "%s/raw/%s" % (repo_url, branch) # creates http://github.com/woid/drydrop/raw/master
+        root_url = "%s/raw/%s" % (repo_url, branch) # creates http://github.com/darwin/drydrop/raw/master
         if not root_url.endswith('/'):
             root_url = root_url + '/'
         source_url = self.handler.settings.source
@@ -52,8 +52,8 @@ class HookController(BaseController):
             source_url = source_url + '/'
             
         # now we have:
-        # http://github.com/woid/drydrop/raw/master/ in root_url
-        # http://github.com/woid/drydrop/raw/master/tutorial/ in source_url
+        # http://github.com/darwin/drydrop/raw/master/ in root_url
+        # http://github.com/darwin/drydrop/raw/master/tutorial/ in source_url
         
         # safety check
         if not source_url.startswith(root_url):
