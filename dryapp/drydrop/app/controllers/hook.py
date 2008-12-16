@@ -39,7 +39,8 @@ class HookController(BaseController):
             except:
                 pass
                 
-        log_event("Received github hook for commit %s (%d changes)" % (data['after'], len(paths)), 0, string.join(names, ','))
+        authors = string.join(names, ',')
+        log_event("Received github hook for commit %s (%d changes)" % (data['after'], len(paths)), 0, authors)
 
         repo_url = data['repository']['url'] # like http://github.com/darwin/drydrop
         branch = data['ref'].split('/').pop() # takes 'master' from 'refs/heads/master'
@@ -57,8 +58,8 @@ class HookController(BaseController):
         
         # safety check
         if not source_url.startswith(root_url):
-            log_event("Source url '%s' is not affected by incoming changeset '%s'" % (source_url, root_url))
-            logging.info("Source url '%s' is not affected by incoming changeset '%s'", source_url, root_url)
+            log_event("Source url '%s' is not affected by incoming changeset url '%s'" % (source_url, root_url), 0, authors)
+            logging.info("Source url '%s' is not affected by incoming changeset url '%s'", source_url, root_url)
             return
         
         vfs = self.handler.vfs
