@@ -301,8 +301,6 @@ class AppHandler(webapp.RequestHandler):
                         base_controller.error(404, 'File "%s" Not Found' % self.request.path)        
                     except PageError:
                         pass
-        # store pottentionaly modified settings
-        self.settings.put()
                         
 class Application(object):
 
