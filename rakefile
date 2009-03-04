@@ -519,12 +519,6 @@ task :clean_deploy do
   sys("rm -rf \"#{DEPLOY}\"")
 end
 
-#----------------------------------------------------------------------------
-desc "updates firepython to latest"
-task :edge_firepython do
-  # TODO
-end
-
 task :cp_fp do
   Dir.chdir(ROOT) do
     sys('cp -r dryapp/firepython/* ~/code/firepython')
