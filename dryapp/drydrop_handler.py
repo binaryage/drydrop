@@ -280,7 +280,7 @@ class AppHandler(webapp.RequestHandler):
 
         # init self.vfs
         self.init_vfs()
-
+        
         # read site.yaml
         config_source = self.read_config_source_or_provide_default_one()
 
@@ -334,7 +334,7 @@ class Application(object):
                 handler.trace(*groups)
             else:
                 handler.error(501)
-        except Exception, e:
+        except:
             logging.exception(sys.exc_info()[1])
             import sys
             from drydrop.lib.nice_traceback import show_error

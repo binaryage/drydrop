@@ -63,7 +63,7 @@ def show_error(handler, code, log_msg = ''):
         handler.response.out.write('%s' % tb)
     else:
         handler.response.out.write('<h1>%s</h1>\n' % log_msg)
-    handler.response.out.write('<script>var a = document.getElementsByTagName("a")[0]; if (a) window.open(a.href, "_self");</script>')
+    #handler.response.out.write('<script>var a = document.getElementsByTagName("a")[0]; if (a) window.open(a.href, "_self");</script>')
     handler.response.out.write('</body></html>')
 
 # toto je dekorator
