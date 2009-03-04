@@ -350,7 +350,7 @@ def main():
 
     if LOCAL:
         from google.appengine.tools.dev_appserver import FakeFile
-        FakeFile.SetAllowedPaths('/')
+        FakeFile.SetAllowedPaths('/', [])
         sys.meta_path = [] # disables python sandbox in local version
     
     # GENERATED: here we will setup import paths for baked version !!!
