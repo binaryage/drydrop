@@ -1,0 +1,92 @@
+.site {
+  width: 60em;
+}
+
+#content.site {
+  width: 59em;
+}
+
+#header {
+    background-image: url(/images/header_bg.png);
+}
+
+#header .logo {
+    padding-top:2em;
+}
+
+#header .download {
+    float: right;
+    padding: 0.8em 0 0 0;
+    color: #000;
+    font-size: 1.9em;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+#header .download img {
+    position: relative;
+    top: 10px;
+    margin-right: 6px;
+}
+
+#header .download a {
+    color: #4183C4;
+}
+
+#header .download a:hover {
+    color: #74A8D7;
+}
+
+#footer {
+    background-image: url(/images/footer_bg.png);
+    color: #ccc;
+}
+
+#footer .binary-age {
+    float:right;
+    padding:2.0em 0 1em;
+    width:15em;
+}
+
+#footer .binary-age div {
+    font-size:0.9em;
+    margin-top:0.7em;
+    text-align:right;
+}
+
+#footer .binary-age a {
+    text-decoration: none;
+}
+
+img.shadow {
+    position: relative;
+    left: -40px;
+}
+
+img.binaryage-logo {
+    padding: 4px 10px;
+    background-color: #fff;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    position: relative;
+    left: 8px;
+}
+
+#footer .info .links {
+    border-bottom: none;
+}
+
+.wikistyle {
+    margin-top: 30px;
+}
+
+#footer .github-icon {
+    position: relative;
+}
+
+#footer .github-icon img {
+    position: absolute;
+    top: 36px;
+    left: 540px;
+}
+
