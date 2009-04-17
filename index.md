@@ -2,7 +2,7 @@
 title: DryDrop
 layout: wikistyle
 repo: http://github.com/darwin/drydrop
-support: http://drydrop.uservoice.com
+support: http://github.com/darwin/drydrop/issues
 download: 
 version: To be released
 ---
