@@ -1,31 +1,5 @@
 #!/usr/bin/env ruby
 
-# mac users should have all in place
-# 1. $gem install rake
-# 2. $cd some/path/drydrop
-# 3. $rake
-#
-# jeste je dobre nainstalovat: http://ericanderson.us/2008/03/02/terminalapp-tab-namer-v01-alpha/
-#
-# unix users?
-# 1. $sudo apt-get install ruby
-# 2. install rubygems -> http://www.rubygems.org/read/chapter/3
-# 3. follow same steps as mac users
-#
-# win users:
-# 1. install binary ruby (unzip to C:\ruby)
-# 2. set C:\ruby\bin to system path
-# 3. download and install ruby gems (http://www.rubygems.org/read/chapter/3)
-# 5. solve dll problems:
-# 5.a) download openssl 0.98e or later here (http://smithii.com/openssl), copy ssleay32.dll and libeay32.dll to your C:\ruby\bin
-# 5.b) download zlib binary here (http://gnuwin32.sourceforge.net/downlinks/zlib-bin-zip.php), rename zlib1.dll to zlib.dll, and copy it to your C:\ruby\bin
-# 6. >gem install win32console
-# 7. >gem install rake
-# 8. install zip to system path (http://www.info-zip.org/Zip.html)
-# 9. >cd some\path\drydrop
-#10. >rake
-#
-
 ROOT = File.expand_path('.')
 TMP = File.join(ROOT, 'tmp')
 DEPLOY = File.join(ROOT, '.deploy')
@@ -33,6 +7,7 @@ DATASTORE = File.join(TMP, 'drydrop.datastore')
 HISTORY = File.join(TMP, 'drydrop.datastore.history')
 DRYAPP = File.join(ROOT, 'dryapp')
 GAE = File.join(ROOT, 'gae')
+GAEEXEC = File.join(ROOT, 'gae', 'python')
 
 NEED_GEMS = %w(rubyzip)
 NEED_EGGS = %w()
@@ -155,7 +130,7 @@ def die(s)
 end
 
 def update_sources()
-  sys("cd \"#{ROOT}\" && git pull 1>&2")
+  sys("cd \"#{ROOT}\" && git pull origin master 1>&2")
 end
 
 def install_gems(gems)
@@ -261,14 +236,14 @@ end
 
 def app_server_cmd(special=false)
   server = 'dev_appserver.py'
-  server = "#{GAE}/#{server}" if File.exists?(GAE)
+  server = "#{GAEEXEC}/#{server}" if File.exists?(GAEEXEC)
   opts = special ? APPSERVER_OPTS_WOID_LOCAL : APPSERVER_OPTS
   "#{server} #{opts} --datastore_path=#{DATASTORE} --history_path=#{HISTORY} #{DRYAPP}"
 end
 
 def appcfg_cmd(command='')
   server = 'appcfg.py'
-  server = "#{GAE}/#{server}" if File.exists?(GAE)
+  server = "#{GAEEXEC}/#{server}" if File.exists?(GAEEXEC)
   "#{server} #{APPCFG_OPTS} #{command}"
 end
 
@@ -431,14 +406,6 @@ task :start do
   puts blue('-> http://localhost:8080/')
 end
 
-desc "(re)starts server @ 192.168.5.2 (special case for virtualbox)"
-task :start2 do
-  shutdown_dryapp()
-  cache_buster()
-  run_dryapp(true)
-  puts blue('-> http://localhost:8080/')
-end
-
 #----------------------------------------------------------------------------
 desc "stops server"
 task :stop do
@@ -488,11 +455,9 @@ desc "bakes version for deploy"
 task :bake do
   name = ARGV[1] || "drydroptest"
   
-  # otestuju jestli je working copy clean
   answer = sys("git status")
   is_clean = !!answer.match(/working directory clean/)
 
-  # vypecu verzi
   puts 'Baking version ...'
   sys("mkdir \"#{DEPLOY}\" 1>&2") unless File.exists?(DEPLOY)
   bake(name)
@@ -507,22 +472,9 @@ task :upload => :bake do
 end
 
 #----------------------------------------------------------------------------
-desc "removes all .svn in dryapp"
-task :remove_svn do
-  puts "#{cmd_color('Removing all .svn directories in '+DRYAPP)}"
-  sys("cd \"#{DRYAPP}\" && find . -name \".svn\" -exec rm -rf '{}' ';'")
-end
-
-#----------------------------------------------------------------------------
-desc "smaze deploy adresar"
+desc "removes deploy directory"
 task :clean_deploy do
   sys("rm -rf \"#{DEPLOY}\"")
-end
-
-task :cp_fp do
-  Dir.chdir(ROOT) do
-    sys('cp -r dryapp/firepython/* ~/code/firepython')
-  end
 end
 
 #----------------------------------------------------------------------------
