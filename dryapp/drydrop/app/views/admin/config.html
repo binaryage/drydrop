@@ -5,7 +5,19 @@
 {% endblock %}
 {% block main %}
 <div class="form-section">
-  <span>Config file</span>
+  	<span>Active Config File</span><span class="help-button">more info</span>
+	<div class="help-text">
+		<p>
+			Config file describes mapping between your GitHub files and URLs visible on this DryDrop site. Using config you may specify which files have to be served by default 
+			and also some more advanced behaviors. Please consult Google <a href="http://code.google.com/appengine/docs/python/config/appconfig.html">App Engine documentation</a> for their app.yaml file. DryDrop supports almost all features of handlers section.
+		</p>
+		<p>
+			According to <a href="settings">your settings</a>, config file is expected to be located at<br/><code>{{ settings.source or "" }}/{{ settings.config or "" }}</code>
+		</p>
+		<p>
+			In case your config does not exists, DryDrop provides a default one. The default config maps files from GitHub to DryDrop 1:1 (without transformations) and sets index.html to be a default file served from domain (as you would probably expect).
+		</p>
+	</div>
 </div>
 {{ config_source_formatted }}
 {% endblock %}

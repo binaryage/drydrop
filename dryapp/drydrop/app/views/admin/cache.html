@@ -2,11 +2,25 @@
 {% block title %}Cache{% endblock %}
 {% block main %}
 <div class="form-section">
-  	<span>Resource cache</span>
+  	<span>Resource cache</span><span class="help-button">more info</span>
 	<button onclick="dashboard.flushResourceCache()">Flush resource cache!</button>
+	<div class="help-text">
+		<p>
+			Here you can see list of currently cached items by this DryDrop site.
+		</p>
+		<p>
+			DryDrop site acts as a cache for your GitHub content. When someone requests resource at given URL, DryDrop looks into the cache and serve item directly whenever possible.
+			In a case the cache entry is missing, DryDrop tries to fetch the item from GitHub and store it in cache for later requests.
+		</p>
+		<p>
+			What about updating? In case you have correctly setup GitHub post commit hook for your repo.
+			When you push updated content to your GitHub repository, GitHub will ping DryDrop and DryDrop then invalidates all changed items by that push. 
+			This way next time when someone requests updated item cache miss will happen and DryDrop downloads fresh content from GitHub.
+		</p>
+	</div>
 	<div id="flushing-console"></div>
 </div>
-<pre>
+<pre class="cache-box">
   {% for resource in resources %}
     {{ resource.path }}
   {% endfor %}

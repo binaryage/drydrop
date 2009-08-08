@@ -13,7 +13,7 @@ $(document).ready(function() {
         width: '590px',
         callback: function(value, settings) {
             state.source = value;
-            $('.sitename').html('<a href="'+value+'">'+value+'</a>')
+            $('.sitename').html('<a href="'+value+'">'+value+'</a>');
         }
     });
     $("#config.edit").editable('/admin/update_option', {
@@ -31,7 +31,7 @@ $(document).ready(function() {
         width: '590px',
         indicator: '<img src="/drydrop-static/images/indicator.gif">',
         tooltip: 'for private repo you need to enter GitHub login',
-        placeholder: placeholder('enter GitHub login to access private repo'),
+        placeholder: placeholder('enter GitHub username'),
         style: 'inherit'
     });
     $("#github_token.edit").editable('/admin/update_option', {
@@ -40,9 +40,13 @@ $(document).ready(function() {
         width: '590px',
         indicator: '<img src="/drydrop-static/images/indicator.gif">',
         tooltip: 'for private repo you need to enter GitHub token',
-        placeholder: placeholder('enter GitHub token to access private repo'),
+        placeholder: placeholder('enter GitHub token'),
         style: 'inherit'
     });
+
+	$('.help-button').bind('click', function() {
+		$(this).parent().find('.help-text').toggle();
+	});
     
     dashboard.askForEvents();
 });
@@ -63,7 +67,7 @@ var dashboard = {
 
         var finisher = function(result) {
             append(result.message);
-            dashboard.askForEvents();
+			$('.cache-box').empty();
         };
         
         var presenter = function(result) {

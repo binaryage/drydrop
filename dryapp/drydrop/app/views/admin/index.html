@@ -2,8 +2,13 @@
 {% block title %}Dashboard{% endblock %}
 {% block main %}
 <div class="form-section">
-  	<span>Events</span>
+  	<span>Events</span><span class="help-button">more info</span>
 	<button onclick="dashboard.clearEventsLog()">Clear events log!</button>
+	<div class="help-text">
+		<p>
+			Here you can inspect events that happened to your site.<br/>Designed mainly for you to see when GitHub called post commit hooks and what was updated.
+		</p>
+	</div>
 	<div id="flushing-console"></div>
 </div>
 <div id="events-list"></div>

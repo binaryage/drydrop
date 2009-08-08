@@ -91,6 +91,10 @@
     font-size: 12px;
 }
 
+#events-list {
+    padding-left: 8px;
+}
+
 #events-list table {
     width: 100%;
 }
@@ -123,4 +127,58 @@
 .form-section button {
     float: right;
     font-size: 12px;
+}
+
+.form-section .help-button {
+    font-size: 11px;
+    color: #00c;
+    margin-left: 12px;
+    cursor: pointer;
+}
+
+.form-section .help-button:hover {
+    
+}
+
+.form-section .help-text {
+    display: none;
+    font-size: 12px;
+    line-height: 14px;
+    font-weight: normal;
+    padding: 4px;
+    padding-left: 10px;
+    border-left: 3px solid #2ACD67;
+}
+
+.form-section .help-text code {
+    font-weight: bold;
+}
+
+.form-section .help-text p {
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.form-section .help-text code i {
+    font-style: normal;
+    color: #909;
+}
+
+.form-section .help-text img {
+    margin: 6px;
+}
+
+.form-section span i {
+    font-style: normal;
+    color: #666;
+    font-size: 14px;
+}
+
+.highlight {
+    font-size: 11px;
+}
+
+.cache-box {
+    line-height: 6px;
+    font-size: 11px;
 }
