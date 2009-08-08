@@ -1,8 +1,10 @@
 {% extends "admin/layout.html" %}
-{% block title %}Commands{% endblock %}
+{% block title %}Cache{% endblock %}
 {% block main %}
 <div class="form-section">
-  <span>Resource cache</span>
+  	<span>Resource cache</span>
+	<button onclick="dashboard.flushResourceCache()">Flush resource cache!</button>
+	<div id="flushing-console"></div>
 </div>
 <pre>
   {% for resource in resources %}

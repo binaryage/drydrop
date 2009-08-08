@@ -5,6 +5,9 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 
 import os
 import os.path
+import sys
+import traceback
+import logging
 
 APP_ROOT = os.path.normpath(os.path.dirname(__file__))
 DRY_ROOT = os.path.join(APP_ROOT, 'drydrop.zip')
@@ -21,19 +24,6 @@ handlers:
 - url: '/'
   static_dir: '/'
 """
-
-import sys
-import traceback
-import logging
-
-def correctCurrentframe():
-    try:
-        raise Exception
-    except:
-        return sys.exc_traceback.tb_frame.f_back.f_back.f_back.f_back # wtf?
-
-# needed to fix pathname inside log records, is this broken in python2.5 on OSX?
-logging.currentframe = correctCurrentframe
 
 def routing(m):
   # Routes from http://routes.groovie.org/
@@ -77,9 +67,6 @@ def routing(m):
   m.connect('/admin/:action', controller="admin", action="index")
   m.connect('/hook/:action', controller="hook", action="index")
   m.connect('/', controller="welcome", action="index")
-  
-  # Install the default routes as the lowest priority.  
-  # m.connect(':controller/:action/:id', controller='welcome', action='index')
   
   # returns the mapper object. Do not remove.
   return m
