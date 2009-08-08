@@ -182,3 +182,9 @@
     line-height: 6px;
     font-size: 11px;
 }
+
+#events-paginator .disabled {
+    color: #999;
+    text-decoration: none;
+    cursor: default;
+}

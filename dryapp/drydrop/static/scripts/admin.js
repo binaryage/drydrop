@@ -214,20 +214,34 @@ var dashboard = {
     },
     
     onNextEvents: function() {
+		if ($('#events-paginator .next-button').hasClass('disabled')) return;
         this.eventsOffset += this.eventsLimit;
         this.askForEvents();
     },
 
     onPrevEvents: function() {
+		if ($('#events-paginator .prev-button').hasClass('disabled')) return;
         if (this.eventsOffset<=0) return;
         this.eventsOffset -= this.eventsLimit;
+		if (this.eventsOffset<0) this.eventsOffset = 0;
         this.askForEvents();
     },
     
     askForEvents: function() {
-        $.get("/admin/events", { limit: this.eventsLimit, offset: this.eventsOffset }, function(data) {
+		var that = this;
+        $.get("/admin/events", { limit: this.eventsLimit+1, offset: this.eventsOffset }, function(data) {
             if (data.status==0) {
                 dashboard.renderEvents(data.data);
+				if (data.data.length<that.eventsLimit+1) {
+					$('#events-paginator .next-button').addClass('disabled');
+				} else {
+					$('#events-paginator .next-button').removeClass('disabled');
+				}
+				if (that.eventsOffset<=0) {
+					$('#events-paginator .prev-button').addClass('disabled');
+				} else {
+					$('#events-paginator .prev-button').removeClass('disabled');
+				}
             } else {
                 // TODO: handle this
             }
