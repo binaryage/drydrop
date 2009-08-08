@@ -34,17 +34,25 @@ h2 {
 }
 
 #logo {
-    font-size: 200%;
+    position: relative;
+    top: -10px;
+    font-size: 32px;
     font-weight: bold;
+    font-family: "Helvetica Neue", Helvetica;
+    margin-bottom: 20px;
 }
 
+#logo img {
+    position: relative;
+    top: 8px;
+}
 #logo .motto {
     font-size: 50%;
     margin-left: 6px;
     font-weight: normal;
-    position: relative;
-    top: 5px;
-    color: gray;
+    position: absolute;
+    top: 35px;
+    left: 35px;
 }
 
 #logo a {
