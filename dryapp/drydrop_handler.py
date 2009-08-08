@@ -1,8 +1,5 @@
 # -*- mode: python; coding: utf-8 -*-
 
-# try to not put here any imports, there is a bug in import caching in GAE:
-# http://code.google.com/appengine/articles/django10_zipimport.html
-
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
@@ -15,9 +12,6 @@ DRY_ROOT = os.path.join(APP_ROOT, 'drydrop.zip')
 LOCAL = os.environ["SERVER_SOFTWARE"].startswith("Development")
 APP_ID = os.environ["APPLICATION_ID"]
 VER_ID = os.environ["CURRENT_VERSION_ID"]
-
-# tohle musi byt tvrda cesta, slouzi pro generovani nice tracebacku na ostrem serveru
-DEVELOPMENT_PROJECT_ROOT = "/Users/darwin/code/drydrop/dryapp/"
 
 DEFAULT_CONFIG_SOURCE = """
 handlers:

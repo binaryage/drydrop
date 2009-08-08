@@ -17,13 +17,6 @@ def format_nice_traceback(traceback):
         modulename = re.findall(', in ([A-Za-z0-9_]+)', line)
         if filename and linenumber and not re.match("<(.+)>",filename[0]):
             file_name = filename[0]
-            # tohle je preklad cesty z google masiny na lokalni vyvojovy stroj
-            m = re.match(r"^/base/data/home/.*/[0-9]*-[0-9a-f]*\.[0-9]*/(.*)$", file_name)
-            if m: 
-                file_name = DEVELOPMENT_PROJECT_ROOT+m.group(1)
-            else:
-                m = re.match(r"^.*?\.zip/(.*)$", file_name)
-                if m: file_name = DEVELOPMENT_PROJECT_ROOT+m.group(1)
             module_name = 'in <span class="module">%s</span>' % modulename[0] if modulename else ""
             base_name = os.path.basename(file_name)
             line = linenumber[0]
@@ -44,11 +37,6 @@ def show_error(handler, code, log_msg = ''):
             exception_details = str(sys.exc_info())
         exception_traceback = ''.join(format_exception(*sys.exc_info()))
             
-        # logging.error(exception_name)
-        # logging.error(exception_details)
-        # logging.error(log_msg)
-        # logging.error(exception_traceback)
-
         tb=format_nice_traceback(exception_traceback)
         handler.response.out.write('<html><body><head><title>'+exception_details+'</title>\n')
         handler.response.out.write('<style>\n')
@@ -63,10 +51,8 @@ def show_error(handler, code, log_msg = ''):
         handler.response.out.write('%s' % tb)
     else:
         handler.response.out.write('<h1>%s</h1>\n' % log_msg)
-    #handler.response.out.write('<script>var a = document.getElementsByTagName("a")[0]; if (a) window.open(a.href, "_self");</script>')
     handler.response.out.write('</body></html>')
 
-# toto je dekorator
 def nice_traceback(f):
     def inner(self, *args, **kvargs):
         try:
