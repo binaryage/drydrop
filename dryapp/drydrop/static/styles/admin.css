@@ -99,7 +99,6 @@
 
 #events-list table td {
     padding: 6px 4px 2px 4px;
-    white-space: nowrap;
 }
 
 #events-list tr.second td {
@@ -111,6 +110,7 @@
 }
 
 #events-list table .date {
+    white-space: nowrap;
     color: #999;
     text-align: right;
 }
