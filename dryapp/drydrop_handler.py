@@ -19,7 +19,7 @@ VER_ID = os.environ["CURRENT_VERSION_ID"]
 DEFAULT_CONFIG_SOURCE = """
 handlers:
 - url: '/'
-  static_files: 'index.html index.htm readme.txt readme.markdown Readme.txt README.txt README README.textile README.markdown'
+  static_files: 'index.html index.htm readme.txt readme.markdown readme.md'
   upload: '.*'
 - url: '/'
   static_dir: '/'
