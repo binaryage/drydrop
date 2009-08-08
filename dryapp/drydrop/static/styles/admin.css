@@ -100,20 +100,27 @@
 }
 
 #events-list table td {
-    padding: 2px 4px;
+    padding: 6px 4px 2px 4px;
     white-space: nowrap;
 }
+
+#events-list tr.second td {
+    padding: 0px 4px;
+}
+
 #events-list tr.second {
     border-bottom: 1px solid #eee;
 }
 
 #events-list table .date {
-    color: gray;
+    color: #999;
+    text-align: right;
 }
 
 #events-list table .author {
-    color: brown;
+    color: #2362A5;
     width: 100%;
+    font-weight: bold;
 }
 
 #events-list table .action {
@@ -127,6 +134,7 @@
 .form-section button {
     float: right;
     font-size: 12px;
+    font-weight: bold;
 }
 
 .form-section .help-button {
@@ -137,7 +145,7 @@
 }
 
 .form-section .help-button:hover {
-    
+    color: #00f;
 }
 
 .form-section .help-text {

@@ -99,7 +99,7 @@ class AdminController(AuthenticatedController):
             return self.json_error('Unknown option id (%s)' % id)
 
         value = self.params.get('value') or ""
-        log_event("Changed setting %s to %s" % (id, value))
+        log_event("Changed %s to %s" % (id, value))
         settings = self.handler.settings
         settings.__setattr__(id, value)
         settings.version = settings.version + 1 # this effectively invalidates cache
