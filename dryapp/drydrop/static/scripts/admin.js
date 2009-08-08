@@ -202,8 +202,8 @@ var dashboard = {
         for (var i=0; i < events.length; i++) {
             var e = events[i];
             g.push('<tr>');
-            g.push('<td class="date">'+humane_date(e.date).toLowerCase()+'</td>');
             g.push('<td class="author">'+e.author+'</td>');
+            g.push('<td class="date">'+humane_date(e.date).toLowerCase()+'</td>');
             g.push('</tr>');
             g.push('<tr class="second">');
             g.push('<td colspan="2" class="action">'+e.action+'</td>');
