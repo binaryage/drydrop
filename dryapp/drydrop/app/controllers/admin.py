@@ -77,7 +77,7 @@ class AdminController(AuthenticatedController):
                 "author": unicode(e.author),
                 "action": unicode(e.action),
                 "code": e.code,
-                "date": str(e.date)
+                "date": e.date
             })
         
         return self.render_json_response({
