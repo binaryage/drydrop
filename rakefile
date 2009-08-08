@@ -365,7 +365,7 @@ def patch_app_yaml(version, name)
   lines = []
   File.open(path, "r") do |f|
     f.each do |line|
-      lines << line.gsub(/^version:.*$/, "version: #{version}").gsub(/^application:.*$/, "application: #{name}")
+      lines << line.gsub(/^application:.*$/, "application: #{name}")
     end
   end
   File.open(path, "w") do |f|
@@ -452,7 +452,8 @@ end
 #----------------------------------------------------------------------------
 desc "bakes version for deploy"
 task :bake do
-  name = ARGV[1] || "drydroptest"
+  name = ENV["project"]
+  die("Please specify appengine project name: rake upload project=drydroptest") unless name
   
   answer = sys("git status")
   is_clean = !!answer.match(/working directory clean/)
