@@ -1,45 +1,68 @@
 ---
 title: DryDrop
-layout: wikistyle
+subtitle: deploy GAE sites by pushing to GitHub
+layout: product
+icon: /shared/img/drydrop-icon.png
 repo: http://github.com/darwin/drydrop
 support: http://github.com/darwin/drydrop/issues
-download: 
-version: To be released
+downloadtitle: Install v0.2
+download: http://github.com/darwin/drydrop
+downloadboxwidth: 120px
+donate:
+subdownload: 
+subdownloadlink:
+mainshot: /shared/img/drydrop-mainshot.png
+mainshotfull: /shared/img/drydrop-mainshot-full.png
+overlaysx: 1606px
+overlaysy: 738px
+overlaycx: 25px
+overlaycy: 10px
 ---
 
-Dropping static web sites on Google App Engine with love (for git lovers)
+<div class="advertisement">
+	<div class="plug">Recommended reading:</div>
+	<a href="http://www.amazon.com/gp/product/0596009259?ie=UTF8&tag=firepython-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=0596009259"><img border="0" src="/shared/img/amazon/41QbTFszYTL._SL110_.jpg"></a><img src="http://www.assoc-amazon.com/e/ir?t=firepython-20&l=as2&o=1&a=0596009259" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+	
+	<a href="http://www.amazon.com/gp/product/0596158068?ie=UTF8&tag=firepython-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=0596158068"><img border="0" src="/shared/img/amazon/41Mu5RWG-1L._SL110_.jpg"></a><img src="http://www.assoc-amazon.com/e/ir?t=firepython-20&l=as2&o=1&a=0596158068" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
 
-* DRY principle
-* zero cost (thanks to [Google App Engine][appengine])
-* zero maintenance (thanks to [GitHub][github])
-* NO Python knowledge needed
+	<a href="http://www.amazon.com/gp/product/0596007973?ie=UTF8&tag=firepython-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=0596007973"><img border="0" src="/shared/img/amazon/41S-nPeF89L._SL110_.jpg"></a><img src="http://www.assoc-amazon.com/e/ir?t=firepython-20&l=as2&o=1&a=0596007973" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+	
+	<a href="http://www.amazon.com/gp/product/1430210478?ie=UTF8&tag=firepython-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=1430210478"><img border="0" src="/shared/img/amazon/516STCBRnOL._SL110_.jpg"></a><img src="http://www.assoc-amazon.com/e/ir?t=firepython-20&l=as2&o=1&a=1430210478" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+	
+	<a href="http://www.amazon.com/gp/product/059652272X?ie=UTF8&tag=firepython-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=059652272X"><img border="0" src="/shared/img/amazon/513CiT5BtYL._SL110_.jpg"></a><img src="http://www.assoc-amazon.com/e/ir?t=firepython-20&l=as2&o=1&a=059652272X" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+	
+	<div class="offer"><a href="mailto:antonin@binaryage.com">advertise here</a></div>
+</div>
+<script type="text/javascript" src="http://www.assoc-amazon.com/s/link-enhancer?tag=firepython-20&o=1">
+</script>
 
-# How it works
+## Features
 
-- upload your static files to github project (easy step)
-- generate drydrop scaffold site and deploy it to GAE (easy step)
-- setup post commit hook in github project pointing to your drydrop site (easy step)
+#### Host your static site on Google App Engine and update it by pushing to GitHub.
 
-Since then, every change pushed to github project will automatically propagate to your static site hosted by Google.
+* DRY principle (set it up and forget)
+* Zero cost (thanks to [Google App Engine][appengine])
+* Zero maintenance (thanks to [GitHub][github])
+* No Python knowledge needed, but you need to know basics of Git
 
-# Current State
+### How it works
 
-In planning, but some code exists. I need this for myself, so expect first version soon.
+TODO
 
-# Support
+## Installation
 
-### Bugs / Feature requests
+- upload your static files as GitHub repository (easy step)
+- generate DryDrop scaffold site and deploy it to GAE (easy step)
+- setup post commit hook in GitHub repo pointing to your DryDrop site (easy step)
 
-* [The support forum is here][support].
+#### Since then, every change pushed to github project will automatically propagate to your static site hosted by Google.
 
-### Issues filled in GAE
+## History
 
-* [Hook into admin section][gae-admin-hook]
+  * **v0.2** (09.08.2009) 
+	* initial public version
 
-# History
-
-  * v0.1 (to be released) 
-    * public alpha release
+  * **v0.1** (internal alpha) 
 
 [appengine]: http://code.google.com/appengine
 [github]: http://github.com
