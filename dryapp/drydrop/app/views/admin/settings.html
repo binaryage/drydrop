@@ -29,27 +29,30 @@
     <td id="config" class="edit">{{ settings.config or "" }}</td>
   </tr>
 </table>
-<div class="form-section">
-  	<span>GitHub authorization <i>for case you a have private repo</i></span><span class="help-button">more info</span>
-	<div class="help-text">
-		<p>
-			Instead of telling your password, you have to look up your authorization token. It should be visible in your GitHub account page.<br/>
-			<a href="http://github.com/blog/170-token-authentication"><img src="/drydrop-static/images/github-token.png"></a><br/>
-			Read <a href="http://github.com/blog/170-token-authentication">this blogpost</a> to get better idea.<br/>
-		</p>
-		<p>
-			Leave fields blank in case your repo is public.
-		</p>
+<span>In case you have <b>private repo</b>, you need to setup <a href="#" onclick="$('#auth-section').show(); $(this).parent().hide()"><b>GitHub authorization</b></a>.</span>
+<div id="auth-section" style="display: none">
+	<div class="form-section">
+	  	<span>GitHub Authorization <i>for private repo</i></span><span class="help-button">more info</span>
+		<div class="help-text">
+			<p>
+				Instead of telling your password, you have to look up your authorization token. It should be visible in your GitHub account page.<br/>
+				<a href="http://github.com/blog/170-token-authentication"><img src="/drydrop-static/images/github-token.png"></a><br/>
+				Read <a href="http://github.com/blog/170-token-authentication">this blogpost</a> to get better idea.<br/>
+			</p>
+			<p>
+				Leave fields blank in case your repo is public.
+			</p>
+		</div>
 	</div>
+	<table class="form">
+	  <tr id="github-login-field" class="field">
+	    <td class="label">Login is </td>
+	    <td id="github_login" class="edit">{{ settings.github_login or "" }}</td>
+	  </tr>
+	  <tr id="github-token-field" class="field">
+	    <td class="label">Token is </td>
+	    <td id="github_token" class="edit">{{ settings.github_token or "" }}</td>
+	  </tr>
+	</table>
 </div>
-<table class="form">
-  <tr id="github-login-field" class="field">
-    <td class="label">Login is </td>
-    <td id="github_login" class="edit">{{ settings.github_login or "" }}</td>
-  </tr>
-  <tr id="github-token-field" class="field">
-    <td class="label">Token is </td>
-    <td id="github_token" class="edit">{{ settings.github_token or "" }}</td>
-  </tr>
-</table>
 {% endblock %}
