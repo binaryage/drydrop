@@ -13,7 +13,7 @@ class HookController(BaseController):
     # see http://github.com/guides/post-receive-hooks
     def github(self):
         payload = self.params.get('payload', None)
-        logging.debug("Received github hook: %s", payload)
+        logging.info("Received github hook: %s", payload)
         if not payload:
             return
         
