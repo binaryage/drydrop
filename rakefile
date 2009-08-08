@@ -17,7 +17,6 @@ WIN = PLATFORM =~ /win32/
 NIX = !(OSX || WIN)
 
 APPSERVER_OPTS = "" #"--debug --debug_imports"
-APPSERVER_OPTS_WOID_LOCAL = "-a 192.168.5.2"
 APPCFG_OPTS = ""
 
 DRYAPP_TERM_COLOR = [10000,0,10000]
@@ -234,10 +233,10 @@ def find_terminal_tab(color)
   nil
 end
 
-def app_server_cmd(special=false)
+def app_server_cmd()
   server = 'dev_appserver.py'
   server = "#{GAEEXEC}/#{server}" if File.exists?(GAEEXEC)
-  opts = special ? APPSERVER_OPTS_WOID_LOCAL : APPSERVER_OPTS
+  opts = APPSERVER_OPTS
   "#{server} #{opts} --datastore_path=#{DATASTORE} --history_path=#{HISTORY} #{DRYAPP}"
 end
 
@@ -247,10 +246,10 @@ def appcfg_cmd(command='')
   "#{server} #{APPCFG_OPTS} #{command}"
 end
 
-def run_dryapp(special=false)
+def run_dryapp()
   sys("mkdir \"#{TMP}\" 1>&2") unless File.exists?(TMP)
   puts 'Running DryApp (server-side) ...'
-  run_in_terminal("cd #{DRYAPP} && clear && #{app_server_cmd(special)}", 'DryApp', DRYAPP_TERM_COLOR)
+  run_in_terminal("cd #{DRYAPP} && clear && #{app_server_cmd}", 'DryApp', DRYAPP_TERM_COLOR)
 end
 
 def clear_datastore()
