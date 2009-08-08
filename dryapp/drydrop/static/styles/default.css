@@ -3,16 +3,16 @@ html {
     font-size: 130%;
 }
 
+body {
+    margin: 20px;
+}
+
 strong, em, b {
     font-weight: bold;
 }
 
 a, a:visited, a:hover {
     color: #00d;
-}
-
-#hd a, #hd a:visited, #hd a:hover {
-    color: #00f;
 }
 
 h1 {
@@ -55,17 +55,25 @@ li {
 }
 
 #logo {
-    font-size: 200%;
+    position: relative;
+    top: -10px;
+    font-size: 32px;
     font-weight: bold;
+    font-family: "Helvetica Neue", Helvetica;
+    margin-bottom: 20px;
 }
 
+#logo img {
+    position: relative;
+    top: 8px;
+}
 #logo .motto {
     font-size: 50%;
     margin-left: 6px;
     font-weight: normal;
-    position: relative;
-    top: 5px;
-    color: gray;
+    position: absolute;
+    top: 35px;
+    left: 35px;
 }
 
 #logo a {

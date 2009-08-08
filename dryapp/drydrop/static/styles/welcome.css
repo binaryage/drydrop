@@ -14,6 +14,11 @@ div.welcome {
     width: 800px;
 }
 
-div.welcome p {
+p {
     margin-top: 10px;
+}
+
+div.homepage {
+    margin-top: 50px;
+    width: 800px;
 }
