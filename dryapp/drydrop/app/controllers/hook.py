@@ -24,7 +24,7 @@ class HookController(BaseController):
         for commit in data['commits']:
             author = commit['author']['email']
             try:
-                info += "%s: <a href=\"%s\">%s</a><br/>" % (author, commit['url'], commit['message'].split("\n")[0] or commit['id'])
+                info += "<a target=\"_blank\" href=\"%s\">%s</a>: %s<br/>" % (commit['url'], commit['id'][:6], commit['message'].split("\n")[0])
             except:
                 info += "?<br/>"
             try:
@@ -59,7 +59,7 @@ class HookController(BaseController):
             pass
         
         authors = string.join(names, ',')
-        log_event("Received github hook for commits <a href=\"%s\">%s</a>..<a href=\"%s\">%s</a> (%d changes)" % (before_url, before, after_url, after, len(paths)), 0, authors, info)
+        log_event("Received github hook for commits <a target=\"_blank\" href=\"%s\">%s</a>..<a target=\"_blank\" href=\"%s\">%s</a> (%d changes)" % (before_url, before, after_url, after, len(paths)), 0, authors, info)
 
         repo_url = data['repository']['url'] # like http://github.com/darwin/drydrop
         branch = data['ref'].split('/').pop() # takes 'master' from 'refs/heads/master'
@@ -77,7 +77,7 @@ class HookController(BaseController):
         
         # safety check
         if not source_url.startswith(root_url):
-            log_event("<code>%s</code><br/>is not affected by incoming changeset for<br/><code>%s</code>" % (source_url, root_url), 0, authors)
+            log_event("<a target=\"_blank\" href=\"%s\"><code>%s</code></a><br/>is not affected by incoming changeset for<br/><a target=\"_blank\" href=\"%s\"><code>%s</code></a>" % (source_url, source_url, root_url, root_url), 0, authors)
             logging.info("Source url '%s' is not affected by incoming changeset for '%s'", source_url, root_url)
             return
         
