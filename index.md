@@ -13,8 +13,8 @@ subdownload:
 subdownloadlink:
 mainshot: /shared/img/drydrop-mainshot.png
 mainshotfull: /shared/img/drydrop-mainshot-full.png
-overlaysx: 1606px
-overlaysy: 738px
+overlaysx: 1109px
+overlaysy: 856px
 overlaycx: 25px
 overlaycy: 10px
 ---
@@ -47,7 +47,11 @@ overlaycy: 10px
 
 ### How it works
 
-TODO
+It is simple. Let's say you have GitHub repo called 'my-static-site' and you want to host it on App Engine. DryDrop is an application ready to be uploaded as your App Engine project. When you upload it first time, you should setup post-receive hook in your GitHub repo to point to your App Engine project, so every change you push to GitHub can be reflected on your App Engine site immediately.
+
+Let's say someone visits your App Engine site. DryDrop has a simple cache. If requested page is not in the cache, DryDrop will try to fetch it from GitHub, store it in the cache and then serve it. Next time the same URL is requested, it will be served directly from DryDrop cache.
+
+Let's say you did some changes to your files. In the moment you push file changes into GitHub, post-receive hook will ping DryDrop and that invalidates modified files in the cache. Next request will trigger downloading of fresh files from GitHub.
 
 ## Installation
 
@@ -56,6 +60,40 @@ TODO
 - setup post commit hook in GitHub repo pointing to your DryDrop site (easy step)
 
 #### Since then, every change pushed to github project will automatically propagate to your static site hosted by Google.
+
+### Step 1: prepare your GitHub repository
+
+You already know how to work with GitHub, right? 
+
+Let's say you are user `darwin` and created repository `web-app-theme`.
+So, you repository's content lives at <a href="http://github.com/darwin/web-app-theme/tree/master">http://github.com/darwin/web-app-theme/tree/master</a>
+
+### Step 2: create your App Engine project and upload DryDrop
+
+I've created project called `drydropsample` like this:
+
+<a href="/shared/img/drydrop-create-app.png"><img src="/shared/img/drydrop-create-app.png" width="300"></a>
+
+Then I have to download latest DryDrop and upload it to my project:
+
+    git clone git://github.com/darwin/drydrop.git
+	cd drydrop
+	rake upload project=drydropsample
+	
+Of course, don't forget to replace project name with name of your GAE project.
+
+
+
+## FAQ
+
+#### Do I need to understand Python to use this?
+> Not at all. You just need to know how to use Git and how to create App Engine project on appspot.com.
+
+#### How does DryDrop compare to <a href="http://pages.github.com">GitHub Pages</a>?
+> GitHub Pages is solving same need of "live-hosting of GitHub repository as a static site on custom domain". I've started this project before GitHub Pages was announced and GitHub pages made it somewhat obsolete, especially because they support <a href="http://github.com/mojombo/jekyll/tree/master">jekyll</a>. But I still see two valid use cases: 1) you have public repo and you don't want to pay for CNAME support on GitHub 2) GitHub had some performance issues recently, App Engine works more reliably (this may be fixed in the future)
+
+#### How can DryDrop serve files from GitHub?
+> It is simple. DryDrop has a simple cache. If requested page is not in the cache, DryDrop will try to fetch it from GitHub, store it in the cache and then serve it. Next time the same URL is requested, it will be served directly from DryDrop cache. Let's say you did some changes to your files. In the moment you push file changes into GitHub, post-receive hook will call DryDrop and DryDrop will invalidate modified files in the cache. 
 
 ## History
 
