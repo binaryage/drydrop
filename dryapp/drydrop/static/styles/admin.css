@@ -193,3 +193,17 @@
     text-decoration: none;
     cursor: default;
 }
+
+.info-box {
+    display: none;
+    margin-left: 20px;
+    margin-top: 4px;
+    border-top: 1px dashed #eee;
+}
+
+.more-button {
+    font-weight: bold;
+    cursor: pointer;
+    color: #00c;
+    margin-left: 6px;
+}

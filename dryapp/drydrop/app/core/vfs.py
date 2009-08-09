@@ -34,7 +34,7 @@ class VFS(object):
             except:
                 length = 0
             if length>0:
-                log_event("Caching resource '%s' (%d bytes)" % (path, length))
+                log_event("Caching resource <code>%s</code> (%d bytes)" % (path, length))
             logging.debug("VFS: caching resource %s (%d bytes)", path, length)
             resource.save()
         try:

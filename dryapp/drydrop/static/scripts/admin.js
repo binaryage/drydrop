@@ -201,12 +201,20 @@ var dashboard = {
         var g = ['<table>'];
         for (var i=0; i < events.length; i++) {
             var e = events[i];
+			var hasInfo = e.info!='None';
+			if (!hasInfo) {
+				var more = "";
+				var infoBox = "";
+			} else {
+				var more = '<span onclick="$(this).next(\'.info-box\').toggle()" class="more-button">more ...</span>';
+				var infoBox = '<div class="info-box">'+e.info+'</div>';
+			}
             g.push('<tr>');
             g.push('<td class="author">'+e.author+'</td>');
             g.push('<td class="date">'+humane_date(e.date).toLowerCase()+'</td>');
             g.push('</tr>');
             g.push('<tr class="second">');
-            g.push('<td colspan="2" class="action">'+e.action+'</td>');
+            g.push('<td colspan="2" class="action">'+e.action+more+infoBox+'</td>');
             g.push('</tr>');
         };
         g.push('</table>');

@@ -20,8 +20,13 @@ class HookController(BaseController):
         data = json_parse(payload)
         paths = []
         names = []
+        info = ""
         for commit in data['commits']:
             author = commit['author']['email']
+            try:
+                info += "%s: <a href=\"%s\">%s</a><br/>" % (author, commit['url'], commit['message'].split("\n")[0] or commit['id'])
+            except:
+                info += "?<br/>"
             try:
                 names.index(author)
             except:
@@ -39,8 +44,22 @@ class HookController(BaseController):
             except:
                 pass
                 
+        before_url = "%s/commit/%s" % (data['repository']['url'], data['before'])
+        after_url = "%s/commit/%s" % (data['repository']['url'], data['after'])
+        before = "?"
+        try:
+            before = data['before'][:6]
+        except:
+            pass
+
+        after = "?"
+        try:
+            after = data['after'][:6]
+        except:
+            pass
+        
         authors = string.join(names, ',')
-        log_event("Received github hook for commit %s (%d changes)" % (data['after'], len(paths)), 0, authors)
+        log_event("Received github hook for commits <a href=\"%s\">%s</a>..<a href=\"%s\">%s</a> (%d changes)" % (before_url, before, after_url, after, len(paths)), 0, authors, info)
 
         repo_url = data['repository']['url'] # like http://github.com/darwin/drydrop
         branch = data['ref'].split('/').pop() # takes 'master' from 'refs/heads/master'
@@ -58,8 +77,8 @@ class HookController(BaseController):
         
         # safety check
         if not source_url.startswith(root_url):
-            log_event("Source url '%s' is not affected by incoming changeset url '%s'" % (source_url, root_url), 0, authors)
-            logging.info("Source url '%s' is not affected by incoming changeset url '%s'", source_url, root_url)
+            log_event("<code>%s</code><br/>is not affected by incoming changeset for<br/><code>%s</code>" % (source_url, root_url), 0, authors)
+            logging.info("Source url '%s' is not affected by incoming changeset for '%s'", source_url, root_url)
             return
         
         vfs = self.handler.vfs
