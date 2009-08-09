@@ -58,8 +58,11 @@ class HookController(BaseController):
         except:
             pass
         
+        plural = ''
+        if len(paths)!=1:
+            plural = 's'
         authors = string.join(names, ',')
-        log_event("Received github hook for commits <a target=\"_blank\" href=\"%s\">%s</a>..<a target=\"_blank\" href=\"%s\">%s</a> (%d changes)" % (before_url, before, after_url, after, len(paths)), 0, authors, info)
+        log_event("Received github hook for commits <a target=\"_blank\" href=\"%s\">%s</a>..<a target=\"_blank\" href=\"%s\">%s</a> (%d change%s)" % (before_url, before, after_url, after, len(paths), plural), 0, authors, info)
 
         repo_url = data['repository']['url'] # like http://github.com/darwin/drydrop
         branch = data['ref'].split('/').pop() # takes 'master' from 'refs/heads/master'
