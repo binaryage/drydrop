@@ -347,11 +347,13 @@ def main():
         urlfetch.fetch = new_fetch
 
     logging.getLogger().setLevel(logging.DEBUG)
-    from firepython.middleware import FirePythonWSGI
-    if LOCAL or users.is_current_user_admin():
-        application = FirePythonWSGI(Application())
-    else:
-        application = Application()
+    application = Application()
+    try:
+        from firepython.middleware import FirePythonWSGI
+        if LOCAL or users.is_current_user_admin():
+            application = FirePythonWSGI(application)
+    except:
+        pass
     run_wsgi_app(application)
 
 if __name__ == "__main__":
