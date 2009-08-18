@@ -21,19 +21,19 @@ overlaycy: 10px
 
 <div class="advertisement">
 	<div class="plug">Recommended reading:</div>
-	<a href="http://www.amazon.com/gp/product/0596009259?ie=UTF8&tag=firepython-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=0596009259"><img border="0" src="/shared/img/amazon/41QbTFszYTL._SL110_.jpg"></a><img src="http://www.assoc-amazon.com/e/ir?t=firepython-20&l=as2&o=1&a=0596009259" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+	<a href="http://www.amazon.com/gp/product/1430218312?ie=UTF8&tag=drydrop-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=1430218312"><img border="0" src="/shared/img/amazon/413rUR90JdL._SL110_.jpg"></a><img src="http://www.assoc-amazon.com/e/ir?t=drydrop-20&l=as2&o=1&a=1430218312" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
 	
-	<a href="http://www.amazon.com/gp/product/0596158068?ie=UTF8&tag=firepython-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=0596158068"><img border="0" src="/shared/img/amazon/41Mu5RWG-1L._SL110_.jpg"></a><img src="http://www.assoc-amazon.com/e/ir?t=firepython-20&l=as2&o=1&a=0596158068" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+	<a href="http://www.amazon.com/gp/product/059680069X?ie=UTF8&tag=drydrop-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=059680069X"><img border="0" src="/shared/img/amazon/41879ej%2B%2BKL._SL110_.jpg"></a><img src="http://www.assoc-amazon.com/e/ir?t=drydrop-20&l=as2&o=1&a=059680069X" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
 
-	<a href="http://www.amazon.com/gp/product/0596007973?ie=UTF8&tag=firepython-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=0596007973"><img border="0" src="/shared/img/amazon/41S-nPeF89L._SL110_.jpg"></a><img src="http://www.assoc-amazon.com/e/ir?t=firepython-20&l=as2&o=1&a=0596007973" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+	<a href="http://www.amazon.com/gp/product/0596101996?ie=UTF8&tag=drydrop-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=0596101996"><img border="0" src="/shared/img/amazon/41IVmVYhRNL._SL110_.jpg"></a><img src="http://www.assoc-amazon.com/e/ir?t=drydrop-20&l=as2&o=1&a=0596101996" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+
+	<a href="http://www.amazon.com/gp/product/0596527330?ie=UTF8&tag=drydrop-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=0596527330"><img border="0" src="/shared/img/amazon/41JdIb%2BJlvL._SL110_.jpg"></a><img src="http://www.assoc-amazon.com/e/ir?t=drydrop-20&l=as2&o=1&a=0596527330" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
 	
-	<a href="http://www.amazon.com/gp/product/1430210478?ie=UTF8&tag=firepython-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=1430210478"><img border="0" src="/shared/img/amazon/516STCBRnOL._SL110_.jpg"></a><img src="http://www.assoc-amazon.com/e/ir?t=firepython-20&l=as2&o=1&a=1430210478" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-	
-	<a href="http://www.amazon.com/gp/product/059652272X?ie=UTF8&tag=firepython-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=059652272X"><img border="0" src="/shared/img/amazon/513CiT5BtYL._SL110_.jpg"></a><img src="http://www.assoc-amazon.com/e/ir?t=firepython-20&l=as2&o=1&a=059652272X" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+	<a href="http://www.amazon.com/gp/product/0321344758?ie=UTF8&tag=drydrop-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=0321344758"><img border="0" src="/shared/img/amazon/51W8l2Zy3WL._SL110_.jpg"></a><img src="http://www.assoc-amazon.com/e/ir?t=drydrop-20&l=as2&o=1&a=0321344758" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
 	
 	<div class="offer"><a href="mailto:antonin@binaryage.com">advertise here</a></div>
 </div>
-<script type="text/javascript" src="http://www.assoc-amazon.com/s/link-enhancer?tag=firepython-20&o=1">
+<script type="text/javascript" src="http://www.assoc-amazon.com/s/link-enhancer?tag=drydrop-20&o=1">
 </script>
 
 ## Features
