@@ -40,6 +40,8 @@ overlaycy: 10px
 
 #### Host your static site on Google App Engine and update it by pushing to GitHub.
 
+DryDrop is a tool that lets you host your static site on Google App Engine and update it by pushing to GitHub. Thanks to GitHub post-receive hooks your App Engine site can be updated automatically when you push new content.
+
 * DRY principle (set it up and forget)
 * Zero cost (thanks to [Google App Engine][appengine])
 * Zero maintenance (thanks to [GitHub][github])
@@ -47,7 +49,7 @@ overlaycy: 10px
 
 ### How it works
 
-It is simple. Let's say you have GitHub repo containing static web site and you want to host it on App Engine. DryDrop is an application ready to be uploaded as your App Engine project. When you upload it first time, you should setup post-receive hook in your GitHub repo to point to your App Engine project, so every change you push to GitHub can be reflected on your App Engine site immediately.
+It is simple. Let's say you have GitHub repo containing static web site and you want to host it on App Engine. DryDrop is an application ready to be uploaded as your App Engine project. After you upload it first time, you should setup post-receive hook in your GitHub repo to point to your App Engine project, so every change you push to GitHub may be reflected on your App Engine site immediately.
 
 Let's say someone visits your App Engine site. DryDrop has a simple cache. If requested page is not in the cache, DryDrop will try to fetch it from GitHub, store it in the cache and then serve it. Next time the same URL is requested, it will be served directly from DryDrop cache.
 
@@ -164,6 +166,15 @@ Post-receive hook was triggered as you can see in the events list.
 
   * **v0.1** (13.12.2008) 
 	* initial experimental implementation
+	
+## Links
+
+### Articles
+
+  * [DryDrop mentioned on Google App Engine Blog](http://googleappengine.blogspot.com/2009/08/recent-happenings-ticktock-parallel.html)
+
+### Related Sites
+  * [GitHub][github] - social code hosting
 
 [appengine]: http://code.google.com/appengine
 [github]: http://github.com
