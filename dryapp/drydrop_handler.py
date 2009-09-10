@@ -142,6 +142,12 @@ class AppHandler(webapp.RequestHandler):
         for h in header_list:
             parts = h.split(':')
             self.response.headers.add_header(parts.pop(0), string.join(parts, ':'))
+
+        # If the request doesn't have an extension, return text/html
+        basename, extension = os.path.splitext(request_path)
+        if not extension:
+          self.response.headers['Content-Type'] = "text/html"
+
         self.response.set_status(status_code, status_message)
         self.response.out.write(body)
         return True
