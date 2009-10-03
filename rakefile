@@ -233,10 +233,10 @@ def find_terminal_tab(color)
   nil
 end
 
-def app_server_cmd()
+def app_server_cmd(opts=nil)
   server = 'dev_appserver.py'
   server = "#{GAEEXEC}/#{server}" if File.exists?(GAEEXEC)
-  opts = APPSERVER_OPTS
+  opts = opts || APPSERVER_OPTS
   "#{server} #{opts} --datastore_path=#{DATASTORE} --history_path=#{HISTORY} #{DRYAPP}"
 end
 
