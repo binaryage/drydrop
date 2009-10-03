@@ -1,5 +1,6 @@
 # -*- mode: python; coding: utf-8 -*-
 import os
+import re
 import os.path
 import logging
 import datetime
@@ -125,4 +126,10 @@ class GAEVFS(VFS):
         response = urlfetch.fetch(url, follow_redirects=False)
         if response.status_code!=200:
             return None
+        # HACK: if we get 200 with section referring to status404 treat it as 404, this is bug on github side
+        #       see http://github.com/darwin/drydrop/issues/#issue/2 for more info
+        if re.search(r'id="error" class="status404"', response.content):
+            logging.warning("got bogus 404 response for %s", url)
+            return None
+
         return response.content
