@@ -286,7 +286,7 @@ class AppHandler(webapp.RequestHandler):
                         # need to dispatch our stock 404 response
                         base_controller = self.get_base_controller()
                         try:
-                            base_controller.error(404, 'File "%s" Not Found' % self.request.path)        
+                            base_controller.notfound(404, 'File "%s" Not Found' % self.request.path)        
                         except PageError:
                             pass
         

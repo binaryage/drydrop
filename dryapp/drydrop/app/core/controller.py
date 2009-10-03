@@ -94,6 +94,13 @@ class AbstractController(object):
         self.response.out.write("<html><head><meta http-equiv=\"refresh\" content=\"0;url=%s\"></head><body></body></html>" % (url,))
         self.emited = True
         raise PageRedirect, (url)
+
+    def notfound(self, code, message = None):
+        self.response.set_status(code, str(message))
+        if message is None: message = Response.http_status_message(code)
+        self.view['message'] = message
+        self.view['code'] = code
+        self.render_view('system/notfound.html')
     
     def error(self, code, message = None):
         self.response.set_status(code, str(message))
