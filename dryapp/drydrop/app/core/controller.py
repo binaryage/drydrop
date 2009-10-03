@@ -101,7 +101,6 @@ class AbstractController(object):
         self.view['message'] = message
         self.view['code'] = code
         self.render_view('system/error.html')
-        raise PageError, (code, message)
 
 class CookieController(AbstractController):
     def set_cookie(self, key, value='', max_age=None,

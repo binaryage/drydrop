@@ -261,34 +261,41 @@ class AppHandler(webapp.RequestHandler):
 
     def route(self):
         from drydrop.app.core.appceptions import PageError
+
+        try:
+            # load self.settings
+            self.load_or_init_settings()
+
+            # init self.vfs
+            self.init_vfs()
+
+            # read site.yaml
+            config_source = self.read_config_source_or_provide_default_one()
+
+            # perform dispatch on meta server and finish if response was successfull
+            dispatched = self.meta_dispatch(self.settings.source, config_source, self.request.path, self.request.headers, self.request.environ)
+
+            # perform system dispatch (/admin section, welcome page, etc.)
+            if not dispatched: 
+                res = self.system_dispatch()
+                if res == False:
+                    # prepare 404 response
+                    # TODO: fake headers and environ
+                    dispatched404 = self.meta_dispatch(self.settings.source, config_source, "/404.html", self.request.headers, self.request.environ)
+                    if not dispatched404:
+                        # need to dispatch our stock 404 response
+                        base_controller = self.get_base_controller()
+                        try:
+                            base_controller.error(404, 'File "%s" Not Found' % self.request.path)        
+                        except PageError:
+                            pass
         
-        # load self.settings
-        self.load_or_init_settings()
+        except Exception, e:
+            # need to dispatch error response
+            base_controller = self.get_base_controller()
+            base_controller.error(404, 'Unable to process the page<br/>%s' % e)
 
-        # init self.vfs
-        self.init_vfs()
-        
-        # read site.yaml
-        config_source = self.read_config_source_or_provide_default_one()
 
-        # perform dispatch on meta server and finish if response was successfull
-        dispatched = self.meta_dispatch(self.settings.source, config_source, self.request.path, self.request.headers, self.request.environ)
-
-        # perform system dispatch (/admin section, welcome page, etc.)
-        if not dispatched: 
-            res = self.system_dispatch()
-            if res == False:
-                # prepare 404 response
-                # TODO: fake headers and environ
-                dispatched404 = self.meta_dispatch(self.settings.source, config_source, "/404.html", self.request.headers, self.request.environ)
-                if not dispatched404:
-                    # need to dispatch our stock 404 response
-                    base_controller = self.get_base_controller()
-                    try:
-                        base_controller.error(404, 'File "%s" Not Found' % self.request.path)        
-                    except PageError:
-                        pass
-                        
 class Application(object):
 
     def __call__(self, environ, start_response):

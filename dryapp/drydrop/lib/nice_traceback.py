@@ -4,7 +4,6 @@ import re
 import sys
 import os
 from traceback import *
-from drydrop_handler import DEVELOPMENT_PROJECT_ROOT
 
 # generate nice traceback with optional textmate links
 def format_nice_traceback(traceback):

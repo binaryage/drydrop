@@ -9,7 +9,16 @@
   </style>
 </head>
 <body id="error">
-  <h1>{{code}} - {{message}}</h1>
-  <small>unfortunately, something went wrong ...</small>
+  <h2>{{code}} - {{message}}</h2>
+  <small>I'm sorry for inconvenience</small>
+  <br>
+  <br>
+  <h3>What you can do now?</h3>
+  <p>Remember, what have you done before it broke?</p>
+  <p>You have probably syntax error in your custom site.yaml. Please double check it and possibly fix it. Or remove your custom site.yaml altogether.</p>
+  <p>Normally you would clear cached resources from admin section, but at this point, <a href="/admin">the admin section</a> is probably unavailable.<br>Go to <a href="https://appengine.google.com">https://appengine.google.com</a>, select this GAE project and navigate to "Data Viewer". Switch to Resource entity and delete all cached resources. Then try to refresh this page again.</p>
+  <br><br>
+  <h3>Still having troubles?</h3>
+  <p>First try to upload latest <a href="http://drydrop.binaryage.com">drydrop sources</a> and check again. In case it does not help contact me by filling <a href="http://github.com/darwin/drydrop/issues">an issue</a>.</p>
 </body>
 </html>
