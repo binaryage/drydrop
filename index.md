@@ -1,14 +1,13 @@
 ---
-title: DryDrop
-subtitle: deploy GAE sites by pushing to GitHub
+title: DryDrop = update App Engine site from GitHub
+product_title: DryDrop
+subtitle: update App Engine site by pushing to GitHub
 layout: product
 icon: /shared/img/drydrop-icon.png
 repo: http://github.com/darwin/drydrop
 support: http://github.com/darwin/drydrop/issues
 downloadtitle: Install v0.2
 download: http://github.com/darwin/drydrop
-downloadboxwidth: 120px
-donate:
 subdownload: 
 subdownloadlink:
 mainshot: /shared/img/drydrop-mainshot.png
@@ -17,24 +16,10 @@ overlaysx: 1109px
 overlaysy: 856px
 overlaycx: 25px
 overlaycy: 10px
+retweet: 1
+facebook: 1
+digg: 1
 ---
-
-<div class="advertisement">
-	<div class="plug">Recommended reading:</div>
-	<a href="http://www.amazon.com/gp/product/1430218312?ie=UTF8&tag=drydrop-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=1430218312"><img border="0" src="/shared/img/amazon/413rUR90JdL._SL110_.jpg"></a><img src="http://www.assoc-amazon.com/e/ir?t=drydrop-20&l=as2&o=1&a=1430218312" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-	
-	<a href="http://www.amazon.com/gp/product/059680069X?ie=UTF8&tag=drydrop-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=059680069X"><img border="0" src="/shared/img/amazon/41879ej%2B%2BKL._SL110_.jpg"></a><img src="http://www.assoc-amazon.com/e/ir?t=drydrop-20&l=as2&o=1&a=059680069X" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-
-	<a href="http://www.amazon.com/gp/product/0596101996?ie=UTF8&tag=drydrop-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=0596101996"><img border="0" src="/shared/img/amazon/41IVmVYhRNL._SL110_.jpg"></a><img src="http://www.assoc-amazon.com/e/ir?t=drydrop-20&l=as2&o=1&a=0596101996" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-
-	<a href="http://www.amazon.com/gp/product/0596527330?ie=UTF8&tag=drydrop-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=0596527330"><img border="0" src="/shared/img/amazon/41JdIb%2BJlvL._SL110_.jpg"></a><img src="http://www.assoc-amazon.com/e/ir?t=drydrop-20&l=as2&o=1&a=0596527330" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-	
-	<a href="http://www.amazon.com/gp/product/0321344758?ie=UTF8&tag=drydrop-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=0321344758"><img border="0" src="/shared/img/amazon/51W8l2Zy3WL._SL110_.jpg"></a><img src="http://www.assoc-amazon.com/e/ir?t=drydrop-20&l=as2&o=1&a=0321344758" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-	
-	<div class="offer"><a href="mailto:antonin@binaryage.com">advertise here</a></div>
-</div>
-<script type="text/javascript" src="http://www.assoc-amazon.com/s/link-enhancer?tag=drydrop-20&o=1">
-</script>
 
 ## Features
 
