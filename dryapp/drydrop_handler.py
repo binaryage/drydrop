@@ -83,7 +83,9 @@ def ReadDataFile(path, vfs):
     if resource.content is None:
         logging.warning('Missing file "%s"', path)
         return httplib.NOT_FOUND, ""
-    return httplib.OK, resource.content
+        
+    # Return the content and timestamp
+    return httplib.OK, resource.content, resource.created_on
 
 class AppHandler(webapp.RequestHandler):
     
@@ -111,6 +113,8 @@ class AppHandler(webapp.RequestHandler):
         from drydrop.app.meta.server import ParseAppConfig, MatcherDispatcher, RewriteResponse, cStringIO
         import string
         import logging
+        
+        HTTP_date = ''
 
         logging.debug("Meta: dispatching %s", request_path)
         
@@ -141,7 +145,20 @@ class AppHandler(webapp.RequestHandler):
             del self.response.headers[k]
         for h in header_list:
             parts = h.split(':')
-            self.response.headers.add_header(parts.pop(0), string.join(parts, ':'))
+            header_name = parts.pop(0)
+            header_value = string.join(parts, ':')
+            self.response.headers.add_header(header_name, header_value)
+            
+            # Save the Last-Modified header
+            if header_name == 'Last-Modified':
+            	HTTP_date = header_value
+
+        # Use the If-Modified-Since header...
+        if 'If-Modified-Since' in request_headers:
+        	if request_headers['If-Modified-Since'].lower().strip() == HTTP_date.lower().strip():
+        		# Return 304 (Not Modified)
+        		self.response.set_status(304, 'Not Modified')
+        		return True
 
         # If the request doesn't have an extension, return text/html
         basename, extension = os.path.splitext(request_path)

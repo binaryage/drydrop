@@ -691,13 +691,18 @@ class FileDispatcher(URLDispatcher):
         c = c + 1
         new_path = part.replace(SPACE_MARKER, ' ')
         full_path = self._path_adjuster.AdjustPath(new_path)
-        status, data = self._read_data_file(full_path, self._vfs)
+        status, data, created_on = self._read_data_file(full_path, self._vfs)
         if status==httplib.OK or c==len(parts):
             content_type = self._static_file_config_matcher.GetMimeType(new_path)
             expiration = self._static_file_config_matcher.GetExpiration(new_path)
 
             outfile.write('Status: %d\r\n' % status)
             outfile.write('Content-Type: %s\r\n' % content_type)
+            
+            # Send a Last-Modified header
+            HTTP_date = created_on.strftime('%a, %d %b %Y %H:%M:%S GMT')
+            outfile.write('Last-Modified: %s\r\n' % HTTP_date)
+            
             if expiration:
               outfile.write('Expires: %s\r\n'
                             % email.Utils.formatdate(time.time() + expiration,
