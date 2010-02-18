@@ -6,7 +6,7 @@ layout: product
 icon: /shared/img/drydrop-icon.png
 repo: http://github.com/darwin/drydrop
 support: http://github.com/darwin/drydrop/issues
-downloadtitle: Install v0.2
+downloadtitle: Install v0.3
 download: http://github.com/darwin/drydrop
 subdownload: 
 subdownloadlink:
@@ -67,9 +67,9 @@ Then make sure you have latest <a href="http://code.google.com/appengine/downloa
 Then you have to download latest DryDrop and upload it to drydropsample project:
 
     git clone git://github.com/darwin/drydrop.git
-	cd drydrop
-	rake upload project=drydropsample
-	
+    cd drydrop
+    rake upload project=drydropsample
+    
 Note: You will be prompted for user name and password for your Google account by appcfg.py script.
 
 My session looked like this:
@@ -143,15 +143,22 @@ Post-receive hook was triggered as you can see in the events list.
 > Maybe, if there is a demand for it.
 
 
-## History
+## Changelog
+
+  * **v0.3** (18.02.2010) 
+    * [[curiousdannii][]] added basic Last-Modified/If-Modified-Since support. It only checks if the dates are identical, not if the resource has a later date.
+    * [[darwin][]] serve simple not-found page for missing pages (can be overriden by /404.html file in your repo)
+    * [[darwin][]] main routing routine is wrapped into try-catch block, better error page explaining possible steps to fix broken drydrop ([closes #1](http://github.com/darwin/drydrop/issues#issue/1))
+    * [[darwin][]] detect bogus status404 pages from github and treat them as real 404 pages ([fixes #2](http://github.com/darwin/drydrop/issues#issue/2))
+    * [[mannkind][]] added "Content-Type: text/html" header for files without an extension (for clean-like URLs without .html)
 
   * **v0.2** (09.08.2009) 
-	* introducing support for GitHub and GitHub hooks
-	* initial public version
+    * [[darwin][]] introducing support for GitHub and GitHub hooks
+    * [[darwin][]] initial public version
 
   * **v0.1** (13.12.2008) 
-	* initial experimental implementation
-	
+    * [[darwin][]] initial experimental implementation
+    
 ## Links
 
 ### Articles
@@ -163,3 +170,6 @@ Post-receive hook was triggered as you can see in the events list.
 
 [appengine]: http://code.google.com/appengine
 [github]: http://github.com
+[darwin]: http://github.com/darwin
+[mannkind]: http://github.com/mannkind
+[curiousdannii]: http://github.com/curiousdannii
