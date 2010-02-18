@@ -156,10 +156,16 @@ class AppHandler(webapp.RequestHandler):
 
         # Use the If-Modified-Since header...
         if 'If-Modified-Since' in request_headers:
-        	if request_headers['If-Modified-Since'].lower().strip() == HTTP_date.lower().strip():
-        		# Return 304 (Not Modified)
-        		self.response.set_status(304, 'Not Modified')
-        		return True
+        	try:
+        		format = '%a, %d %b %Y %H:%M:%S GMT'
+        		request_date = datetime.strptime(request_headers['If-Modified-Since'].strip(), format)
+        		response_date = datetime.strptime(HTTP_date.strip(), format)
+        		if request_date >= response_date:
+        			# Return 304 (Not Modified)
+        			self.response.set_status(304, 'Not Modified')
+        			return True
+        	except ValueError:
+        		pass 
 
         # If the request doesn't have an extension, return text/html
         basename, extension = os.path.splitext(request_path)
