@@ -3,6 +3,7 @@
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
+from datetime import datetime
 import os
 import os.path
 import sys
@@ -82,7 +83,7 @@ def ReadDataFile(path, vfs):
         
     if resource.content is None:
         logging.warning('Missing file "%s"', path)
-        return httplib.NOT_FOUND, ""
+        return httplib.NOT_FOUND, "", datetime.now()
         
     # Return the content and timestamp
     return httplib.OK, resource.content, resource.created_on
