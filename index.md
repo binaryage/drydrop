@@ -163,7 +163,9 @@ Post-receive hook was triggered as you can see in the events list.
 
 ### Articles
 
-  * [DryDrop mentioned on Google App Engine Blog](http://googleappengine.blogspot.com/2009/08/recent-happenings-ticktock-parallel.html)
+  * [DryDrop announced](http://googleappengine.blogspot.com/2009/08/recent-happenings-ticktock-parallel.html) (via [Google App Engine Blog](http://googleappengine.blogspot.com))
+  * [Using Google AppEngine as a “cache” for personal websites (wordpress blogs, wikis)](http://stackoverflow.com/questions/1675715/using-google-appengine-as-a-cache-for-personal-websites-wordpress-blogs-wikis) (via [Stack Overflow](http://stackoverflow.com))
+  * [DryDrop – Manage static web site with GAE and Github](http://www.openalexandria.com/2009/09/drydrop) (via [openalexandria.com](http://www.openalexandria.com))
 
 ### Related Sites
   * [GitHub][github] - social code hosting
