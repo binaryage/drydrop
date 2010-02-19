@@ -146,7 +146,7 @@ Post-receive hook was triggered as you can see in the events list.
 ## Changelog
 
   * **v0.3** (18.02.2010) 
-    * [[curiousdannii][]] added basic Last-Modified/If-Modified-Since support. It only checks if the dates are identical, not if the resource has a later date.
+    * [[curiousdannii][]] added Last-Modified/If-Modified-Since support
     * [[darwin][]] serve simple not-found page for missing pages (can be overriden by /404.html file in your repo)
     * [[darwin][]] main routing routine is wrapped into try-catch block, better error page explaining possible steps to fix broken drydrop ([closes #1](http://github.com/darwin/drydrop/issues#issue/1))
     * [[darwin][]] detect bogus status404 pages from github and treat them as real 404 pages ([fixes #2](http://github.com/darwin/drydrop/issues#issue/2))
