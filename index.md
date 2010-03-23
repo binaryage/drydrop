@@ -1,24 +1,19 @@
 ---
-title: DryDrop = update App Engine site from GitHub
-product_title: DryDrop
-subtitle: update App Engine site by pushing to GitHub
 layout: product
-icon: /shared/img/drydrop-icon.png
-repo: http://github.com/darwin/drydrop
-support: http://github.com/darwin/drydrop/issues
-downloadtitle: Install v0.3
+title: DryDrop updates App Engine site after pushing to GitHub
+product_title: DryDrop
+product_subtitle: update App Engine site by pushing to GitHub
 download: http://github.com/darwin/drydrop
-subdownload: 
-subdownloadlink:
-mainshot: /shared/img/drydrop-mainshot.png
-mainshotfull: /shared/img/drydrop-mainshot-full.png
-overlaysx: 1109px
-overlaysy: 856px
-overlaycx: 25px
-overlaycy: 10px
-retweet: 1
+repo: http://github.com/darwin/drydrop
+downloadtitle: Install 0.3
 facebook: 1
-digg: 1
+retweet: 1
+nothumbs: 1
+shots: [{
+    title: "DryDrop welcome screen",
+    thumb: "/shared/img/drydrop-mainshot.png",
+    full: "/shared/img/drydrop-mainshot-full.png"
+}]
 ---
 
 ## Features
