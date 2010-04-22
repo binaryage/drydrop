@@ -9,6 +9,17 @@ downloadtitle: Install 0.3
 facebook: 1
 retweet: 1
 nothumbs: 1
+buzz: 1
+fbsdk: 1
+ogmeta: {
+    site_name: "BinaryAge website",
+    description: "DryDrop updates App Engine site after pushing to GitHub",
+    email: "antonin@binaryage.com",
+    type: "product",
+    title: "DryDrop",
+    url: "http://drydrop.binaryage.com",
+    image: "http://www.binaryage.com/shared/img/icons/drydrop-64.png"
+}
 shots: [{
     title: "DryDrop welcome screen",
     thumb: "/shared/img/drydrop-mainshot.png",
