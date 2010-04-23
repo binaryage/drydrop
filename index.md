@@ -18,7 +18,7 @@ ogmeta: {
     type: "product",
     title: "DryDrop",
     url: "http://drydrop.binaryage.com",
-    image: "http://www.binaryage.com/shared/img/icons/drydrop-64.png"
+    image: "http://www.binaryage.com/shared/img/icons/drydrop-128.png"
 }
 shots: [{
     title: "DryDrop welcome screen",
