@@ -5,6 +5,10 @@ product_title: DryDrop
 product_subtitle: update App Engine site by pushing to GitHub
 download: http://github.com/darwin/drydrop
 repo: http://github.com/darwin/drydrop
+meta_title: DryDrop updates App Engine site after pushing to GitHub
+meta_keywords: python,github,google,app engine,binaryage,productivity,software,web,development
+meta_description: DryDrop is a tool that lets you host your static site on Google App Engine and update it by pushing to GitHub
+meta_image: http://www.binaryage.com/shared/img/icons/drydrop-256.png
 downloadtitle: Install 0.3
 facebook: 1
 retweet: 1
