@@ -2,22 +2,22 @@
 {% block title %}Settings{% endblock %}
 {% block main %}
 <div class="form-section">
-  	<span>Content Source</span><span class="help-button">more info </span>
-	<div class="help-text">
-		<p>
-			This Google App Engine site pulls source code from GitHub automatically. You have to specify your GitHub repository url in the form:<br/>
-			<code>http://github.com/<i>&lt;user&gt;</i>/<i>&lt;repo&gt;</i>/raw/<i>&lt;branch&gt;</i>/<i>&lt;path&gt;</i></code><br/>
-			For example you can test it with my sources located at <b>http://github.com/darwin/drydrop/raw/master/tutorial</b>
-		</p>
-		<p>
-			You should check that your URL is working in separate browser window. Replace "raw" for "tree" or remove ?raw=true and you should see GitHub browser with files how they will appear on your site.<br/>
-			<a href="http://github.com/darwin/drydrop/tree/master/tutorial"><img src="/drydrop-static/images/help-settings-github.png"></a>
-		</p>
-		<p>
-			Also note that by uploading config file you can define mapping between repository files and App Engine URLs. Don't worry! If you don't provide config file, DryDrop will 
-			provide default one which maps GitHub to App Engine 1:1. Look into <a href="config">config section</a> for more info.
-		</p>
-	</div>
+    <span>Content Source</span><span class="help-button">more info </span>
+  <div class="help-text">
+    <p>
+      This Google App Engine site pulls source code from GitHub automatically. You have to specify your GitHub repository url in the form:<br/>
+      <code>http://github.com/<i>&lt;user&gt;</i>/<i>&lt;repo&gt;</i>/raw/<i>&lt;branch&gt;</i>/<i>&lt;path&gt;</i></code><br/>
+      For example you can test it with my sources located at <b>http://github.com/darwin/drydrop/raw/master/tutorial</b>
+    </p>
+    <p>
+      You should check that your URL is working in separate browser window. Replace "raw" for "tree" or remove ?raw=true and you should see GitHub browser with files how they will appear on your site.<br/>
+      <a href="http://github.com/darwin/drydrop/tree/master/tutorial"><img src="/drydrop-static/images/help-settings-github.png"></a>
+    </p>
+    <p>
+      Also note that by uploading config file you can define mapping between repository files and App Engine URLs. Don't worry! If you don't provide config file, DryDrop will 
+      provide default one which maps GitHub to App Engine 1:1. Look into <a href="config">config section</a> for more info.
+    </p>
+  </div>
 </div>
 <table class="form">
   <tr id="source-field" class="field">
@@ -31,28 +31,31 @@
 </table>
 <span>In case you have <b>private repo</b>, you need to setup <a href="#" onclick="$('#auth-section').show(); $(this).parent().hide()"><b>GitHub authorization</b></a>.</span>
 <div id="auth-section" style="display: none">
-	<div class="form-section">
-	  	<span>GitHub Authorization <i>for private repo</i></span><span class="help-button">more info</span>
-		<div class="help-text">
-			<p>
-				Instead of telling your password, you have to look up your authorization token. It should be visible in your GitHub account page.<br/>
-				<a href="http://github.com/blog/170-token-authentication"><img src="/drydrop-static/images/github-token.png"></a><br/>
-				Read <a href="http://github.com/blog/170-token-authentication">this blogpost</a> to get better idea.<br/>
-			</p>
-			<p>
-				Leave fields blank in case your repo is public.
-			</p>
-		</div>
-	</div>
-	<table class="form">
-	  <tr id="github-login-field" class="field">
-	    <td class="label">Login is </td>
-	    <td id="github_login" class="edit">{{ settings.github_login or "" }}</td>
-	  </tr>
-	  <tr id="github-token-field" class="field">
-	    <td class="label">Token is </td>
-	    <td id="github_token" class="edit">{{ settings.github_token or "" }}</td>
-	  </tr>
-	</table>
+  <div class="form-section">
+      <span>GitHub Authorization <i>for private repo</i></span><span class="help-button">more info</span>
+    <div class="help-text">
+      <p>
+        Instead of telling your password, you have to look up your authorization token. It should be visible in your GitHub account page.<br/>
+        <a href="http://github.com/blog/170-token-authentication"><img src="/drydrop-static/images/github-token.png"></a><br/>
+        Read <a href="http://github.com/blog/170-token-authentication">this blogpost</a> to get better idea.<br/>
+      </p>
+      <p>
+        Leave fields blank in case your repo is public.
+      </p>
+    </div>
+  </div>
+  <table class="form">
+    <tr id="github-login-field" class="field">
+      <td class="label">Login is </td>
+      <td id="github_login" class="edit">{{ settings.github_login or "" }}</td>
+    </tr>
+    <tr id="github-token-field" class="field">
+      <td class="label">Token is </td>
+      <td id="github_token" class="edit">{{ settings.github_token or "" }}</td>
+    </tr>
+  </table>
 </div>
+<br />
+
+<span>These settings are for <strong>{{settings.domain}}</strong></span>
 {% endblock %}

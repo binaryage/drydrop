@@ -1,5 +1,6 @@
 # -*- mode: python; coding: utf-8 -*-
 import logging
+import os
 from drydrop.app.core.controller import AuthenticatedController
 from google.appengine.api import memcache, users
 from drydrop.app.core.events import log_event
@@ -23,7 +24,8 @@ class AdminController(AuthenticatedController):
         self.render_view("admin/index.html")
         
     def events_flusher(self):
-        deleted = Event.clear(False, 1000)
+        domain = os.environ['SERVER_NAME']
+        deleted = Event.clear(False, 1000, domain=domain)
         done = deleted<1000
         log_event("Removed all events")
         message = 'removed %d event(s)' % deleted
@@ -70,7 +72,7 @@ class AdminController(AuthenticatedController):
     def events(self):
         offset = int(self.params.get("offset", 0))
         limit = int(self.params.get("limit", 50))
-        events = Event.all().order('-date').fetch(limit, offset)
+        events = Event.all().filter("domain =", os.environ['SERVER_NAME']).order('-date').fetch(limit, offset)
         res = []
         for e in events:
             res.append({
@@ -92,6 +94,7 @@ class AdminController(AuthenticatedController):
 
     def update_option(self):
         id = self.params.get('id')
+        domain=os.environ['SERVER_NAME']
         if not id:
             return self.json_error('No option id specified')
             
@@ -104,6 +107,7 @@ class AdminController(AuthenticatedController):
         settings = self.handler.settings
         settings.__setattr__(id, value)
         settings.version = settings.version + 1 # this effectively invalidates cache
+        settings.domain = domain
         settings.put()
             
         return self.render_text(value)

@@ -7,4 +7,5 @@ class Resource(db.Expando, Model):
     path = db.StringProperty()
     generation = db.IntegerProperty()
     content = db.BlobProperty()
+    domain = db.StringProperty()
     created_on = db.DateTimeProperty(auto_now_add=True)

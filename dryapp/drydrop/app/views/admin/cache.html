@@ -22,7 +22,7 @@
 </div>
 <pre class="cache-box">
   {% for resource in resources %}
-    {{ resource.path }}
+    {{ resource.domain}}/{{ resource.path }}
   {% endfor %}
 </pre>
 {% endblock %}

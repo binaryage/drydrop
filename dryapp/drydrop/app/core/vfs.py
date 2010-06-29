@@ -23,7 +23,8 @@ class VFS(object):
         return None
     
     def get_resource(self, path):
-        resource = Resource.find(path=path, generation=self.settings.version)
+        domain = os.environ['SERVER_NAME']
+        resource = Resource.find(path=path, generation=self.settings.version, domain=domain)
         if resource is None:
             content = self.fetch_resource_content(path)
             created_on = self.fetch_file_timestamp(path)
@@ -36,27 +37,29 @@ class VFS(object):
                 length = 0
             if length>0:
                 log_event("Caching resource <code>%s</code> (%d bytes)" % (path, length))
-            logging.debug("VFS: caching resource %s (%d bytes)", path, length)
+            logging.debug("VFS: caching resource %s (%d bytes) for %s", path, length, domain)
+            resource.domain = domain
             resource.save()
         try:
             length = len(resource.content)
         except:
             length = 0
-        logging.debug("VFS: serving resource %s (%d bytes)", path, length)
+        logging.debug("VFS: serving resource %s (%d bytes) for %s", path, length, domain)
         return resource
         
     def flush_resources(self, count = 1000):
-        deleted = Resource.clear(False, count)
+        domain = os.environ['SERVER_NAME']
+        deleted = Resource.clear(False, count, domain=domain)
         finished = deleted<count
         return finished, deleted
         
     def flush_resource(self, path):
         # purge all generations
-        resources = Resource.all().filter("path =", path).fetch(1000)
+        resources = Resource.all().filter("path =", path).filter("domain =", os.environ['SERVER_NAME']).fetch(1000)
         db.delete(resources)
         
     def get_all_resources(self):
-        return Resource.all().filter("generation =", self.settings.version).fetch(1000)
+        return Resource.all().filter("generation =", self.settings.version).filter("domain =", os.environ['SERVER_NAME']).fetch(1000)
     
 class LocalVFS(VFS):
     """VFS for local development"""
@@ -67,7 +70,7 @@ class LocalVFS(VFS):
     
     def get_resource(self, path):
         # check if file is fresh in cache
-        resource = Resource.find(path=path)
+        resource = Resource.find(path=path, domain=os.environ['SERVER_NAME'])
         if resource is not None:
             stamp = self.fetch_file_timestamp(path)
             if stamp is not None and resource.created_on != stamp:

@@ -37,13 +37,18 @@ class Model(object):
         return query.get()
 
     @classmethod
-    def clear(cls, verbose=False, count=100000000):
+    def clear(cls, verbose=False, count=100000000, **params):
         if verbose: logging.info("clearing %s", cls.model)
         deleted = 0
         while count>0:
             c = 100
             if count<=100: c = count
-            records = cls.all().fetch(c)
+            query = cls.all()
+
+            for name in params:
+              query = query.filter("%s =" % name, params[name])
+            records = query.fetch(c)
+
             if len(records)==0: break
             deleted += len(records)
             db.delete(records)

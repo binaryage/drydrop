@@ -9,4 +9,5 @@ class Event(db.Expando, Model):
     date = db.DateTimeProperty(auto_now_add=True)
     code = db.IntegerProperty(default=0)
     action = db.StringProperty()
+    domain = db.StringProperty()
     info = db.TextProperty()

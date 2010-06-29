@@ -235,11 +235,12 @@ class AppHandler(webapp.RequestHandler):
         from drydrop.app.models import Settings
         
         # fetch settings
-        settings = Settings.all().fetch(1)
+        settings = Settings.all().filter("domain =", os.environ['SERVER_NAME']).fetch(1)
         if len(settings)==0:
             s = Settings()
             s.source = "http://github.com/darwin/drydrop/raw/master/tutorial"
             s.config = "site.yaml"
+            s.domain = os.environ['SERVER_NAME']
             s.put()
             settings = [s]
         self.settings = settings[0]
@@ -372,7 +373,7 @@ def main():
         sys.meta_path = [] # disables python sandbox in local version
     
     # GENERATED: here we will setup import paths for baked version !!!
-
+    # the domain: os.environ['SERVER_NAME']
     from google.appengine.api import urlfetch
     if not urlfetch.__dict__.has_key("old_fetch"):
         urlfetch.old_fetch = urlfetch.fetch
