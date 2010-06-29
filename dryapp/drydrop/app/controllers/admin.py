@@ -4,7 +4,7 @@ import os
 from drydrop.app.core.controller import AuthenticatedController
 from google.appengine.api import memcache, users
 from drydrop.app.core.events import log_event
-from drydrop.app.models import Event
+from drydrop.app.models import Event, Settings
 
 class AdminController(AuthenticatedController):
 
@@ -111,3 +111,15 @@ class AdminController(AuthenticatedController):
         settings.put()
             
         return self.render_text(value)
+
+    def _generate_domain_index(self):
+        settings = Settings.all()
+        domains = []
+        for setting in settings:
+          domains.append(setting.domain)
+
+        return domains
+
+    def domains(self):
+        self.view['domains'] = self._generate_domain_index()
+        self.render_view("admin/domains.html")

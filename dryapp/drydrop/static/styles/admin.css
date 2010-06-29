@@ -61,6 +61,7 @@
 .index #nav-index a,
 .cache #nav-cache a,
 .config #nav-config a,
+.domains #nav-domains a,
 .settings #nav-settings a
 {
     -moz-border-radius-bottomleft:4px;
