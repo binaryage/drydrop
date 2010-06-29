@@ -1,0 +1,21 @@
+{% extends "admin/layout.html" %}
+{% block title %}Domains{% endblock %}
+{% block head %}
+  <link type="text/css" rel="stylesheet" href="/drydrop-static/styles/highlight.css" />
+{% endblock %}
+{% block main %}
+<div class="form-section">
+  	<span>Domains hosted</span><span class="help-button">more info</span>
+	<div class="help-text">
+		<p>
+      You are able to host multiple domains with one instance of drydrop. You can do this by adding the drydrop app to your google hosted domain. 
+		</p>
+	</div>
+</div>
+<pre class="cache-box">
+  {% for domain in domains %}
+      <a href="http://{{ domain }}/" target="_blank">{{ domain }}</a> -  <a href="http://{{ domain }}/admin/" target="_blank">admin</a>
+  {% endfor %}
+
+</pre>
+{% endblock %}
