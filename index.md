@@ -32,6 +32,7 @@ shots: [{
 }]
 ---
 
+
 ## Features
 
 #### Host your static site on Google App Engine and update it by pushing to GitHub.
