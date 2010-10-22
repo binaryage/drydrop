@@ -140,6 +140,10 @@ class AppHandler(webapp.RequestHandler):
         
         if status_code == 404:
             return False
+        elif request_path == "/404.html":
+            # fixes status for customized not found page
+            logging.debug("Page's /404.html, so i'm changing status code")
+            status_code = 404
 
         self.response.clear()
         for k in self.response.headers.keys():
