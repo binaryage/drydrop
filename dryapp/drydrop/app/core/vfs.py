@@ -39,7 +39,8 @@ class VFS(object):
                 log_event("Caching resource <code>%s</code> (%d bytes)" % (path, length))
             logging.debug("VFS: caching resource %s (%d bytes) for %s", path, length, domain)
             resource.domain = domain
-            resource.save()
+            if content!=None:
+              resource.save()
         try:
             length = len(resource.content)
         except:
