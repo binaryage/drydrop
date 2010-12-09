@@ -14,14 +14,14 @@ class VFS(object):
     """Virtual File System == filesystem abstraction for DryDrop"""
     def __init__(self):
         super(VFS, self).__init__()
-        
+
     def fetch_resource_content(self, path):
         logging.warning('fetch_resource not implemented for %s', self.__class__.__name__)
         return None
-        
+
     def fetch_file_timestamp(self, path):
         return None
-    
+
     def get_resource(self, path):
         domain = os.environ['SERVER_NAME']
         resource = Resource.find(path=path, generation=self.settings.version, domain=domain)
@@ -46,28 +46,28 @@ class VFS(object):
             length = 0
         logging.debug("VFS: serving resource %s (%d bytes) for %s", path, length, domain)
         return resource
-        
+
     def flush_resources(self, count = 1000):
         domain = os.environ['SERVER_NAME']
         deleted = Resource.clear(False, count, domain=domain)
         finished = deleted<count
         return finished, deleted
-        
+
     def flush_resource(self, path):
         # purge all generations
         resources = Resource.all().filter("path =", path).filter("domain =", os.environ['SERVER_NAME']).fetch(1000)
         db.delete(resources)
-        
+
     def get_all_resources(self):
         return Resource.all().filter("generation =", self.settings.version).filter("domain =", os.environ['SERVER_NAME']).fetch(1000)
-    
+
 class LocalVFS(VFS):
     """VFS for local development"""
-    
+
     def __init__(self, settings):
         super(LocalVFS, self).__init__()
         self.settings = settings
-    
+
     def get_resource(self, path):
         # check if file is fresh in cache
         resource = Resource.find(path=path, domain=os.environ['SERVER_NAME'])
@@ -77,7 +77,7 @@ class LocalVFS(VFS):
                 logging.debug("VFS: file %s has been modified since last time => purged from cache", path)
                 resource.delete()
         return super(LocalVFS, self).get_resource(path)
-        
+
     def fetch_file_timestamp(self, path):
         root = self.settings.source
         if not root:
@@ -88,7 +88,7 @@ class LocalVFS(VFS):
         except:
             return None
         return datetime.datetime.fromtimestamp(s.st_mtime)
-        
+
     def fetch_resource_content(self, path):
         root = self.settings.source
         if not root:
@@ -105,11 +105,11 @@ class LocalVFS(VFS):
 
 class GAEVFS(VFS):
     """VFS for production"""
-    
+
     def __init__(self, settings):
         super(GAEVFS, self).__init__()
         self.settings = settings
-        
+
     def fetch_resource_content(self, path):
         root = self.settings.source
         if not root:
@@ -121,12 +121,12 @@ class GAEVFS(VFS):
             params.append("login=%s" % self.settings.github_login)
         if self.settings.github_token:
             params.append("token=%s" % self.settings.github_token)
-        
+
         # note: params should be url-safe, so no need to escape here
         if len(params)>0:
             url = url + "?" + string.join(params, "&")
 
-        response = urlfetch.fetch(url, follow_redirects=False)
+        response = urlfetch.fetch(url, follow_redirects=True)
         if response.status_code!=200:
             return None
         # HACK: if we get 200 with section referring to status404 treat it as 404, this is bug on github side
