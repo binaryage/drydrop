@@ -10,8 +10,6 @@ meta_keywords: python,github,google,app engine,binaryage,productivity,software,w
 meta_description: DryDrop is a tool that lets you host your static site on Google App Engine and update it by pushing to GitHub
 meta_image: http://www.binaryage.com/shared/img/icons/drydrop-256.png
 downloadtitle: Install 0.3
-leftshift: 60px
-likeshift: 63px
 facebook: 1
 retweet: 1
 buzz: 1
