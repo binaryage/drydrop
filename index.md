@@ -17,7 +17,7 @@ fbsdk: 1
 ogmeta: {
     site_name: "BinaryAge website",
     description: "DryDrop updates App Engine site after pushing to GitHub",
-    email: "antonin@binaryage.com",
+    email: "support@binaryage.com",
     type: "product",
     title: "DryDrop",
     url: "http://drydrop.binaryage.com",
