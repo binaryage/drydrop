@@ -77,18 +77,7 @@
         <div id="header">
             <div class="container header-bar">
                 <div class="span-7">
-                    <a href="http://binaryage.com" title="Binary Age - software"><div class="header-logo"></div></a>
-                    <div class="twitterbox">
-                        <div id="tweets-scrollable">
-                            <ol id="tweets" class="statuses">
-                            </ol>
-                        </div>
-                    </div>
-                    <div class="lovebox" style="display:none">
-                        <div class="lovebox-arrow"></div>
-                        Yeah, it looks like people love this software :-)<br>
-                        Want to <a href="http://totalfinder.binaryage.com/free-licenses">blog about it</a>?
-                    </div>
+                    <a href="http://binaryage.com" title="BinaryAge Software"><div class="header-logo"></div></a>
                 </div>
                 <div class="span-17 last">
                     <ul class="header-menu  segment">
@@ -97,6 +86,12 @@
                         <li class="enabled segment-0 menu-item-blog"><a href="http://blog.binaryage.com"><span>blog</span></a></li>
                         <li class="enabled segment-2 menu-item-support"><a href="http://support.binaryage.com"><span>support</span></a></li>
                     </ul>
+                </div>
+                
+                <div class="praise-section">
+                    <div class="praise-button">
+                        show what people are saying
+                    </div>
                 </div>
             </div>
         </div>
@@ -116,6 +111,12 @@
       
       <div class="clear"></div>
     </div>
+    <div id="tweets-section">
+        <div class="container" style="position: relative">
+            <ol id="tweets" class="statuses">
+            </ol>
+        </div>
+    </div>
     <div id="footer">
       <div class="container">
           <div class="footer-separator"></div>
@@ -126,12 +127,10 @@
              </div>
              
              <div class="footer-links force-right">
-               <a href="http://www.binaryage.com">products</a> | 
-               <a href="http://blog.binaryage.com">blog</a> | 
-               <a href="http://support.binaryage.com">support</a>
-              
-              | <a href="http://binaryage.com/about.html">contact</a>
-                 </div>
+               
+               
+               <a href="http://binaryage.com/about.html">contact</a>
+             </div>
           </div>
        </div>
     </div>
@@ -148,23 +147,10 @@
 
 
     <script type="text/javascript" charset="utf-8">
-    $('#tweets').append(prepareTweetLoader('Waiting for page to fully load ...'));
-
     $(function() {
         var initialized;
-        var header = $('#header');
         $('.praise-button').bind('click', function() {
-            $(this).toggleClass('pushed');
-            header.toggleClass('expanded-header');
-            if (!header.hasClass('expanded-header')) {
-                $("#tweets").data('sparams').autoscroll.pause();
-            } else {
-                if (initialized) {
-                    $("#tweets").data('sparams').autoscroll.play();
-                }
-            }
             if (!initialized) {
-                $('#tweet-loader .tweet-msg').html('Asking Twitter for some shouts about BinaryAge&hellip;');
                 $("#tweets").tweet({
                     user: "binaryage"
                 });
