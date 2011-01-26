@@ -42,6 +42,8 @@ DryDrop is a tool that lets you host your static site on Google App Engine and u
 * Zero maintenance (thanks to [GitHub][github])
 * No Python knowledge needed, but you need to know the basics of Git
 
+For additional info read [blog post by Harper Reed](http://www.nata2.org/2011/01/26/how-to-use-app-engine-to-host-static-sites-for-free).
+
 ### How it works
 
 It's simple. Let's say you have a GitHub repository containing a static web site and you want to host it on App Engine. DryDrop is an application that's ready to be uploaded as your App Engine project. After you upload it for the first time, you should set up a post-receive hook in your GitHub repo to point to your App Engine project. This means that every change you push to GitHub will be reflected on your App Engine site immediately.
@@ -173,6 +175,7 @@ The post-receive hook was triggered as you can see in the events list.
 
 ### Articles
 
+  * [OMG FREE HOSTING: How to use GAE to host static sites for free](http://www.nata2.org/2011/01/26/how-to-use-app-engine-to-host-static-sites-for-free) (by Harper Reed)
   * [DryDrop announced](http://googleappengine.blogspot.com/2009/08/recent-happenings-ticktock-parallel.html) (via [Google App Engine Blog](http://googleappengine.blogspot.com))
   * [Using Google AppEngine as a “cache” for personal websites (wordpress blogs, wikis)](http://stackoverflow.com/questions/1675715/using-google-appengine-as-a-cache-for-personal-websites-wordpress-blogs-wikis) (via [Stack Overflow](http://stackoverflow.com))
   * [DryDrop – Manage static web site with GAE and Github](http://www.openalexandria.com/2009/09/drydrop) (via [openalexandria.com](http://www.openalexandria.com))
