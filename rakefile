@@ -256,9 +256,13 @@ def clear_datastore()
   sys("#{app_server_cmd('--clear_datastore')} 1>&2")
 end
 
+def test_git_status()
+  sys("git status")
+  sys("echo $?").strip
+end
 
-def git_info_from_working_copy
-  $git_info = sys("git show | grep commit | cut -d\" \" -f2").strip
+def git_version
+  sys("git --version|cut -d\" \" -f3").strip
 end
 
 def zip_python_module(name)
@@ -319,10 +323,10 @@ end
 
 def bake(name)
   $modules = []
-  
-  git_info_from_working_copy()
-  die('not under git version control!') if $git_info == ''
-  version = $git_info[0..6]
+  git_status = test_git_status()
+  die('not under git version control!') if git_status != "0"
+
+  version = git_version()
 
   $DEPLOY_DIR = File.join(DEPLOY, "#{version}")
   die "something bad with deploy dir #{deploy_dir}" if $DEPLOY_DIR.size<=".deploy".size
