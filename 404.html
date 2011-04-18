@@ -4,8 +4,6 @@
       
 >
   <head>
-      
-      
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <title>BinaryAge - Page Not Found</title>
     
@@ -13,7 +11,6 @@
     
     
     <meta name="google-site-verification" content="N_xzdr6ymSUQFhAEvQg7f-sp1JAeJCdW2JuaRg-da0w" />
-
     <meta property="fb:admins" content="antonin.hildebrand" />
     
 
@@ -22,7 +19,7 @@
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/shared/css/site.css" type="text/css">
-
+    
     
     
     
@@ -37,7 +34,37 @@
     */
     function css_browser_selector(u){var ua = u.toLowerCase(),is=function(t){return ua.indexOf(t)>-1;},g='gecko',w='webkit',s='safari',o='opera',h=document.documentElement,b=[(!(/opera|webtv/i.test(ua))&&/msie\s(\d)/.test(ua))?('ie ie'+RegExp.$1):is('firefox/2')?g+' ff2':is('firefox/3.5')?g+' ff3 ff3_5':is('firefox/3')?g+' ff3':is('gecko/')?g:is('opera')?o+(/version\/(\d+)/.test(ua)?' '+o+RegExp.$1:(/opera(\s|\/)(\d+)/.test(ua)?' '+o+RegExp.$2:'')):is('konqueror')?'konqueror':is('chrome')?w+' chrome':is('iron')?w+' iron':is('applewebkit/')?w+' '+s+(/version\/(\d+)/.test(ua)?' '+s+RegExp.$1:''):is('mozilla/')?g:'',is('j2me')?'mobile':is('iphone')?'iphone':is('ipod')?'ipod':is('mac')?'mac':is('darwin')?'mac':is('webtv')?'webtv':is('win')?'win':is('freebsd')?'freebsd':(is('x11')||is('linux'))?'linux':'','js']; c = b.join(' '); h.className += ' '+c; return c;}; css_browser_selector(navigator.userAgent);        
     </script>
+    <script type="text/javascript" charset="utf-8">
+        // define dummy replacements for firebug functionality (needed for Opera)
+        if (!window.console) {
+            window.console = {};
+            function fn() {
+                opera.postError(arguments);
+            };
+            ['log', 'debug', 'info', 'warn', 'error', 'assert', 'dir', 'dirxml', 'group', 'groupEnd', 
+            'time', 'timeEnd', 'count', 'trace', 'profile', 'profileEnd'].forEach(function(name) {
+                window.console[name] = fn;
+            });
+        }            
+        (function() {
+                var names = ["log", "debug", "info", "warn", "error", "assert", "dir", "dirxml", "group", "groupEnd", "time", "timeEnd", "count", "trace", "profile", "profileEnd"];
+                if(!window.console){
+                    window.console = {};
+                }
+                for (var i in names) {
+                    window.console[names[i]] = window.console[names[i]] || function(){
+                        return;
+                    };
+                }
+        })();
+    </script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+
+    <script>
+    function utmx_section(){}function utmx(){};
+    </script>
+    
+
     
     <script src="/shared/js/code.js"></script>
     
@@ -46,7 +73,10 @@
     <script type="text/javascript">
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-8404259-1']);
-      _gaq.push(['_setDomainName', '.binaryage.com']);
+      _gaq.push(['_addIgnoredRef', '.binaryage.com']); // do not count subdomains as referrer trafic
+      _gaq.push(['_setDomainName', '.binaryage.com']); // track all subdomains with shared cookie
+	  _gaq.push(['_setAllowLinker', true]); // important for cross domain user tracking (the session may be passed in URL params)
+	  _gaq.push(['_setAllowHash', false]); // do not use url-hash check
       _gaq.push(['_trackPageview']);
       (function() {
         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
@@ -55,6 +85,105 @@
       })();
     </script>
     
+    
+    <script type="text/javascript">
+    SSTracker = { states: [] };
+    SSTracker.setState = function(state) {
+        var x = this;
+        setTimeout(function() {
+            if (x.states.length>1) {
+                console.error('SS: reset state while some on stack');
+            }
+            if (state) {
+                SSTracker.states = [state];
+            } else {
+                SSTracker.states = [];
+            }
+        }, 0);
+    };
+    SSTracker.pushState = function(state) {
+        setTimeout(function() {
+            SSTracker.states.push(state);
+        }, 0);
+    };
+    SSTracker.popState = function(state) {
+        setTimeout(function() {
+            SSTracker.states.pop();
+        }, 0);
+    };
+    SSTracker.track = function(env) {
+        if (!env) {
+            env = {};
+        }
+        
+        // https://github.com/carhartl/jquery-cookie
+        var cookie = function (key, value, options) {
+            // key and at least value given, set cookie...
+            if (arguments.length > 1 && String(value) !== "[object Object]") {
+                options = options || {};
+
+                if (value === null || value === undefined) {
+                    options.expires = -1;
+                }
+
+                if (typeof options.expires === 'number') {
+                    var days = options.expires, t = options.expires = new Date();
+                    t.setDate(t.getDate() + days);
+                }
+
+                value = String(value);
+
+                return (document.cookie = [
+                    encodeURIComponent(key), '=',
+                    options.raw ? value : encodeURIComponent(value),
+                    options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
+                    options.path ? '; path=' + options.path : '',
+                    options.domain ? '; domain=' + options.domain : '',
+                    options.secure ? '; secure' : ''
+                ].join(''));
+            }
+
+            // key and possibly options given, get cookie...
+            options = value || {};
+            var result, decode = options.raw ? function (s) { return s; } : decodeURIComponent;
+            return (result = new RegExp('(?:^|; )' + encodeURIComponent(key) + '=([^;]*)').exec(document.cookie)) ? decode(result[1]) : null;
+        };
+
+        env.u = document.location.href;
+        var w = $(window);
+        env.bw = w.width();
+        env.bh = w.height();
+        env.uid = cookie('ssuid');
+        if (!env.uid) {
+            env.uid = ((Math.random()+"").substring(2));
+            cookie('ssuid', env.uid, {
+                path: '/',
+                expires: 30 // TODO: configurable?
+            });
+        }
+
+        if (document.referrer && document.referrer != "") {
+            env.ref = document.referrer;
+        }
+        
+        if (this.states.length) {
+            env.state = this.states[this.states.length-1];
+        }
+        
+        // console.warn("SS: tracking ", env);
+        var image = new Image();
+        image.src = "http://173.255.237.194:8000/tracking_pixel.gif?" + jQuery.param(env);
+    }
+    
+    $('html').bind('click', function(e) {
+        try {
+            SSTracker.track({e:'click', px:e.pageX, py:e.pageY});
+        } catch (ex) {
+            console.log('unable to process SS click');
+        }
+    });
+    SSTracker.track({e:'hit'});
+    </script>
     
     <script type="text/javascript">
         WebFontConfig = { 
@@ -102,7 +231,7 @@
     <div class="container">
         <div class="image404"></div>
         <div class="error404">ERROR 404</div>
-        <div class="desc404">I'm sorry, there is no such page in BinaryAge</div>
+        <div class="desc404">I'm sorry, there is no such a page in BinaryAge</div>
         <div class="home404"><a href="/">Go Home</a>, Neo!</div>
     </div>
 </div>
@@ -150,6 +279,10 @@
     $(function() {
         var initialized;
         $('.praise-button').bind('click', function() {
+            if (window.SSTracker) {
+                SSTracker.pushState('praise');
+            }
+            
             if (!initialized) {
                 $("#tweets").tweet({
                     user: "binaryage"
@@ -157,6 +290,14 @@
                 initialized = true;
             }
         });
+        
+        // trigger page states
+        setTimeout(function() { // give other code some time to init
+            var hash = location.hash.substring(1);
+            if (hash.substring(0,2)=="o-") {
+                $('#'+hash).trigger('click');
+            }
+        }, 500);
     });
     
     // localhost debug
@@ -173,20 +314,22 @@
             });
         }
     });
+  
+    // cross-domain tracking
+    // http://code.google.com/apis/analytics/docs/tracking/gaTrackingSite.html
+    $('a').live('click', function() {
+        var href = $(this).attr("href")+"";
+        var current = document.location+"";
+        // just for switching domains between binaryage.com <-> fastspring.com
+        if ((current.match(/fastspring\.com/) && href.match(/binaryage\.com/)) || 
+            (current.match(/binaryage\.com/) && href.match(/fastspring\.com/))) {
+            _gaq.push(['_link', href]);
+            return false;
+        }
+    });
     </script>
 
 
-<!-- Google Website Optimizer Tracking Script -->
-<script type="text/javascript">
-if(typeof(_gat)!='object')document.write('<sc'+'ript src="http'+
-(document.location.protocol=='https:'?'s://ssl':'://www')+
-'.google-analytics.com/ga.js"></sc'+'ript>')</script>
-<script type="text/javascript">
-try {
-var gwoTracker=_gat._getTracker("UA-9521789-1");
-gwoTracker._setDomainName(".binaryage.com");
-gwoTracker._trackPageview("//test");
-}catch(err){}</script>
-<!-- End of Google Website Optimizer Tracking Script -->
+
   </body>
 </html>
