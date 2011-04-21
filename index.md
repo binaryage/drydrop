@@ -140,7 +140,7 @@ The post-receive hook was triggered as you can see in the events list.
 > Not at all. You just need to know how to use Git and how to create your App Engine project on appspot.com.
 
 #### How does DryDrop compare to <a href="http://pages.github.com">GitHub Pages</a>?
-> GitHub Pages solves the same need of "live-hosting of GitHub repository as a static site on custom domain". I started this project before GitHub Pages was announced and GitHub pages made it somewhat obsolete, especially because they support <a href="http://github.com/mojombo/jekyll/tree/master">jekyll</a>, which is cool. But I still see one valid use case: you have a public repo, you don't want to pay for CNAME support on GitHub and you are obsessed with the idea of running your site on GAE :-)
+> GitHub Pages solves the same need of "live-hosting of GitHub repository as a static site on custom domain". I started this project before GitHub Pages was announced and GitHub pages made it somewhat obsolete, especially because they support <a href="http://github.com/mojombo/jekyll/tree/master">jekyll</a>, which is cool.
 
 #### How can DryDrop serve files from GitHub?
 > It is simple. DryDrop has a simple cache. If a requested page is not in the cache, DryDrop will try to fetch it from GitHub, store it in the cache and then serve it. Next time the same URL is requested, it will be served directly from the DryDrop cache. Let's say you made some changes to your files. The moment you push file changes into GitHub, the post-receive hook will call DryDrop and DryDrop will invalidate modified files in the cache.
