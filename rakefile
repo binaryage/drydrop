@@ -12,6 +12,8 @@ GAEEXEC = File.join(ROOT, 'gae', 'python')
 NEED_GEMS = %w(rubyzip)
 NEED_EGGS = %w()
 
+PLATFORM = RUBY_PLATFORM unless defined? PLATFORM
+
 OSX = PLATFORM =~ /darwin/
 WIN = PLATFORM =~ /win32/
 NIX = !(OSX || WIN)
