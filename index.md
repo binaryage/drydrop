@@ -1,6 +1,7 @@
 ---
-layout: product
+layout: product2
 title: DryDrop updates App Engine site after pushing to GitHub
+product: drydrop
 product_title: DryDrop
 product_subtitle: update App Engine site by pushing to GitHub
 download: http://github.com/darwin/drydrop
