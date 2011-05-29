@@ -93,6 +93,20 @@
             var _gaq = _gaq || [];
         </script>
         
+        <script type="text/javascript">
+            _gaq.push(['_setAccount', 'UA-8404259-1']);
+            _gaq.push(['_addIgnoredRef', '.binaryage.com']); // do not count subdomains as referrer trafic
+            _gaq.push(['_setDomainName', '.binaryage.com']); // track all subdomains with shared cookie
+            _gaq.push(['_setAllowLinker', true]); // important for cross domain user tracking (the session may be passed in URL params)
+            _gaq.push(['_setAllowHash', false]); // do not use url-hash check
+            _gaq.push(['_trackPageview']);
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+        
     
         <script type="text/javascript">
             SSTracker = { states: [] };
@@ -180,6 +194,9 @@
         
                 // console.warn("SS: tracking ", env);
                 
+                var image = new Image();
+                image.src = "http://173.255.237.194:8000/tracking_pixel.gif?" + jQuery.param(env);
+                
             };
     
             $('html').bind('click', function(e) {
@@ -230,7 +247,7 @@
                         <div class="header-logo-hover"></div>
                     </div>
                 </a>
-                <div class="header-motto"></div>
+                <div class="header-motto arrow"></div>
                 <div class="header-selector"></div>
                 <ul class="header-menu">
                     <li class="menu-item-store wf"><a href="http://sites.fastspring.com/binaryage/product/store"><span>store</span></a></li>
@@ -286,12 +303,6 @@
 
         
 
-        
-        <script type="text/javascript" charset="utf-8">
-            if ((document.location+"").match(/showgrid/)) {
-                $('.container').addClass('showgrid');
-            }
-        </script>
         
     
         
