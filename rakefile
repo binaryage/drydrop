@@ -375,7 +375,9 @@ def patch_app_yaml(version, name)
     end
   end
   File.open(path, "w") do |f|
-    f << lines
+    lines.each do |line|
+      f.puts(line)
+    end
   end
 end
 
