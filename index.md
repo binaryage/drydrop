@@ -12,6 +12,7 @@ meta_description: DryDrop is a tool that lets you host your static site on Googl
 meta_image: http://www.binaryage.com/shared/img/icons/drydrop-256.png
 downloadtitle: Install v0.3
 downloadsubtitle: or better use Github pages instead :-)
+webexpo: 1
 facebook: 1
 retweet: 1
 buzz: 1
