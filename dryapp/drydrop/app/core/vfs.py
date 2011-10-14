@@ -125,7 +125,7 @@ class GAEVFS(VFS):
 
         # note: params should be url-safe, so no need to escape here
         if len(params)>0:
-            url = url + "?" + string.join(params, "&")
+            url = url + "?" + "&".join(params)
 
         response = urlfetch.fetch(url, follow_redirects=True)
         if response.status_code!=200:
