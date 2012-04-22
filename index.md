@@ -1,5 +1,5 @@
 ---
-layout: product2
+layout: product
 title: DryDrop updates App Engine site after pushing to GitHub
 product: drydrop
 product_title: DryDrop
