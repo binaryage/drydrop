@@ -303,7 +303,7 @@ module Zip
       continueOnExistsProc ||= proc { false }
       check_entry_exists(entry, continueOnExistsProc, "add")
       newEntry = entry.kind_of?(ZipEntry) ? entry : ZipEntry.new(@name, entry.to_s, "", "", 0, 0, 
-        ZipEntry::DEFLATED, 0, time  = Time.local(2000,"jan",1,0,0,0))
+        ZipEntry::DEFLATED, 0, time  = DOSTime.local(2000,"jan",1,0,0,0))
       newEntry.gather_fileinfo_from_srcpath(srcPath)
       @entrySet << newEntry
     end
