@@ -4,8 +4,8 @@ title: DryDrop updates App Engine site after pushing to GitHub
 product: drydrop
 product_title: DryDrop
 product_subtitle: update App Engine site by pushing to GitHub
-download: http://github.com/darwin/drydrop
-repo: http://github.com/darwin/drydrop
+download: http://github.com/binaryage/drydrop
+repo: http://github.com/binaryage/drydrop
 meta_title: DryDrop updates App Engine site after pushing to GitHub
 meta_keywords: python,github,google,app engine,binaryage,productivity,software,web,development
 meta_description: DryDrop is a tool that lets you host your static site on Google App Engine and update it by pushing to GitHub
@@ -80,7 +80,7 @@ Then make sure you have latest <a href="http://code.google.com/appengine/downloa
 
 Then you have to download the latest DryDrop and upload it to your drydropsample project:
 
-    git clone git://github.com/darwin/drydrop.git
+    git clone git://github.com/binaryage/drydrop.git
     cd drydrop
     rake upload project=drydropsample
     
