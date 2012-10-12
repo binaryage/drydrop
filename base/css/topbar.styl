@@ -1,0 +1,22 @@
+#topbar
+    height 5px
+    background-color topbar-bg-color
+    
+    .topbar
+        relative()
+        
+        .topbar-buttons
+            absolute(right)
+
+            div
+                transition all tspeed ease 0s
+                
+                &:hover
+                    color #ccc
+
+            .topbar-testimonials
+                topbar-button(278px, 64px)
+
+            .topbar-labs
+                topbar-button(277px, 93px)
+    

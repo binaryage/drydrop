@@ -5,7 +5,10 @@
 >
     <head>
         <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-        <title>BinaryAge - Page Not Found</title>
+        <title></title>
+        
+        <link rel="canonical" href="http://drydrop.binaryage.com/base/layouts/tf-page.html">
+        
         
         
         
@@ -13,14 +16,24 @@
         <meta name="google-site-verification" content="N_xzdr6ymSUQFhAEvQg7f-sp1JAeJCdW2JuaRg-da0w" />
         <meta property="fb:admins" content="antonin.hildebrand" />
         
+        
+        <!-- test comment - hello world! -->
 
         <link href="http://www.google.com/profiles/antonin.hildebrand" rel="me" type="text/html" />
         <link href="http://feeds.feedburner.com/binaryage-blog" type="application/atom+xml" rel="alternate" title="Ideas from BinaryAge" />
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        
+        <script type="text/javascript" charset="utf-8">
+            // give the custom font 5s to load, otherwise enable simple font visibility
+            setTimeout(function() {
+                $('html').addClass('wf-fake-active');
+            }, 2000);
+        </script>
+        
         <style type="text/css">
-            /* prevent visible font switching */
-            .wf {
+            /* prevent visible font switching - this is also repeated in global.styl for fastspring compatibility!  */
+            .js .wf {
                 opacity: 0 !important;
                 filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0) !important;
                 -webkit-transition: opacity 0.5s ease 0s;
@@ -33,11 +46,11 @@
                 opacity: 1 !important;
                 filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100) !important;
             }
-
         </style>
         
+        
 
-        <link rel="stylesheet" href="/base/css/site2.css" type="text/css">
+        <link rel="stylesheet" href="/base/css/site.css" type="text/css">
     
         
         
@@ -79,12 +92,92 @@
             })();
         </script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            // https://github.com/carhartl/jquery-cookie
+            function bacookie(key, value, options) {
+                // key and at least value given, set cookie...
+                if (arguments.length > 1 && String(value) !== "[object Object]") {
+                    options = options || {};
+
+                    if (value === null || value === undefined) {
+                        options.expires = -1;
+                    }
+
+                    if (typeof options.expires === 'number') {
+                        var days = options.expires, t = options.expires = new Date();
+                        t.setDate(t.getDate() + days);
+                    }
+
+                    value = String(value);
+
+                    return (document.cookie = [
+                        encodeURIComponent(key), '=',
+                        options.raw ? value : encodeURIComponent(value),
+                        options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
+                        options.path ? '; path=' + options.path : '',
+                        options.domain ? '; domain=' + options.domain : '',
+                        options.secure ? '; secure' : ''
+                    ].join(''));
+                }
+
+                // key and possibly options given, get cookie...
+                options = value || {};
+                var result, decode = options.raw ? function (s) { return s; } : decodeURIComponent;
+                return (result = new RegExp('(?:^|; )' + encodeURIComponent(key) + '=([^;]*)').exec(document.cookie)) ? decode(result[1]) : null;
+            };
+            // parseUri 1.2.2
+            // (c) Steven Levithan <stevenlevithan.com>
+            // MIT License
+
+            function parseUri (str) {
+                var o   = parseUri.options,
+                    m   = o.parser[o.strictMode ? "strict" : "loose"].exec(str),
+                    uri = {},
+                    i   = 14;
+
+                while (i--) uri[o.key[i]] = m[i] || "";
+
+                uri[o.q.name] = {};
+                uri[o.key[12]].replace(o.q.parser, function ($0, $1, $2) {
+                    if ($1) uri[o.q.name][$1] = $2;
+                });
+
+                return uri;
+            };
+
+            parseUri.options = {
+                strictMode: false,
+                key: ["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],
+                q:   {
+                    name:   "queryKey",
+                    parser: /(?:^|&)([^&=]*)=?([^&]*)/g
+                },
+                parser: {
+                    strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
+                    loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
+                }
+            };            
+        </script>
 
         <script>
             function utmx_section(){}function utmx(){};
         </script>
         
 
+        <script type="text/javascript">
+            WebFontConfig = { 
+                google: { families: [ 'Play:regular,bold' ] }
+            };
+            (function() {
+                var wf = document.createElement('script');
+                wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+                wf.type = 'text/javascript';
+                wf.async = 'true';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(wf, s);
+            })();
+        </script>
+        
         
         <script src="/base/js/code2.js"></script>
         
@@ -108,126 +201,13 @@
         </script>
         
     
-        <script type="text/javascript">
-            SSTracker = { states: [] };
-            SSTracker.setState = function(state) {
-                var x = this;
-                setTimeout(function() {
-                    if (x.states.length>1) {
-                        console.error('SS: reset state while some on stack');
-                    }
-                    if (state) {
-                        SSTracker.states = [state];
-                    } else {
-                        SSTracker.states = [];
-                    }
-                }, 0);
-            };
-            SSTracker.pushState = function(state) {
-                setTimeout(function() {
-                    SSTracker.states.push(state);
-                }, 0);
-            };
-            SSTracker.popState = function(state) {
-                setTimeout(function() {
-                    SSTracker.states.pop();
-                }, 0);
-            };
-            SSTracker.track = function(env) {
-                if (!env) {
-                    env = {};
-                }
-        
-                // https://github.com/carhartl/jquery-cookie
-                var cookie = function (key, value, options) {
-                    // key and at least value given, set cookie...
-                    if (arguments.length > 1 && String(value) !== "[object Object]") {
-                        options = options || {};
-
-                        if (value === null || value === undefined) {
-                            options.expires = -1;
-                        }
-
-                        if (typeof options.expires === 'number') {
-                            var days = options.expires, t = options.expires = new Date();
-                            t.setDate(t.getDate() + days);
-                        }
-
-                        value = String(value);
-
-                        return (document.cookie = [
-                            encodeURIComponent(key), '=',
-                            options.raw ? value : encodeURIComponent(value),
-                            options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
-                            options.path ? '; path=' + options.path : '',
-                            options.domain ? '; domain=' + options.domain : '',
-                            options.secure ? '; secure' : ''
-                        ].join(''));
-                    }
-
-                    // key and possibly options given, get cookie...
-                    options = value || {};
-                    var result, decode = options.raw ? function (s) { return s; } : decodeURIComponent;
-                    return (result = new RegExp('(?:^|; )' + encodeURIComponent(key) + '=([^;]*)').exec(document.cookie)) ? decode(result[1]) : null;
-                };
-
-                env.u = document.location.href;
-                var w = $(window);
-                env.bw = w.width();
-                env.bh = w.height();
-                env.uid = cookie('ssuid');
-                if (!env.uid) {
-                    env.uid = ((Math.random()+"").substring(2));
-                    cookie('ssuid', env.uid, {
-                        path: '/',
-                        expires: 30 // TODO: configurable?
-                    });
-                }
-
-                if (document.referrer && document.referrer != "") {
-                    env.ref = document.referrer;
-                }
-        
-                if (this.states.length) {
-                    env.state = this.states[this.states.length-1];
-                }
-        
-                // console.warn("SS: tracking ", env);
-                
-                var image = new Image();
-                image.src = "http://173.255.237.194:8000/tracking_pixel.gif?" + jQuery.param(env);
-                
-            };
-    
-            $('html').bind('click', function(e) {
-                try {
-                    SSTracker.track({e:'click', px:e.pageX, py:e.pageY});
-                } catch (ex) {
-                    console.log('unable to process SS click');
-                }
-            });
-            
-            SSTracker.track({e:'hit'});
-        </script>
-    
         
         
-        <script type="text/javascript">
-            WebFontConfig = { 
-                google: { families: [ 'Play:regular,bold' ] }
-            };
-            (function() {
-                var wf = document.createElement('script');
-                wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-                wf.type = 'text/javascript';
-                wf.async = 'true';
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(wf, s);
-            })();
-        </script>
+        
+        
         <!-- SCRIPTS END -->
     </head>
-    <body id="page-www-404">
+    <body id="page-drydrop-baselayoutstf-page">
         <div id="topbar">
             <div class="container topbar">
                 <div class="topbar-buttons">
@@ -247,12 +227,14 @@
                         <div class="header-logo-hover"></div>
                     </div>
                 </a>
+                
                 <div class="header-motto arrow"></div>
                 <div class="header-selector"></div>
                 <ul class="header-menu">
-                    <li class="menu-item-store wf"><a href="http://sites.fastspring.com/binaryage/product/store"><span>store</span></a></li>
+                    <li class="menu-item-store wf"><a href="http://www.binaryage.com/store"><span>store</span></a></li>
                     <li class="menu-item-products wf"><a href="http://www.binaryage.com"><span>products</span></a></li>
-                    <li class="menu-item-blog wf"><a href="http://blog.binaryage.com"><span>blog</span></a></li>
+                    <li class="menu-item-blog wf"><a href="http://blog.binaryage.com"><span>blog</span></a></li>  
+                    <li class="menu-item-hints wf"><a href="http://hints.binaryage.com"><span>hints</span></a></li>
                     <li class="menu-item-support wf"><a href="http://support.binaryage.com"><span>support</span></a></li>
                 </ul>
             </div>
@@ -260,16 +242,53 @@
         <div id="main">
             
             <div class="wf">
-            <div id="main-about">
-    <div class="container">
-        <div class="image404"></div>
-        <div class="error404">ERROR 404</div>
-        <div class="desc404">I'm sorry, there is no such a page in BinaryAge</div>
-        <div class="home404"><a href="/">Go Home</a>, Neo!</div>
+            <div>
+    <div class="container" id="tf-header">
+        <div class="tf-header-nav span-24 last">
+            <a class="tf-back-button" href="/">&larr; back to homepage</a>
+        </div>
+        <div class="tf-header-left span-19">
+            <h1 class="doc-title"></h1>
+        </div>
+        <div class="tf-header-right span-5 last">
+            <div class="product-logo-box">
+                <img class="product-icon" src="/base/img/icons/totalfinder-64.png">
+                <div class="product-tagline">
+                    <h2 class="product-title">TotalFinder</h2>
+                    <h3 class="product-subtitle"><a href="/documentation">documentation</a></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" id="tf-nav">
+        <div class="tf-header-left span-12">
+            
+            &nbsp;
+            
+        </div>
+        <div class="tf-header-right span-12 last">
+            
+            &nbsp;
+            
+        </div>
     </div>
 </div>
 
+<div id="main-content" class="tf-page">
+    <div class="container">
+        <div class="page-content">
+            
+        </div>
+    </div>
+</div>
 
+<script type="text/javascript">
+    $(function() {
+        $(".hoverable-input").bind('click', function(e){
+            this.select();
+        });
+    });
+</script>
             </div>
             
             <div class="clear"></div>
@@ -279,6 +298,7 @@
                 <ol id="tweets" class="statuses"></ol>
             </div>
         </div>
+        
         <div id="footer">
             <div class="container">
                 <div class="footer-separator"></div>
@@ -290,6 +310,8 @@
                     
                     <div class="footer-links wf">
                         
+                        <a href="javascript:GSFNFeedbackWidget.show()">feedback</a> | 
+                        
                         
                         <a href="http://www.binaryage.com/about.html">contact</a>
                     </div>
@@ -299,8 +321,6 @@
 
         
     
-        
-
         
 
         
@@ -332,11 +352,6 @@
                         $('#'+hash).trigger('click');
                     }
                 }, 500);
-                
-                // give the custom font 5s to load, otherwise enable simple font visibility
-                setTimeout(function() {
-                    $('html').addClass('wf-fake-active');
-                }, 5000);
             });
     
             // localhost debug
@@ -368,11 +383,25 @@
                     });
                 }
             });
+            
+            (function(){
+                // store the referrer in cookie for later reuse
+                var parts = parseUri(document.location+"");
+                var referrer = parts.queryKey["referrer"];
+                if (referrer) {
+                    bacookie("bareferrer", referrer, {path: '/', expires: 14});
+                }
+            })();
   
             // cross-domain tracking
             // http://code.google.com/apis/analytics/docs/tracking/gaTrackingSite.html
             $('a').live('click', function() {
                 var href = $(this).attr("href")+"";
+                // pass referrer if available, FastSpring will report it on final order
+                var referrer = bacookie("bareferrer");
+                if (referrer) {
+                    href += (href.indexOf("?")==-1?"?":"&")+"referrer="+encodeURIComponent(referrer);
+                }
                 var current = document.location+"";
                 // just for switching domains between binaryage.com <-> fastspring.com
                 if ((current.match(/fastspring\.com/) && href.match(/binaryage\.com/)) || 
@@ -385,7 +414,44 @@
         
 
         
+        <div id="getsatifucktion"></div>
+        <div id="getsatifucktion2"></div>
+        <script type="text/javascript" charset="utf-8">
+            $("#getsatifucktion").html(writeCapture.sanitize('<scr'+'ipt type="text/javascript" src="http://s3.amazonaws.com/getsatisfaction.com/javascripts/feedback-v2.js"></scr'+'ipt>', {
+                done: function() {
+                    if (typeof window.GSFN == "object") {
+                        window.GSFNFeedbackWidget = new GSFN.feedback_widget({
+                            container: "getsatifucktion2",
+                            display: "overlay",
+                            company: "binaryage",
+                            placement: "hidden",
+                            color: "#656565",
+                            style: "idea"
+                        });
+                    }
+                }
+            }));
+        </script>
+        
 
+        
+
+        
+        <script type="text/javascript">
+          var _gauges = _gauges || [];
+          (function() {
+            var t   = document.createElement('script');
+            t.type  = 'text/javascript';
+            t.async = true;
+            t.id    = 'gauges-tracker';
+            
+            t.setAttribute('data-site-id', '4f10d65d844d52139500000b');
+            
+            t.src = '//secure.gaug.es/track.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(t, s);
+          })();
+        </script>
         
 
         
@@ -394,61 +460,29 @@
                 <div class="fixed-wrapper">
                     <div class="suck-dialog suck-ie5" style="display:none">
                         This page is using the latest HTML5 techniques. You are using old Internet Explorer 5. Please <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home">upgrade to Internet Explorer 9</a> for pixel-perfect experience. Thanks!
-                        <div class="suck-close" onclick="$(this).parent().addClass('suck-closed'); suckCookie('suck-closed', '1', {path: '/'})"></div>
+                        <div class="suck-close" onclick="$(this).parent().addClass('suck-closed'); bacookie('suck-closed', '1', {path: '/'})"></div>
                         <div class="suck-icon"></div>
                     </div>
                     <div class="suck-dialog suck-ie6" style="display:none">
                         This page is using the latest HTML5 techniques. You are using old Internet Explorer 6. Please <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home">upgrade to Internet Explorer 9</a> for pixel-perfect experience. Thanks!
-                        <div class="suck-close" onclick="$(this).parent().addClass('suck-closed'); suckCookie('suck-closed', '1', {path: '/'})"></div>
+                        <div class="suck-close" onclick="$(this).parent().addClass('suck-closed'); bacookie('suck-closed', '1', {path: '/'})"></div>
                         <div class="suck-icon"></div>
                     </div>
                     <div class="suck-dialog suck-ie7" style="display:none">
                         This page is using the latest HTML5 techniques. You are using old Internet Explorer 7. Please <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home">upgrade to Internet Explorer 9</a> for pixel-perfect experience. Thanks!
-                        <div class="suck-close" onclick="$(this).parent().addClass('suck-closed'); suckCookie('suck-closed', '1', {path: '/'})"></div>
+                        <div class="suck-close" onclick="$(this).parent().addClass('suck-closed'); bacookie('suck-closed', '1', {path: '/'})"></div>
                         <div class="suck-icon"></div>
                     </div>
                     <div class="suck-dialog suck-ie8" style="display:none">
                         This page is using the latest HTML5 techniques. You are using old Internet Explorer 8. Please <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home">upgrade to Internet Explorer 9</a> for pixel-perfect experience. Thanks!
-                        <div class="suck-close" onclick="$(this).parent().addClass('suck-closed'); suckCookie('suck-closed', '1', {path: '/'})"></div>
+                        <div class="suck-close" onclick="$(this).parent().addClass('suck-closed'); bacookie('suck-closed', '1', {path: '/'})"></div>
                         <div class="suck-icon"></div>
                     </div>
                 </div>
             </div>
         </div>
         <script type="text/javascript" charset="utf-8">
-            // https://github.com/carhartl/jquery-cookie
-            var suckCookie = function (key, value, options) {
-                // key and at least value given, set cookie...
-                if (arguments.length > 1 && String(value) !== "[object Object]") {
-                    options = options || {};
-
-                    if (value === null || value === undefined) {
-                        options.expires = -1;
-                    }
-
-                    if (typeof options.expires === 'number') {
-                        var days = options.expires, t = options.expires = new Date();
-                        t.setDate(t.getDate() + days);
-                    }
-
-                    value = String(value);
-
-                    return (document.cookie = [
-                        encodeURIComponent(key), '=',
-                        options.raw ? value : encodeURIComponent(value),
-                        options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
-                        options.path ? '; path=' + options.path : '',
-                        options.domain ? '; domain=' + options.domain : '',
-                        options.secure ? '; secure' : ''
-                    ].join(''));
-                }
-
-                // key and possibly options given, get cookie...
-                options = value || {};
-                var result, decode = options.raw ? function (s) { return s; } : decodeURIComponent;
-                return (result = new RegExp('(?:^|; )' + encodeURIComponent(key) + '=([^;]*)').exec(document.cookie)) ? decode(result[1]) : null;
-            };
-            if (suckCookie('suck-closed')) {
+            if (bacookie('suck-closed')) {
                 $('.suck-dialog').addClass('suck-closed');
             }
         </script>

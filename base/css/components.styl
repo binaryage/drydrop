@@ -1,0 +1,145 @@
+-reset()
+    margin: 0
+    user-select: none
+    display: inline-block
+    text-decoration: none
+
+sprite(x=0px, y=0px, w='auto', h='auto', img='/base/img2/assets.png')
+    background transparent url(img) no-repeat (-(x)) (-(y)) !important
+    width w
+    height h
+    display block
+    absolute()
+    
+topbar-button(iconx=276px, icony=62px, bg = topbar-bg-color, img='/base/img2/assets.png')
+    -reset()
+    background transparent url(img) no-repeat (-(iconx)) (-(icony))
+    float right
+    background-color bg
+    color topbar-color
+    font topbar-font
+    height 22px
+    line-height 22px
+    border-radius bottom 6px
+    padding 0px 8px 0px 26px
+    margin-left 5px
+    text-shadow: 0 1px 0 darken(bg, 30%)
+    
+    &:hover
+        cursor pointer
+    
+menu-button(iconx=-10px, icony=63px, img='/base/img2/assets.png')
+    -reset()
+    margin-left 12px
+    & a
+        text-shadow: 0 1px 0 #fff
+        background transparent url(img) no-repeat (-(iconx)) (-(icony))
+        display: inline-block
+        padding 0px 10px 0px 34px
+        height 26px
+        cursor pointer
+        color menu-color
+        font menu-font
+        line-height 24px
+        text-decoration none
+
+product-button(iconx=-16px, icony=242px, img='/base/img2/assets.png')
+    -reset()
+    relative()
+    cursor pointer
+    font product-button-font
+    color product-button-color
+    border 1px solid #ccc
+    padding 2px 0px 2px 0px
+    text-shadow #FFF 0px 1px 1px
+    border-radius 8px
+    min-height 38px
+    line-height 38px
+    margin-bottom 12px
+    box-shadow 0px 1px 4px #CCC
+    background-color #fff
+    background linear-gradient(top, #fff, #f4f4f4)
+    transition all tspeed ease 0s
+    
+    &:hover
+        background-color #f3f3f3
+        background linear-gradient(top, #fff, #f8f8f8)
+        border-color selection-color
+    
+    & > div
+        background transparent url(img) no-repeat (-(iconx)) (-(icony))
+
+    & > div > div
+        margin-left: 40px;
+        text-align: left;
+        padding: 0px 20px;
+        line-height 38px
+        white-space:nowrap;
+        
+    & .product-specs
+        font product-specs-font
+        color #777
+        text-shadow #fff 0px 1px 1px
+        margin 0
+        line-height 12px
+        margin-bottom 6px
+        margin-top -4px
+        
+    & .trial-note
+        padding 4px 29px
+        background-color #2572c7
+        text-shadow none
+        font-weight normal
+        color #fff
+        font-size 9px
+        line-height 8px
+        text-align center
+        absolute(top 13px right -33px)
+        transform rotate(45deg)
+        display none
+
+    .webkit & .trial-note 
+    .gecko & .trial-note
+    .opera & .trial-note
+        display block
+
+minor-button(iconx=-16px, icony=242px, img='/base/img2/assets.png')
+    product-button(iconx, icony, img)
+    font minor-button-font
+    color minor-button-color
+
+popup-button(img='/base/img2/assets.png')
+    product-button(0px, 0px, img)
+
+    & > div
+        background none
+
+    & > div > div
+        margin-left: 0px;
+
+
+tiny-button-icon(iconx=0px, icony=0px, img='/base/img2/assets.png')
+    product-button(iconx, icony, img)
+
+    font tiny-button-font
+    color tiny-button-color
+    height 22px
+    min-height 22px
+    border-radius 4px
+    box-shadow 0px 1px 2px #CCC
+    padding 0px 4px
+
+    & > div > div
+        line-height 22px
+        padding: 0px 4px;
+        margin-left: 22px;
+
+tiny-button(img='/base/img2/assets.png')
+    tiny-button-icon(0px, 0px, img)
+
+    & > div
+        background none
+
+    & > div > div
+        margin-left: 0px;
+    

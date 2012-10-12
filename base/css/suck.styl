@@ -1,0 +1,47 @@
+.suck-area
+    .container
+        .fixed-wrapper
+            position fixed
+            top 0
+    
+
+.suck-dialog
+    z-index 3000
+    margin auto
+    background-color #fffcaa
+    padding 3px 14px
+    padding-right 26px
+    font-size 11px
+    border 2px solid #C52E21
+    border-top none
+    text-align center
+    absolute()
+    
+    .suck-close
+        absolute(top 2px right 5px)
+        width 13px
+        height 13px
+        background-color red
+        cursor pointer
+        background transparent url('/base/img2/suck-close.png') no-repeat top left
+
+    .suck-icon
+        absolute(top 9px left -11px)
+        width 24px
+        height 24px
+        background transparent url('/base/img2/error-icon.png') no-repeat top left
+
+.ie5 .suck-ie5
+    display block !important
+
+.ie6 .suck-ie6
+    display block !important
+
+.ie7 .suck-ie7
+    display block !important
+
+.ie8 .suck-ie8
+    display block !important
+    
+.suck-dialog.suck-closed
+    display none !important

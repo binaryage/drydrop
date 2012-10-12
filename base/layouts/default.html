@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html xmlns:og="http://opengraphprotocol.org/schema/"
+      xmlns:fb="http://developers.facebook.com/schema/"
+      {% if page.id %}class="{{page.id}}"{% endif %}
+>
+    <head>
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+        <title>{{page.title}}</title>
+        {% if page.no_canonical != 1 %}
+        <link rel="canonical" href="{{site.url}}{{page.url|remove: '/index.html'}}">
+        {% endif %}
+        {% if page.meta_title %}
+        <meta name="title" content="{{page.title}}" />
+        {% endif %}
+        {% if page.meta_description %}
+        <meta name="description" content="{{page.meta_description}}" />
+        {% endif %}
+        {% if page.meta_keywords %}
+        <meta name="keywords" content="{{page.meta_keywords}}" />
+        {% endif %}
+        {% if page.meta_image %}
+        <link rel="image_src" href="{{page.meta_image}}" />
+        {% endif %}
+        <meta name="google-site-verification" content="N_xzdr6ymSUQFhAEvQg7f-sp1JAeJCdW2JuaRg-da0w" />
+        <meta property="fb:admins" content="antonin.hildebrand" />
+        {% if page.ogmeta %}
+            {% if page.ogmeta.email %}
+                <meta property="og:email" content="{{page.ogmeta.email}}" />
+            {% endif %}
+            {% if page.ogmeta.description %}
+                <meta property="og:description" content="{{page.ogmeta.description}}" />
+            {% endif %}
+            {% if page.ogmeta.site_name %}
+                <meta property="og:site_name" content="{{page.ogmeta.site_name}}" />
+            {% endif %}
+            {% if page.ogmeta.type %}
+                <meta property="og:type" content="{{page.ogmeta.type}}" />
+            {% endif %}
+            {% if page.ogmeta.title %}
+                <meta property="og:title" content="{{page.ogmeta.title}}" />
+            {% endif %}
+            {% if page.ogmeta.url %}
+                <meta property="og:url" content="{{page.ogmeta.url}}" />
+            {% endif %}
+            {% if page.ogmeta.image %}
+                <meta property="og:image" content="{{page.ogmeta.image}}" />
+            {% endif %}
+        {% endif %}
+        
+        <!-- test comment - hello world! -->
+
+        <link href="http://www.google.com/profiles/antonin.hildebrand" rel="me" type="text/html" />
+        <link href="{% if page.feed %}{{page.feed}}{% else %}http://feeds.feedburner.com/binaryage-blog{% endif %}" type="application/atom+xml" rel="alternate" title="{% if page.feed_title %}{{page.feed_title}}{% else %}Ideas from BinaryAge{% endif %}" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        
+        <script type="text/javascript" charset="utf-8">
+            // give the custom font 5s to load, otherwise enable simple font visibility
+            setTimeout(function() {
+                $('html').addClass('wf-fake-active');
+            }, 2000);
+        </script>
+        {% if page.xstatic != 1 %}
+        <style type="text/css">
+            /* prevent visible font switching - this is also repeated in global.styl for fastspring compatibility!  */
+            .js .wf {
+                opacity: 0 !important;
+                filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0) !important;
+                -webkit-transition: opacity 0.5s ease 0s;
+                -moz-transition: opacity 0.5s ease 0s;
+                -o-transition: opacity 0.5s ease 0s;
+                transition: opacity 0.5s ease 0s;
+            }
+            .wf-active .wf,
+            .wf-fake-active .wf {
+                opacity: 1 !important;
+                filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100) !important;
+            }
+        </style>
+        {% endif %}
+        {% if page.xstatic == 1 %}
+        <link type="text/css" media="all" href="//resource.fastspring.com/app/store/style/base.css?v=1305862826942&amp;region=eu" rel="stylesheet" title="main">        
+        <link type="text/css" media="all" href="//dcnz2rrcot657.cloudfront.net/_gz/country/fam/decorate.css" rel="stylesheet" title="main">
+        {% endif %}
+
+        <link rel="stylesheet" href="/base/css/site.css" type="text/css">
+    
+        {% if page.xstatic != 1 %}
+        {% if page.styles %}
+            {% for s in page.styles %}
+                <link rel="stylesheet" href="{{s}}.css" type="text/css">
+            {% endfor %}
+        {% endif %}
+        {% endif %}
+        
+        <!-- SCRIPTS START -->
+        <script type="text/javascript" charset="utf-8">
+            /*
+            CSS Browser Selector v0.4.0 (Nov 02, 2010)
+            Rafael Lima (http://rafael.adm.br)
+            http://rafael.adm.br/css_browser_selector
+            License: http://creativecommons.org/licenses/by/2.5/
+            Contributors: http://rafael.adm.br/css_browser_selector#contributors
+            */
+            function css_browser_selector(u){var ua=u.toLowerCase(),is=function(t){return ua.indexOf(t)>-1},g='gecko',w='webkit',s='safari',o='opera',m='mobile',h=document.documentElement,b=[(!(/opera|webtv/i.test(ua))&&/msie\s(\d)/.test(ua))?('ie ie'+RegExp.$1):is('firefox/2')?g+' ff2':is('firefox/3.5')?g+' ff3 ff3_5':is('firefox/3.6')?g+' ff3 ff3_6':is('firefox/3')?g+' ff3':is('gecko/')?g:is('opera')?o+(/version\/(\d+)/.test(ua)?' '+o+RegExp.$1:(/opera(\s|\/)(\d+)/.test(ua)?' '+o+RegExp.$2:'')):is('konqueror')?'konqueror':is('blackberry')?m+' blackberry':is('android')?m+' android':is('chrome')?w+' chrome':is('iron')?w+' iron':is('applewebkit/')?w+' '+s+(/version\/(\d+)/.test(ua)?' '+s+RegExp.$1:''):is('mozilla/')?g:'',is('j2me')?m+' j2me':is('iphone')?m+' iphone':is('ipod')?m+' ipod':is('ipad')?m+' ipad':is('mac')?'mac':is('darwin')?'mac':is('webtv')?'webtv':is('win')?'win'+(is('windows nt 6.0')?' vista':''):is('freebsd')?'freebsd':(is('x11')||is('linux'))?'linux':'','js']; c = b.join(' '); h.className += ' '+c; return c;}; css_browser_selector(navigator.userAgent);
+        </script>
+        <script type="text/javascript" charset="utf-8">
+            // define dummy replacements for firebug functionality (needed for Opera)
+            if (!window.console) {
+                window.console = {};
+                function fn() {
+                    opera.postError(arguments);
+                };
+                ['log', 'debug', 'info', 'warn', 'error', 'assert', 'dir', 'dirxml', 'group', 'groupEnd', 
+                'time', 'timeEnd', 'count', 'trace', 'profile', 'profileEnd'].forEach(function(name) {
+                    window.console[name] = fn;
+                });
+            }            
+            (function() {
+                    var names = ["log", "debug", "info", "warn", "error", "assert", "dir", "dirxml", "group", "groupEnd", "time", "timeEnd", "count", "trace", "profile", "profileEnd"];
+                    if(!window.console){
+                        window.console = {};
+                    }
+                    for (var i in names) {
+                        window.console[names[i]] = window.console[names[i]] || function(){
+                            return;
+                        };
+                    }
+            })();
+        </script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            // https://github.com/carhartl/jquery-cookie
+            function bacookie(key, value, options) {
+                // key and at least value given, set cookie...
+                if (arguments.length > 1 && String(value) !== "[object Object]") {
+                    options = options || {};
+
+                    if (value === null || value === undefined) {
+                        options.expires = -1;
+                    }
+
+                    if (typeof options.expires === 'number') {
+                        var days = options.expires, t = options.expires = new Date();
+                        t.setDate(t.getDate() + days);
+                    }
+
+                    value = String(value);
+
+                    return (document.cookie = [
+                        encodeURIComponent(key), '=',
+                        options.raw ? value : encodeURIComponent(value),
+                        options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
+                        options.path ? '; path=' + options.path : '',
+                        options.domain ? '; domain=' + options.domain : '',
+                        options.secure ? '; secure' : ''
+                    ].join(''));
+                }
+
+                // key and possibly options given, get cookie...
+                options = value || {};
+                var result, decode = options.raw ? function (s) { return s; } : decodeURIComponent;
+                return (result = new RegExp('(?:^|; )' + encodeURIComponent(key) + '=([^;]*)').exec(document.cookie)) ? decode(result[1]) : null;
+            };
+            // parseUri 1.2.2
+            // (c) Steven Levithan <stevenlevithan.com>
+            // MIT License
+
+            function parseUri (str) {
+                var o   = parseUri.options,
+                    m   = o.parser[o.strictMode ? "strict" : "loose"].exec(str),
+                    uri = {},
+                    i   = 14;
+
+                while (i--) uri[o.key[i]] = m[i] || "";
+
+                uri[o.q.name] = {};
+                uri[o.key[12]].replace(o.q.parser, function ($0, $1, $2) {
+                    if ($1) uri[o.q.name][$1] = $2;
+                });
+
+                return uri;
+            };
+
+            parseUri.options = {
+                strictMode: false,
+                key: ["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],
+                q:   {
+                    name:   "queryKey",
+                    parser: /(?:^|&)([^&=]*)=?([^&]*)/g
+                },
+                parser: {
+                    strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
+                    loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
+                }
+            };            
+        </script>
+
+        <script>
+            function utmx_section(){}function utmx(){};
+        </script>
+        {% if page.gwo %}
+        <script>
+        _udn = ".binaryage.com";
+        </script>
+        <!-- Google Website Optimizer Control Script -->
+        <script>
+            function utmx_section(){}function utmx(){}
+            (function(){var k='{{page.gwo}}',d=document,l=d.location,c=d.cookie;function f(n){
+            if(c){var i=c.indexOf(n+'=');if(i>-1){var j=c.indexOf(';',i);return escape(c.substring(i+n.
+            length+1,j<0?c.length:j))}}}var x=f('__utmx'),xx=f('__utmxx'),h=l.hash;
+            d.write('<sc'+'ript src="'+
+            'http'+(l.protocol=='https:'?'s://ssl':'://www')+'.google-analytics.com'
+            +'/siteopt.js?v=1&utmxkey='+k+'&utmx='+(x?x:'')+'&utmxx='+(xx?xx:'')+'&utmxtime='
+            +new Date().valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
+            '" type="text/javascript" charset="utf-8"></sc'+'ript>')})();
+        </script>
+        <!-- End of Google Website Optimizer Control Script -->
+        {% endif %}
+
+        <script type="text/javascript">
+            WebFontConfig = { 
+                google: { families: [ 'Play:regular,bold' ] }
+            };
+            (function() {
+                var wf = document.createElement('script');
+                wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+                wf.type = 'text/javascript';
+                wf.async = 'true';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(wf, s);
+            })();
+        </script>
+        
+        {% if page.xstatic != 1 %}
+        <script src="/base/js/code2.js"></script>
+        {% if page.scripts %}
+        {% for s in page.scripts %}
+        <script src="{{s}}"></script>
+        {% endfor %}
+        {% endif %}
+    
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+        </script>
+        {% if site.url contains ".com" %}
+        <script type="text/javascript">
+            _gaq.push(['_setAccount', '{% if page.ga %}{{page.ga}}{% else %}UA-8404259-1{% endif %}']);
+            _gaq.push(['_addIgnoredRef', '.binaryage.com']); // do not count subdomains as referrer trafic
+            _gaq.push(['_setDomainName', '.binaryage.com']); // track all subdomains with shared cookie
+            _gaq.push(['_setAllowLinker', true]); // important for cross domain user tracking (the session may be passed in URL params)
+            _gaq.push(['_setAllowHash', false]); // do not use url-hash check
+            _gaq.push(['_trackPageview']);
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+        {% endif %}
+    
+        {% if false %}
+        <script type="text/javascript">
+            SSTracker = { states: [] };
+            SSTracker.setState = function(state) {
+                var x = this;
+                setTimeout(function() {
+                    if (x.states.length>1) {
+                        console.error('SS: reset state while some on stack');
+                    }
+                    if (state) {
+                        SSTracker.states = [state];
+                    } else {
+                        SSTracker.states = [];
+                    }
+                }, 0);
+            };
+            SSTracker.pushState = function(state) {
+                setTimeout(function() {
+                    SSTracker.states.push(state);
+                }, 0);
+            };
+            SSTracker.popState = function(state) {
+                setTimeout(function() {
+                    SSTracker.states.pop();
+                }, 0);
+            };
+            SSTracker.track = function(env) {
+                if (!env) {
+                    env = {};
+                }
+        
+                env.u = document.location.href;
+                var w = $(window);
+                env.bw = w.width();
+                env.bh = w.height();
+                env.uid = bacookie('ssuid');
+                if (!env.uid) {
+                    env.uid = ((Math.random()+"").substring(2));
+                    bacookie('ssuid', env.uid, {
+                        path: '/',
+                        expires: 30 // TODO: configurable?
+                    });
+                }
+
+                if (document.referrer && document.referrer != "") {
+                    env.ref = document.referrer;
+                }
+        
+                if (this.states.length) {
+                    env.state = this.states[this.states.length-1];
+                }
+        
+                // console.warn("SS: tracking ", env);
+                {% if site.url contains ".com" %}
+                var image = new Image();
+                image.src = "http://173.255.237.194:8000/tracking_pixel.gif?" + jQuery.param(env);
+                {% endif %}
+            };
+    
+            $('html').bind('click', function(e) {
+                try {
+                    SSTracker.track({e:'click', px:e.pageX, py:e.pageY});
+                } catch (ex) {
+                    console.log('unable to process SS click');
+                }
+            });
+            
+            SSTracker.track({e:'hit'});
+        </script>
+        {% endif %}
+        
+        {% if page.plusone %}
+        <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+        {% endif %}
+        {% endif %}
+        <!-- SCRIPTS END -->
+    </head>
+    <body id="page-{{ site.url | remove: 'https' | remove: 'http' | remove: ':' | remove: '/' | remove: '.com' | remove: '.org' | remove: '.binaryage' }}-{{ page.url | remove: '/' | remove: '.html' }}">
+        <div id="topbar">
+            <div class="container topbar">
+                <div class="topbar-buttons">
+                    <div class="topbar-labs wf">
+                        labs
+                    </div>
+                    <div class="topbar-testimonials wf">
+                        testimonials
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="header" class="menu-{{page.menu}}">
+            <div class="container header">
+                <a href="http://www.binaryage.com" title="BinaryAge Software">
+                    <div class="header-logo">
+                        <div class="header-logo-hover"></div>
+                    </div>
+                </a>
+                {% if page.webexpo %}
+                <a href="http://webexpo.net/prague2011/?r=binaryage2011" title="WebExpo 2011">
+                    <div class="header-ad">
+                        <img src="/base/img2/webexpo.png">
+                        <div>Prague, Sep 22-24th, let's meet there!</div>
+                    </div>
+                </a>
+                {% endif %}
+                <div class="header-motto arrow"></div>
+                <div class="header-selector"></div>
+                <ul class="header-menu">
+                    <li class="menu-item-store wf"><a href="http://www.binaryage.com/store"><span>store</span></a></li>
+                    <li class="menu-item-products wf"><a href="http://www.binaryage.com"><span>products</span></a></li>
+                    <li class="menu-item-blog wf"><a href="http://blog.binaryage.com"><span>blog</span></a></li>  
+                    <li class="menu-item-hints wf"><a href="http://hints.binaryage.com"><span>hints</span></a></li>
+                    <li class="menu-item-support wf"><a href="http://support.binaryage.com"><span>support</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="main">
+            {% if page.gwo %}
+            <script>utmx_section("content")</script>
+            {% endif %}
+            <div class="wf">
+            {{content}}
+            </div>
+            {% if page.gwo %}
+            </noscript>
+            {% endif %}
+            <div class="clear"></div>
+        </div>
+        <div id="tweets-section">
+            <div class="container" style="position: relative">
+                <ol id="tweets" class="statuses"></ol>
+            </div>
+        </div>
+        {% if page.ripsteve %}
+        <style type="text/css" media="screen">
+        .ribbon-holder {
+          position: absolute;
+          top: 0;
+          overflow: hidden;
+          height: 10em;
+        }
+
+        .right.ribbon-holder {
+          right: 0;
+        }
+
+        .left.ribbon-holder {
+          left: 0;
+        }
+
+        .ribbon,
+        .ribbon:hover {
+          text-decoration: none;
+        }
+
+        .ribbon {
+          font-family: sans-serif;
+          letter-spacing: -.1px;
+          opacity: 0.95;
+
+          padding: 0.25em 0;
+          position: relative;
+          top: 2.5em;
+
+          /* Defaults friendly for white pages. */
+          -moz-box-shadow: 0 0 13px #888;
+          -webkit-box-shadow: 0 0 13px #888;
+          color: #FFF;
+          display: block;
+          line-height: 1.35em;
+        }
+
+        .ribbon .text {
+          padding: 0.1em 3em;
+          font-weight: bold;
+        }
+
+        .right .ribbon {
+          -moz-transform: rotate(45deg);
+          -webkit-transform: rotate(45deg);
+          right: -2.6em;
+        }
+
+        .left .ribbon {
+          -moz-transform: rotate(-45deg);
+          -webkit-transform: rotate(-45deg);
+          left: -2.6em;
+        }
+
+        .black.ribbon {
+          background-color: #000000;
+          background: -webkit-gradient(linear, left bottom, left top, from(#000000), to(#111111));
+        }
+
+        .black.ribbon .text {
+          border: 1px solid #666;
+          color: #fff !important;
+        }
+        </style>
+        <div class="left ribbon-holder">
+            <a href="http://www.apple.com/stevejobs" class="black ribbon">
+                <span class="text">Steve Jobs</span>
+            </a>
+        </div>
+        {% endif %}
+        <div id="footer">
+            <div class="container">
+                <div class="footer-separator"></div>
+                <div class="footerbox">
+                    {% if page.fblikefooter %}
+                    <div class="facebook-like-button-wrapper">
+                        <fb:like width="650" href="{{page.ogmeta.url}}" layout="standard" show_faces="false" font="arial"></fb:like>
+                    </div>
+                    {% else %}
+                    <div class="copyright">
+                        <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0"><img title="the website license" alt="Creative Commons License" style="border-width:0" src="/base/img/byccnd.png" /></a>
+                    </div>
+                    {% endif %}
+                    <div class="footer-links wf">
+                        {% if page.satisfaction %}
+                        <a href="javascript:GSFNFeedbackWidget.show()">feedback</a> | 
+                        {% endif %}
+                        {% if page.repo %}
+                        <a href="{{page.repo}}">source code</a> | 
+                        {% endif %}
+                        <a href="http://www.binaryage.com/about.html">contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if page.pray %}
+        <div class="google-pray">
+            <div class="container">
+                <p>Hello GoogleBot, please index this page also for the terms: {{page.pray}}. Thank you :-)</p>
+            </div>
+        </div>
+        {% endif %}
+    
+        {% if page.xstatic != 1 %}
+
+        {% if site.url contains ".org" %}
+        <script type="text/javascript" charset="utf-8">
+            if ((document.location+"").match(/showgrid/)) {
+                $('.container').addClass('showgrid');
+            }
+        </script>
+        {% endif %}
+    
+        {% if page.fbsdk %}
+        <div id="fb-root"></div>
+        <script type="text/javascript">
+            window.fbAsyncInit = function() {
+                FB.init({appId: '332451499524', status: true, cookie: true, xfbml: true});
+            };
+            (function() {
+                var e = document.createElement('script'); e.async = true;
+                e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+                document.getElementById('fb-root').appendChild(e);
+            }());
+        </script>
+        {% endif %}
+
+        {% if page.disqus %}
+        <div id="disqus-wrapper"></div>
+        <script type="text/javascript">
+            (function() {
+                var links = document.getElementsByTagName('a');
+                var query = '?';
+                for(var i = 0; i < links.length; i++) {
+                    if(links[i].href.indexOf('#disqus_thread') >= 0) {
+                        query += 'url' + i + '=' + encodeURIComponent(links[i].href) + '&';
+                    }
+                }
+                $('#disqus-wrapper').html('<scr'+'ipt charset="utf-8" type="text/javascript" src="http://disqus.com/forums/binaryage/get_num_replies.js' + query + '"></scr'+'ipt>');
+            })();
+        </script>
+        {% endif %}
+        
+        <script type="text/javascript" charset="utf-8">
+            $(function() {
+                var initialized;
+                $('.topbar-testimonials').bind('click', function() {
+                    if (window.SSTracker) {
+                        SSTracker.pushState('praise');
+                    }
+            
+                    if (!initialized) {
+                        $("#tweets").tweet({
+                            user: "binaryage"
+                        });
+                        initialized = true;
+                    }
+                });
+        
+                // trigger page states
+                setTimeout(function() { // give other code some time to init
+                    var hash = location.hash.substring(1);
+                    if (hash.substring(0,2)=="o-") {
+                        $('#'+hash).trigger('click');
+                    }
+                }, 500);
+            });
+    
+            // localhost debug
+            $(function() {
+                var host = document.location.host;
+                if (host.substring(host.length-3)=='org') {
+                    $('a').each(function() {
+                        var el = $(this);
+                        var href = el.attr('href');
+                        if (href) {
+                            if (href.match('binaryage.com')) {
+                                href = href.replace('binaryage.com', 'binaryage.org');
+                            }
+                            var loc = document.location+"";
+                            if (href.substring(0, 4)!="http" && href.match(/\/[^.]+$/i)) { 
+                                // this is for local jekyll server inconsistency
+                                if (host.substring(loc.length-1)=="2") { 
+                                    // next website version
+                                    href += "2";
+                                }
+                                if (loc.substring(loc.length-6)=="2.html") { 
+                                    // next website version
+                                    href += "2";
+                                }
+                                href += ".html";
+                            }
+                            el.attr('href', href);
+                        }
+                    });
+                }
+            });
+            
+            (function(){
+                // store the referrer in cookie for later reuse
+                var parts = parseUri(document.location+"");
+                var referrer = parts.queryKey["referrer"];
+                if (referrer) {
+                    bacookie("bareferrer", referrer, {path: '/', expires: 14});
+                }
+            })();
+  
+            // cross-domain tracking
+            // http://code.google.com/apis/analytics/docs/tracking/gaTrackingSite.html
+            $('a').live('click', function() {
+                var href = $(this).attr("href")+"";
+                // pass referrer if available, FastSpring will report it on final order
+                var referrer = bacookie("bareferrer");
+                if (referrer) {
+                    href += (href.indexOf("?")==-1?"?":"&")+"referrer="+encodeURIComponent(referrer);
+                }
+                var current = document.location+"";
+                // just for switching domains between binaryage.com <-> fastspring.com
+                if ((current.match(/fastspring\.com/) && href.match(/binaryage\.com/)) || 
+                    (current.match(/binaryage\.com/) && href.match(/fastspring\.com/))) {
+                    _gaq.push(['_link', href]);
+                    return false;
+                }
+            });
+        </script>
+        {% endif %}
+
+        {% if page.satisfaction %}
+        <div id="getsatifucktion"></div>
+        <div id="getsatifucktion2"></div>
+        <script type="text/javascript" charset="utf-8">
+            $("#getsatifucktion").html(writeCapture.sanitize('<scr'+'ipt type="text/javascript" src="http://s3.amazonaws.com/getsatisfaction.com/javascripts/feedback-v2.js"></scr'+'ipt>', {
+                done: function() {
+                    if (typeof window.GSFN == "object") {
+                        window.GSFNFeedbackWidget = new GSFN.feedback_widget({
+                            container: "getsatifucktion2",
+                            display: "overlay",
+                            company: "binaryage",
+                            placement: "hidden",
+                            color: "#656565",
+                            style: "idea"
+                        });
+                    }
+                }
+            }));
+        </script>
+        {% endif %}
+
+        {% if page.gwo %}
+        <!-- Google Website Optimizer Tracking Script -->
+        <script type="text/javascript">
+            if(typeof(_gat)!='object')document.write('<sc'+'ript src="http'+
+            (document.location.protocol=='https:'?'s://ssl':'://www')+
+            '.google-analytics.com/ga.js"></sc'+'ript>')
+        </script>
+        <script type="text/javascript">
+            try {
+            var gwoTracker=_gat._getTracker("UA-9521789-1");
+            gwoTracker._setDomainName(".binaryage.com");
+            gwoTracker._trackPageview("/{{page.gwo}}/test");
+            }catch(err){}
+        </script>
+        <!-- End of Google Website Optimizer Tracking Script -->
+        {% endif %}
+
+        {% if page.nogauges != 1 %}
+        <script type="text/javascript">
+          var _gauges = _gauges || [];
+          (function() {
+            var t   = document.createElement('script');
+            t.type  = 'text/javascript';
+            t.async = true;
+            t.id    = 'gauges-tracker';
+            {% if page.gauge %}
+            t.setAttribute('data-site-id', '{{page.gauge}}');
+            {% else %}
+            t.setAttribute('data-site-id', '4f10d65d844d52139500000b');
+            {% endif %}
+            t.src = '//secure.gaug.es/track.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(t, s);
+          })();
+        </script>
+        {% endif %}
+
+        {% if page.nosuck != 1 %}
+        <div class="suck-area">
+            <div class="container">
+                <div class="fixed-wrapper">
+                    <div class="suck-dialog suck-ie5" style="display:none">
+                        This page is using the latest HTML5 techniques. You are using old Internet Explorer 5. Please <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home">upgrade to Internet Explorer 9</a> for pixel-perfect experience. Thanks!
+                        <div class="suck-close" onclick="$(this).parent().addClass('suck-closed'); bacookie('suck-closed', '1', {path: '/'})"></div>
+                        <div class="suck-icon"></div>
+                    </div>
+                    <div class="suck-dialog suck-ie6" style="display:none">
+                        This page is using the latest HTML5 techniques. You are using old Internet Explorer 6. Please <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home">upgrade to Internet Explorer 9</a> for pixel-perfect experience. Thanks!
+                        <div class="suck-close" onclick="$(this).parent().addClass('suck-closed'); bacookie('suck-closed', '1', {path: '/'})"></div>
+                        <div class="suck-icon"></div>
+                    </div>
+                    <div class="suck-dialog suck-ie7" style="display:none">
+                        This page is using the latest HTML5 techniques. You are using old Internet Explorer 7. Please <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home">upgrade to Internet Explorer 9</a> for pixel-perfect experience. Thanks!
+                        <div class="suck-close" onclick="$(this).parent().addClass('suck-closed'); bacookie('suck-closed', '1', {path: '/'})"></div>
+                        <div class="suck-icon"></div>
+                    </div>
+                    <div class="suck-dialog suck-ie8" style="display:none">
+                        This page is using the latest HTML5 techniques. You are using old Internet Explorer 8. Please <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home">upgrade to Internet Explorer 9</a> for pixel-perfect experience. Thanks!
+                        <div class="suck-close" onclick="$(this).parent().addClass('suck-closed'); bacookie('suck-closed', '1', {path: '/'})"></div>
+                        <div class="suck-icon"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" charset="utf-8">
+            if (bacookie('suck-closed')) {
+                $('.suck-dialog').addClass('suck-closed');
+            }
+        </script>
+        {% endif %}
+    </body>
+</html>
