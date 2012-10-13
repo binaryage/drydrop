@@ -1,3 +1,3 @@
-[submodule "base"]
-	path = base
-	url = git://github.com/binaryage/base.git
+[submodule "shared"]
+	path = shared
+	url = git://github.com/binaryage/shared.git
