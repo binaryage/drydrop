@@ -1,0 +1,79 @@
+#overlay-gallery 
+
+    #img
+        border-radius 3px
+
+    .overlay-next, .overlay-prev
+        position:absolute;
+        top:40%;    
+        border:1px solid #666;  
+        cursor:pointer;
+        display:block;
+        padding:10px 20px;
+        color:#fff;
+        font-weight: bold;
+        font-size:14px;
+        border-radius 5px
+
+    .overlay-prev
+        left:0px;
+        border-left:0;
+        -moz-border-radius-topleft:0;
+        -moz-border-radius-bottomleft:0;
+        -webkit-border-bottom-left-radius:0;
+        -webkit-border-top-left-radius:0;
+
+    .overlay-next
+        right:0px;
+        border-right:0;
+        -moz-border-radius-topright:0;
+        -moz-border-radius-bottomright:0;
+        -webkit-border-bottom-right-radius:0;
+        -webkit-border-top-right-radius:0;  
+
+    .overlay-next:hover, .overlay-prev:hover
+        text-decoration:underline;
+        background-color:#000;
+        color: #FFFEE9 !important;
+
+    .disabled-overlay
+        visibility hidden
+
+    .overlay-info
+        position:absolute;
+        bottom:0;
+        left:0;
+        right: 0;
+        padding:2px 24px;
+        color:#fff;
+        font-weight: bold;
+        font-size:14px;
+        border-top:1px solid #666;
+
+    .overlay-progress
+        position:absolute;
+        top:6px;
+        left:6px;
+        display:none;
+
+    .overlay-next, .overlay-prev, .overlay-info
+        background:#000 !important;
+
+.simple_overlay
+    display:none;
+    z-index:10000;
+    padding: 4px 4px;
+    background-color:#fff;
+    width:675px;    
+    min-height:100px;
+    border:3px solid #000;
+    border-radius 3px
+
+.simple_overlay .close
+    background-image:url(/shared/img/overlay/close.png);
+    position:absolute;
+    right:-15px;
+    top:-15px;
+    cursor:pointer;
+    height:35px;
+    width:35px;

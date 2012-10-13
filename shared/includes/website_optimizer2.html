@@ -1,0 +1,16 @@
+{% if page.gwo %}
+<!-- Google Website Optimizer Tracking Script -->
+<script type="text/javascript">
+    if(typeof(_gat)!='object')document.write('<sc'+'ript src="http'+
+    (document.location.protocol=='https:'?'s://ssl':'://www')+
+    '.google-analytics.com/ga.js"></sc'+'ript>')
+</script>
+<script type="text/javascript">
+    try {
+    var gwoTracker=_gat._getTracker("UA-9521789-1");
+    gwoTracker._setDomainName(".binaryage.com");
+    gwoTracker._trackPageview("/{{page.gwo}}/test");
+    }catch(err){}
+</script>
+<!-- End of Google Website Optimizer Tracking Script -->
+{% endif %}

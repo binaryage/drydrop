@@ -19,7 +19,7 @@
         <meta name="keywords" content="python,github,google,app engine,binaryage,productivity,software,web,development" />
         
         
-        <link rel="image_src" href="http://www.binaryage.com/base/img/icons/drydrop-256.png" />
+        <link rel="image_src" href="http://www.binaryage.com/shared/img/icons/drydrop-256.png" />
         
         <meta name="google-site-verification" content="N_xzdr6ymSUQFhAEvQg7f-sp1JAeJCdW2JuaRg-da0w" />
         <meta property="fb:admins" content="antonin.hildebrand" />
@@ -43,7 +43,7 @@
                 <meta property="og:url" content="http://drydrop.binaryage.com" />
             
             
-                <meta property="og:image" content="http://www.binaryage.com/base/img/icons/drydrop-256.png" />
+                <meta property="og:image" content="http://www.binaryage.com/shared/img/icons/drydrop-256.png" />
             
         
         
@@ -320,9 +320,9 @@
                 
                 <div id="screenshot-box-1" class="screenshot-box no-shadow" >
                     
-                    <a id="o-shot1" href="http://drydrop.binaryage.com/base/img/drydrop-mainshot-full.png" class="overlayable" title="DryDrop welcome screen">
+                    <a id="o-shot1" href="http://drydrop.binaryage.com/shared/img/drydrop-mainshot-full.png" class="overlayable" title="DryDrop welcome screen">
                     
-                        <img src="http://drydrop.binaryage.com/base/img/drydrop-mainshot.png"/>
+                        <img src="http://drydrop.binaryage.com/shared/img/drydrop-mainshot.png"/>
                         
                         <div class="zoom-icon"></div>
                         
@@ -394,7 +394,7 @@ So your repository's content lives at <a href="http://github.com/darwin/web-app-
 
 <p>Now you've created project called <code>drydropsample</code> like this:</p>
 
-<p><a href="/base/img/drydrop-create-app.png"><img src="/base/img/drydrop-create-app.png" width="300"></a></p>
+<p><a href="/shared/img/drydrop-create-app.png"><img src="/shared/img/drydrop-create-app.png" width="300"></a></p>
 
 <p>Then make sure you have latest <a href="http://code.google.com/appengine/downloads.html">Google App Engine SDK</a> available on your machine.</p>
 
@@ -409,29 +409,29 @@ rake upload project=drydropsample
 
 <p>My session looked like this:</p>
 
-<p><a href="/base/img/drydrop-upload.png"><img src="/base/img/drydrop-upload.png" width="300"></a></p>
+<p><a href="/shared/img/drydrop-upload.png"><img src="/shared/img/drydrop-upload.png" width="300"></a></p>
 
 <p>Now you can visit your App Engine site at <a href="http://drydropsample.appspot.com">http://drydropsample.appspot.com</a> and you should see the welcome page:</p>
 
-<p><a href="/base/img/drydrop-welcome.png"><img src="/base/img/drydrop-welcome.png" width="300"></a></p>
+<p><a href="/shared/img/drydrop-welcome.png"><img src="/shared/img/drydrop-welcome.png" width="300"></a></p>
 
 <h3>Step 3: point DryDrop site to your GitHub repo</h3>
 
 <p>Go to the admin section of your DryDrop site and switch to the settings page:</p>
 
-<p><a href="/base/img/drydrop-settings.png"><img src="/base/img/drydrop-settings.png" width="300"></a></p>
+<p><a href="/shared/img/drydrop-settings.png"><img src="/shared/img/drydrop-settings.png" width="300"></a></p>
 
 <p>Set "Pull from" to <code>http://github.com/darwin/web-app-theme/raw/master</code>. That "raw" in the URL is important!!!</p>
 
 <p>When you go back to <a href="http://drydropsample.appspot.com">http://drydropsample.appspot.com</a>, you should see your repo's content (assuming you have an index.html there)</p>
 
-<p><a href="/base/img/drydrop-site.png"><img src="/base/img/drydrop-site.png" width="300"></a></p>
+<p><a href="/shared/img/drydrop-site.png"><img src="/shared/img/drydrop-site.png" width="300"></a></p>
 
 <h3>Step 4 (optional): set up post-receive hook in GitHub repo pointing to your DryDrop site</h3>
 
 <p>Go to the Admin section of your GitHub repo:</p>
 
-<p><a href="/base/img/drydrop-hook.png"><img src="/base/img/drydrop-hook.png" width="300"></a></p>
+<p><a href="/shared/img/drydrop-hook.png"><img src="/shared/img/drydrop-hook.png" width="300"></a></p>
 
 <p>Set <code>http://drydropsample.appspot.com/hook/github</code> as post-receive hook.</p>
 
@@ -439,19 +439,19 @@ rake upload project=drydropsample
 
 <p>Now, let's try to push a change and check if it gets auto-published on <a href="http://drydropsample.appspot.com">http://drydropsample.appspot.com</a>.</p>
 
-<p><a href="/base/img/drydrop-edit.png"><img src="/base/img/drydrop-edit.png" width="300"></a></p>
+<p><a href="/shared/img/drydrop-edit.png"><img src="/shared/img/drydrop-edit.png" width="300"></a></p>
 
 <p>Push it to GitHub ...</p>
 
-<p><a href="/base/img/drydrop-push.png"><img src="/base/img/drydrop-push.png" width="300"></a></p>
+<p><a href="/shared/img/drydrop-push.png"><img src="/shared/img/drydrop-push.png" width="300"></a></p>
 
 <p>When you revisit <a href="http://drydropsample.appspot.com">http://drydropsample.appspot.com</a>, you should see an updated version:</p>
 
-<p><a href="/base/img/drydrop-updated.png"><img src="/base/img/drydrop-updated.png" width="300"></a></p>
+<p><a href="/shared/img/drydrop-updated.png"><img src="/shared/img/drydrop-updated.png" width="300"></a></p>
 
 <p>You can double-check the situation in the admin section under Dashboard events:</p>
 
-<p><a href="/base/img/drydrop-events.png"><img src="/base/img/drydrop-events.png" width="300"></a></p>
+<p><a href="/shared/img/drydrop-events.png"><img src="/shared/img/drydrop-events.png" width="300"></a></p>
 
 <p>The post-receive hook was triggered as you can see in the events list.</p>
 

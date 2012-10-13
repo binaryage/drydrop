@@ -1,0 +1,112 @@
+#main-offer
+    min-height 440px
+
+    .great-plugin
+        sprite(374px, 40px, 190px, 30px)
+        absolute(top 64px left 170px)
+        
+    .main-box-wrapper
+        relative()
+        margin auto
+        width 800px
+
+    .main-box
+        relative()
+        display block
+        width 400px
+        text-align center
+        float left
+
+        .icon
+            height 324px
+            width 400px
+            transition all 0.2s ease
+            relative()
+        
+            .glow
+                sprite(0px, 662px, 360px, 360px)
+                absolute(left 10px top 16px)
+                
+            .face
+                relative(top 50px)
+                margin auto
+            
+            .star
+                sprite(805px, 220px, 64px, 64px)
+                absolute(left 274px top 70px)
+                display none
+        
+        .title 
+            font product-title-font
+            color link-color
+            text-shadow #FFF 0px 2px 1px
+            line-height 38px
+        
+        .subtitle
+            font product-subtitle-font
+            color product-subtitle-color
+            text-shadow #FFF 0px 2px 1px
+            line-height 20px
+            
+        &:hover .title
+            color selection-color !important
+
+        &:hover .icon
+            transform scale(1.15)
+            
+    .totalfinder
+        .face
+            sprite(0px, 0px, 256px, 256px, '/shared/img/icons/totalfinder-256.png')
+
+    .totalspaces
+        .face
+            sprite(0px, 0px, 256px, 256px, '/shared/img/icons/totalspaces-256.png')
+            
+
+#free-software
+    .top-divider
+        sprite(0px, 535px, 950px, 27px)
+        relative()
+        
+    .bottom-divider
+        sprite(0px, 576px, 950px, 22px)
+        relative()
+        
+    .labs-button
+        display block
+        tiny-button-icon(280px, 197px)
+        absolute(top 194px left 416px)
+    
+    .products
+        width 910px
+        margin auto
+        
+        .product 
+            text-align center
+            width 178px
+            height 170px
+            display inline-block
+            
+            .icon
+                width 80px
+                height 80px
+                transition all 0.2s ease
+                
+            .title
+                transition color tspeed ease 0s
+                font www-product-font
+                color link-color
+                text-shadow #FFF 0px 2px 1px
+                line-height 30px
+            
+            .desc
+                font product-info-font
+                color minor-link-color
+                text-shadow #FFF 0px 2px 1px
+                line-height 13px
+                
+            &:hover .title
+                color selection-color !important
+
+            &:hover .icon
+                transform scale(1.2)

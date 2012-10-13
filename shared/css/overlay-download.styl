@@ -1,0 +1,281 @@
+#download.overlay
+    background-image url('/shared/img2/overlay-664x349.png')
+    width 664px
+    height 349px
+            
+    .overlay-content
+        text-align center
+        padding 22px 20px
+        
+    .close
+        background-image url('/shared/img2/overlay-close.png')
+        absolute(left 16px top 16px)
+        z-index 30000
+        cursor pointer
+        height 13px
+        width 13px
+
+    .while-downloading
+        color #393d44
+        font droid-font
+        font-size 20px
+        font-weight bold
+    
+    .stay-in-touch 
+        padding-top 2px
+        padding-bottom 10px
+        margin-bottom 26px
+        font droid-font
+        font-size 14px
+        color #8d9198
+
+    .viral-boxes
+    
+        .viral-box
+            float left
+            border 1px solid #d3d3d3
+            border-radius 4px
+            background-color #f1f1f1
+            border-radius 5px
+            font-size 12px
+            padding 10px
+            height 200px
+            width: 180px;
+
+        .twitter-box
+            padding 10px
+            relative()
+
+            a
+                color #3A6394 !important
+                text-decoration none
+
+            a:hover
+                color #1C75DB !important
+                text-decoration none !important
+            
+            #twitter-box-placeholder
+                position static !important
+
+            #twitter-box-placeholder .twtr-doc
+                height 200px
+                background none !important
+                
+            .twtr-hd  
+                padding 2px 6px
+                relative()
+                
+                .twtr-profile-img-anchor
+                    absolute(left 0px top 8px)
+                    
+                    img 
+                        width 20px
+            
+                h4
+                    display none
+            
+                h3
+                    text-align left
+                    padding-left 24px
+                    margin-top 2px
+                    color #454850
+                    line-height 30px !important
+                    font-size 14px !important
+                    text-shadow #fff 0px 2px 1px
+                    font-weight bold !important
+
+            .twtr-bd
+                padding 0px
+                margin-top -12px
+                
+                .twtr-timeline
+                    font-size 9px !important
+                    border-radius 2px
+                    border 1px solid #d3d3d3
+                    max-height 102px
+                    overflow hidden
+                    
+                    .twtr-tweet
+                        margin-bottom 4px
+                        border-bottom 1px dashed #ccc
+                    
+                    .twtr-tweet-text > p
+                        text-align left
+                        font-size 11px !important
+                        line-height 12px
+                        margin 2px
+                    
+                em
+                    display none
+
+            .twtr-ft
+                min-height 53px
+                background-color #94a5b4
+                border-radius 4px
+                border 1px solid #708699
+                absolute(bottom 10px left 10px)
+                right 10px
+                
+                a
+                    color #fff !important
+                    font-size 9px
+                    text-transform uppercase !important
+                    text-shadow #434B53 0px 1px 1px
+                    float none
+                    
+                span 
+                    display block
+                    float none
+                    margin-top 4px
+                    text-align center !important
+                
+                img
+                    display block
+                    margin auto
+                    margin-top 8px
+
+        .blog-box
+            absolute()
+            right: 230px;
+            
+            .title
+                margin-top 4px
+                color #454850
+                line-height 30px !important
+                font-size 14px !important
+                text-shadow #fff 0px 2px 1px
+                font-weight bold !important
+
+            a
+                display block
+                line-height 12px
+                text-shadow #fff 0px 2px 1px
+                
+
+            .rss-button
+                min-height 53px
+                background-color #bfbfbf
+                border-radius 4px
+                border 1px solid #aaaaaa
+                absolute(bottom 10px left 10px)
+                right 10px
+                
+                .rss-icon
+                    sprite(0px, 0px, 64px, 64px, '/shared/img2/rss-icon.png')
+                    absolute(left 10px bottom 10px)
+                    
+                img 
+                    absolute(left 84px bottom 13px)
+
+        .mailchimp-box
+            absolute()
+            right 20px
+            
+            .subs-count 
+                min-height 53px
+                background-color #bfbfbf
+                border-radius 4px
+                border 1px solid #aaaaaa
+                absolute(bottom 10px left 10px)
+                right 10px
+                
+            .subs-count * 
+                background none !important
+
+            #mc_embed_close
+                display: none;
+                
+            #mc_embed_signup
+                z-index 100
+                absolute()
+                left 10px
+                right 10px
+
+            #mc_embed_signup fieldset
+                border: 0;
+                margin: 0;
+                padding: 0px
+                margin-top 4px
+                
+                label 
+                    margin-top 4px
+                    color #454850
+                    line-height 30px !important
+                    font-size 14px !important
+                    text-shadow #fff 0px 2px 1px
+                    font-weight bold !important
+                    
+                    span
+                        display block
+                        color #8d9198
+                        font-weight normal
+                        font-size 12px
+                        line-height 12px
+                
+
+            #mce-EMAIL
+                margin 0px
+                width 176px
+                
+                font-size 10px
+                text-align center
+                border 2px solid #d8d8d8
+                border-radius 5px
+                margin-top 6px
+                color #a8a8a8
+                height 24px
+
+            .mce_inline_error
+                margin-top 4px
+                color #f00
+                font-size 10px
+                line-height 10px
+                font-weight bold
+                text-shadow #fff 0px 2px 1px
+
+            #mc-embedded-subscribe
+                tiny-button()
+                float right
+                margin-top 4px
+
+            #mce-success-response
+                margin-top 4px
+                color #668
+                font-size 10px
+                line-height 10px
+                font-weight bold
+                text-shadow #fff 0px 2px 1px
+                width 580px
+
+            #mce-error-response
+                margin-top 4px
+                color #f00
+                font-size 10px
+                line-height 10px
+                font-weight bold
+                text-shadow #fff 0px 2px 1px
+                width 580px
+            
+            .mc-subscribers
+                text-transform uppercase
+                text-shadow #eee 0px 1px 1px
+                text-align center !important
+                color #6e727b !important
+                font-weight bold !important
+                line-height 14px
+                padding-top 12px !important
+                
+                strong
+                    color #393d44 !important
+                    padding 0 !important
+                    font-weight bold !important
+                    
+            .mc-power
+                text-shadow #eee 0px 1px 1px
+                text-align center !important
+                color #7b7f88 !important
+                padding 0px !important
+                line-height 10px
+                
+                a
+                    color #393d44 !important

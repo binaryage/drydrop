@@ -1,0 +1,121 @@
+#product-totalspaces
+    .screenshot-box
+        img
+            absolute(left -24px)
+            max-width none
+
+        .zoom-icon
+            absolute(top 40% left 42%)
+
+
+#content-totalspaces
+    margin-top 100px
+    relative()
+
+    .social-box
+        absolute(left 662px top 260px)
+
+    .features-separator
+        sprite(0px, 430px, 950px, 30px)
+        relative()
+
+    .highlights
+        margin-top 0px
+
+        .highlight.last
+            margin-right 0px
+
+        .highlight
+            background none
+            float left
+            width 290px
+            margin-right 40px
+            margin-top 0px
+        
+            .highlight-icon
+                float left
+                margin-right 20px
+                padding 2px
+                border-radius 5px
+                background-color #fff
+                display block
+                transition all tspeed ease 0s
+                border 1px solid #ccc
+                opacity 0.7
+                
+                &.hoverable:hover
+                    opacity 1
+                    border-color selection-color
+
+            .highlight-icon div
+                width: 60px;
+                height: 60px;
+
+            .highlight-icon .thumb-grid
+                background-image: url('/images/thumb-grid.png');
+
+            .highlight-icon .thumb-overview
+                background-image: url('/images/thumb-overview.png');
+
+            .highlight-icon .thumb-transitions
+                background-image: url('/images/thumb-transitions.png');
+
+            .highlight-icon .thumb-swipe
+                background-image: url('/images/thumb-swipe.png');
+
+            .highlight-icon .thumb-hotcorners
+                background-image: url('/images/thumb-hotcorners.png');
+
+            .highlight-icon .thumb-app-assignments
+                background-image: url('/images/thumb-app-assignments.png');
+
+            .highlight-icon .thumb-stabs
+                background-image: url('/images/thumb-stabs.png');
+
+            .highlight-icon .thumb-cut
+                background-image: url('/images/thumb-cut.png');
+
+            .highlight-icon .thumb-term
+                background-image: url('/images/thumb-term.png');
+
+            .highlight-content h3
+                margin 0
+                margin-top 6px
+                margin-bottom 6px
+                font highlight-title-font
+                color highlight-title-color
+                text-shadow #FFF 0px 1px 1px
+                line-height 15px
+
+            .highlight-content p
+                margin: 0;
+                font highlight-text-font
+                color highlight-text-color
+                text-shadow #FFF 0px 1px 1px
+                line-height 17px
+
+        .highlight-separator
+            clear both
+            height 30px
+
+    .generic-separator
+        sprite(0px, 456px, 950px, 28px)
+        relative()
+        margin-top 26px
+    
+    .more-info
+        margin-top 12px
+    
+        .product-button-doc
+            minor-button(452px, 309px)
+            width 290px
+            margin-right 34px
+        
+        .product-button-changes
+            minor-button(450px, 353px)
+            width 290px
+
+
+.prefs-screenshot {
+  margin-left: -34px; margin-bottom: -10px;
+}

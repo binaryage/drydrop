@@ -1,0 +1,25 @@
+<div id="footer">
+    <div class="container">
+        <div class="footer-separator"></div>
+        <div class="footerbox">
+            {% if page.fblikefooter %}
+            <div class="facebook-like-button-wrapper">
+                <fb:like width="650" href="{{page.ogmeta.url}}" layout="standard" show_faces="false" font="arial"></fb:like>
+            </div>
+            {% else %}
+            <div class="copyright">
+                <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0"><img title="the website license" alt="Creative Commons License" style="border-width:0" src="/shared/img/byccnd.png" /></a>
+            </div>
+            {% endif %}
+            <div class="footer-links wf">
+                {% if page.satisfaction %}
+                <a href="javascript:GSFNFeedbackWidget.show()">feedback</a> | 
+                {% endif %}
+                {% if page.repo %}
+                <a href="{{page.repo}}">source code</a> | 
+                {% endif %}
+                <a href="http://www.binaryage.com/about.html">contact</a>
+            </div>
+        </div>
+    </div>
+</div>

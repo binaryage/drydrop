@@ -1,0 +1,12 @@
+<div id="main">
+    {% if page.gwo %}
+    <script>utmx_section("content")</script>
+    {% endif %}
+    <div class="wf">
+    {{content}}
+    </div>
+    {% if page.gwo %}
+    </noscript>
+    {% endif %}
+    <div class="clear"></div>
+</div>

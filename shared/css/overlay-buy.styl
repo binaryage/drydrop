@@ -1,0 +1,84 @@
+#buy.overlay
+    background-image url('/shared/img2/overlay-632x479.png')
+    width 632px
+    height 479px
+
+    .overlay-content
+        margin 25px
+        padding 0px
+        absolute()
+
+    .close
+        background-image url('/shared/img2/overlay-close.png')
+        absolute(left 16px top 16px)
+        z-index 30000
+        cursor pointer
+        height 13px
+        width 13px
+
+    .options
+        sprite(0px, 0px, 92px, 19px, '/shared/img2/overlay-buy.png')
+        absolute(left 244px top 12px)
+
+    .explanation-box
+        float left
+        width 242px
+        margin-top 40px
+        text-align center
+        padding 10px 20px
+        min-height 340px
+        border 1px solid #d3d3d3
+        border-radius 4px
+        background-color #f1f1f1
+        relative()
+        
+        &:hover
+            text-decoration none !important
+            background-color #f7f7f7
+
+    .title
+        margin-top 8px
+        font-size 20px
+        color #8d9198
+        line-height 24px
+        font-weight bold
+        text-shadow #FFF 0px 2px 1px
+
+    .deal
+        margin-top 168px
+        margin-bottom 20px
+        font-size 10px
+        line-height 14px
+        color #9699a0
+        min-height 70px
+        text-shadow #FFF 0px 1px 1px
+
+    .button
+        relative()
+        popup-button()
+
+    .buy-single 
+        margin-right: 14px;
+
+        .button
+            width 174px
+        
+        .image
+            sprite(0px, 21px, 144px, 144px, '/shared/img2/overlay-buy.png')
+            absolute(left 80px top 60px)
+
+        .price-tag
+            sprite(544px, 253px, 68px, 28px)
+            absolute(right -14px top 8px)
+            
+    .buy-pack
+        .button
+            width 190px
+        
+        .image
+            sprite(173px, 21px, 200px, 144px, '/shared/img2/overlay-buy.png')
+            absolute(left 40px top 60px)
+
+        .price-tag
+            sprite(544px, 221px, 68px, 28px)
+            absolute(right -14px top 8px)

@@ -1,0 +1,6 @@
+<script src="/shared/js/code2.js"></script>
+{% if page.scripts %}
+    {% for s in page.scripts %}
+        <script src="{{s}}"></script>
+    {% endfor %}
+{% endif %}

@@ -1,0 +1,35 @@
+.social-box
+    .social-box-inner
+        // we want social icons smaller, thanks to CSS3 we may do that pretty easily
+        transform scale(0.75)
+        transform-origin 0 0
+        relative()
+
+        // align icons nicely
+        .twitter
+            absolute()
+            
+        .buzz
+            absolute(top -4px left 64px)
+
+        .flattr
+            absolute(top 0px left 124px)
+            
+            .webkit &
+                display none // iframe zooming bugs prevent new flattr button to render correctly in webkit
+
+        .macupdate
+            absolute(top 6px left 121px)
+
+        .usethis
+            absolute(top 10px left 240px)
+            
+            & > div
+                // prevent bleeding into right-side area - was causing horizontal scrollbar to appear sooner
+                width auto !important 
+
+        // fight safari iframe zooming bug
+        .webkit & iframe
+            zoom 1.5 
+            margin-right -16px
+            margin-bottom -16px

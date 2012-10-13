@@ -1,0 +1,70 @@
+{% if false %}
+<script type="text/javascript">
+    SSTracker = { states: [] };
+    SSTracker.setState = function(state) {
+        var x = this;
+        setTimeout(function() {
+            if (x.states.length>1) {
+                console.error('SS: reset state while some on stack');
+            }
+            if (state) {
+                SSTracker.states = [state];
+            } else {
+                SSTracker.states = [];
+            }
+        }, 0);
+    };
+    SSTracker.pushState = function(state) {
+        setTimeout(function() {
+            SSTracker.states.push(state);
+        }, 0);
+    };
+    SSTracker.popState = function(state) {
+        setTimeout(function() {
+            SSTracker.states.pop();
+        }, 0);
+    };
+    SSTracker.track = function(env) {
+        if (!env) {
+            env = {};
+        }
+        
+        env.u = document.location.href;
+        var w = $(window);
+        env.bw = w.width();
+        env.bh = w.height();
+        env.uid = bacookie('ssuid');
+        if (!env.uid) {
+            env.uid = ((Math.random()+"").substring(2));
+            bacookie('ssuid', env.uid, {
+                path: '/',
+                expires: 30 // TODO: configurable?
+            });
+        }
+
+        if (document.referrer && document.referrer != "") {
+            env.ref = document.referrer;
+        }
+        
+        if (this.states.length) {
+            env.state = this.states[this.states.length-1];
+        }
+        
+        // console.warn("SS: tracking ", env);
+        {% if site.url contains ".com" %}
+        var image = new Image();
+        image.src = "http://173.255.237.194:8000/tracking_pixel.gif?" + jQuery.param(env);
+        {% endif %}
+    };
+    
+    $('html').bind('click', function(e) {
+        try {
+            SSTracker.track({e:'click', px:e.pageX, py:e.pageY});
+        } catch (ex) {
+            console.log('unable to process SS click');
+        }
+    });
+            
+    SSTracker.track({e:'hit'});
+</script>
+{% endif %}

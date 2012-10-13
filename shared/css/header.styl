@@ -1,0 +1,113 @@
+#header
+    height 90px
+    background-color #f7f7f7
+    background linear-gradient(top, #ffffff, #f7f7f7)
+    clear both
+    border-bottom 1px solid header-separator-color
+    box-shadow 0px 1px 5px #dadada
+    
+    .header
+        relative()
+    
+        .header-logo
+            sprite(0px, 0px, 196px, 56px)
+            absolute(top 25px)
+            cursor pointer
+
+            .header-logo-hover
+                sprite(752px, 0px, 196px, 56px)
+                transition all tspeed ease 0s
+                opacity 0
+
+                &:hover
+                    opacity 1
+    
+        .header-ad
+            absolute(top 20px left 280px)
+            
+            img
+                width 194px
+                height 40px
+                transition all tspeed ease 0s
+                opacity 0.5
+            
+        .header-ad:hover img
+                    opacity 1
+    
+        .header-motto
+            sprite(216px, 10px, 126px, 30px)
+            margin-top 18px
+            margin-left 174px
+
+        .header-selector
+            sprite(0px, 213px, 22px, 11px)
+            margin-top 80px 
+            display none
+
+        .header-menu
+            absolute(right)
+            display block
+            padding 0px
+            margin: 0px
+            margin-top 44px
+            margin-right -10px
+            list-style-type none
+            
+            li
+                display block
+                float left
+        
+            .menu-item-store
+                menu-button(-6px, 129px)
+            
+            .menu-item-products
+                menu-button(-4px, 97px)
+            
+            .menu-item-blog
+                menu-button(-4px, 63px)
+				
+            .menu-item-hints
+                menu-button(146px, 62px)
+        
+            .menu-item-support
+                menu-button(-0px, 162px)
+                
+                
+.ie
+    #header
+        background-color #ffffff
+        
+        .header-menu
+            li
+                background-color #ffffff
+                
+        .header-logo-hover
+            display none !important
+                
+// selected menu items
+.menu-store .header-selector
+    right 410px
+    display block !important
+
+.menu-products .header-selector
+    right 310px
+    display block !important
+
+.menu-blog .header-selector
+    right 210px
+    display block !important
+
+.menu-hints .header-selector
+    right 120px
+    display block !important
+
+.menu-support .header-selector
+    right 20px
+    display block !important
+                
+.menu-store .menu-item-store a,
+.menu-products .menu-item-products a,
+.menu-blog .menu-item-blog a,
+.menu-hints .menu-item-hints a,
+.menu-support .menu-item-support a
+    color:menu-selected-color !important;

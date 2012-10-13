@@ -1,0 +1,33 @@
+{% if page.nosuck != 1 %}
+<div class="suck-area">
+    <div class="container">
+        <div class="fixed-wrapper">
+            <div class="suck-dialog suck-ie5" style="display:none">
+                This page is using the latest HTML5 techniques. You are using old Internet Explorer 5. Please <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home">upgrade to Internet Explorer 9</a> for pixel-perfect experience. Thanks!
+                <div class="suck-close" onclick="$(this).parent().addClass('suck-closed'); bacookie('suck-closed', '1', {path: '/'})"></div>
+                <div class="suck-icon"></div>
+            </div>
+            <div class="suck-dialog suck-ie6" style="display:none">
+                This page is using the latest HTML5 techniques. You are using old Internet Explorer 6. Please <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home">upgrade to Internet Explorer 9</a> for pixel-perfect experience. Thanks!
+                <div class="suck-close" onclick="$(this).parent().addClass('suck-closed'); bacookie('suck-closed', '1', {path: '/'})"></div>
+                <div class="suck-icon"></div>
+            </div>
+            <div class="suck-dialog suck-ie7" style="display:none">
+                This page is using the latest HTML5 techniques. You are using old Internet Explorer 7. Please <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home">upgrade to Internet Explorer 9</a> for pixel-perfect experience. Thanks!
+                <div class="suck-close" onclick="$(this).parent().addClass('suck-closed'); bacookie('suck-closed', '1', {path: '/'})"></div>
+                <div class="suck-icon"></div>
+            </div>
+            <div class="suck-dialog suck-ie8" style="display:none">
+                This page is using the latest HTML5 techniques. You are using old Internet Explorer 8. Please <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home">upgrade to Internet Explorer 9</a> for pixel-perfect experience. Thanks!
+                <div class="suck-close" onclick="$(this).parent().addClass('suck-closed'); bacookie('suck-closed', '1', {path: '/'})"></div>
+                <div class="suck-icon"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" charset="utf-8">
+    if (bacookie('suck-closed')) {
+        $('.suck-dialog').addClass('suck-closed');
+    }
+</script>
+{% endif %}

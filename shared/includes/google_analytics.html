@@ -1,0 +1,18 @@
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+</script>
+{% if site.url contains ".com" %}
+  <script type="text/javascript">
+      _gaq.push(['_setAccount', '{% if page.ga %}{{page.ga}}{% else %}UA-8404259-1{% endif %}']);
+      _gaq.push(['_addIgnoredRef', '.binaryage.com']); // do not count subdomains as referrer trafic
+      _gaq.push(['_setDomainName', '.binaryage.com']); // track all subdomains with shared cookie
+      _gaq.push(['_setAllowLinker', true]); // important for cross domain user tracking (the session may be passed in URL params)
+      _gaq.push(['_setAllowHash', false]); // do not use url-hash check
+      _gaq.push(['_trackPageview']);
+      (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+  </script>
+{% endif %}

@@ -1,0 +1,353 @@
+#blog
+    .post-content 
+        font-size: 12px;
+        margin-top: 30px;
+        margin-left: 44px;
+        clear: both;
+    
+        .intro-icon
+            float:left;
+            margin-right:16px; 
+            margin-bottom:10px;
+            position:relative; 
+            top:-10px
+
+        h2
+            font-size: 18px;
+            font-weight: bold;
+            color: #000;
+            margin-top: 50px;
+            clear: both;
+        
+        h3
+            font-size: 16px;
+            font-weight: bold;
+            color: #000;
+            margin-top: 50px;
+            clear: both;
+
+        h4
+            font-size: 14px;
+            color: #000;
+            margin-top: 50px;
+            font-weight: bold;
+            clear: both;
+
+        .small
+            font-size: 9px;
+
+        .excerpt
+            margin-left 10px
+            
+        .blog-image
+            display: block;
+            padding: 5px 4px;
+
+        .blog-image-full
+            display: block;
+            padding: 5px 4px;
+            width: 608px;
+
+        .blog-image-border
+            display: block;
+            background-color: #fff;
+            padding: 5px 4px;
+            border: 1px solid #999;
+
+        .blog-image-full-border
+            display: block;
+            background-color: #fff;
+            padding: 5px 4px;
+            border: 1px solid #999;
+            width: 606px;            
+
+    .blog-articles
+        text-align: right;
+
+    #comments
+        margin-bottom: 20px;
+
+    #post
+        margin-bottom 50px
+
+        .sub
+            display: block;
+            font-size: 9px;
+            color: #666;
+            font-weight: bold;
+            padding-bottom: 4px;
+            border-bottom: 1px solid #C3CBD3;
+
+        .post-titlebar .post-title
+            border-bottom: 1px solid #DEE3E7;
+
+#blog
+    margin-top 30px
+
+    .blog-side
+        float left
+        width 230px
+        padding 20px 0px 20px 60px
+        relative()
+        
+        .vseparator-top
+            absolute(top 0px left 10px)
+            background transparent url('/shared/img2/blog-vsep.png') no-repeat -27px 0px
+            width 27px
+            height 20px
+
+        .vseparator-bottom
+            absolute(bottom 0px left 10px)
+            background transparent url('/shared/img2/blog-vsep.png') no-repeat 0px 0px
+            width 27px
+            height 20px
+
+        .vseparator-body
+            absolute(top 20px bottom 20px)
+            left 10px
+            background transparent url('/shared/img2/blog-vsep.png') repeat-y -54px 0px
+            width 27px
+
+        .blog-side-box
+            clear both
+            margin-bottom 40px
+            
+        .blog-side-about
+            padding-top 6px
+            font-size: 12px;
+            line-height: 12px;
+            font-size: 10px;
+            color #666
+            height 80px
+
+            .blog-side-about-left
+                float left
+                width 92px
+
+                img
+                    border 1px solid #555
+                    display block
+                    box-shadow 2px 2px 2px #c8c8c8
+                    border-radius 2px
+
+            .blog-side-about-right
+                float left
+                width 120px
+        
+                h4
+                    font-weight bold
+                    margin-top 2px
+                    margin-bottom 2px
+                    
+                a
+                    display block
+                    float right
+                    margin-top 2px
+                    
+            .thats-me
+                sprite(756px, 8px, 88px, 52px, blog-assets)
+                absolute(top 118px left 92px)
+            
+
+        .blog-side-follow
+            background-color #e9e9e9
+            border 1px solid #cdcdcd
+            border-radius 4px
+            height 36px
+            line-height 48px
+            font-weight bold
+            text-shadow #FFF 0px 1px 1px
+            relative()
+            margin-bottom 10px
+            
+            .twitter-follow-button 
+                margin 0px 10px
+
+        .blog-side-subscribe
+            background-color #e9e9e9
+            border 1px solid #cdcdcd
+            border-radius 4px
+            height 44px
+            line-height 44px
+            font-weight bold
+            text-shadow #FFF 0px 1px 1px
+            relative()
+
+            a
+                color blog-post-title-color
+            
+            .blog-side-icon
+                float: left;
+                height: 28px;
+                width: 28px;
+                margin 8px 10px
+
+            .blog-rss-icon
+                background: transparent url('/shared/img/icons-blog.png') -29px 0 no-repeat;
+            
+            .subscribe-button
+                absolute(top 0px right 0px)
+                margin-right 8px
+                margin-top 8px
+
+        .blog-side-separator-top
+            display none
+            
+        .blog-side-separator-top.totalfinder
+            sprite(0px, 54px, 235px, 20px, blog-assets)
+            position static
+
+        .blog-side-separator-top.firequery
+            sprite(0px, 116px, 235px, 20px, blog-assets)
+            position static
+            margin-top 20px
+
+        .blog-side-separator-bottom
+            sprite(0px, 92px, 235px, 8px, blog-assets)
+            position static
+        
+        .blog-side-products
+            line-height: 16px;
+            border-bottom: none;
+
+            .blog-side-product
+                padding: 8px 8px;
+
+                img
+                    absolute()
+                    display block
+                    float left
+                    transition all 0.2s ease
+
+                .title
+                    transition color tspeed ease 0s
+                    font-weight bold
+                    font-size 14px
+                    padding-top 5px
+                    line-height 14px
+                    padding-left 48px
+                    color product-title-color
+                    text-shadow #FFF 0px 1px 1px
+
+                .info
+                    padding-left 48px
+                    font-size 10px
+                    font-weight normal
+                    color minor-link-color
+                    text-shadow #FFF 0px 1px 1px
+                    padding-bottom 2px
+                
+                &:hover .title
+                    color selection-color
+                    
+                &:hover img
+                    transform scale(1.2)
+        
+
+    .blog-content
+        width 660px
+        float left
+        margin-top 20px
+        
+        .ideas-separator
+            sprite(0px, 0px, 660px, 17px, blog-assets)
+            position static
+            
+        .paging
+            .older, .newer
+                minor-button()
+                line-height 24px
+                min-height 16px
+                padding 4px 10px
+                margin 20px
+                
+            .newer
+                float right
+
+        .posts
+            padding 0px
+            margin 0px
+            list-style-type none
+            
+            li
+                relative()
+                
+            .post-separator
+                sprite(0px, 17px, 660px, 17px, blog-assets)
+                position static
+
+.post-title
+    font blog-post-title-font
+    color blog-post-title-color
+    text-shadow #FFF 0px 1px 1px
+    padding-top 16px
+    padding-bottom 3px
+    text-transform none
+    line-height 20px
+    margin 15px 0px 15px 44px
+    display block
+    
+.ie6 .post-title,
+.ie7 .post-title,
+.ie8 .post-title,
+    padding-top 0px
+    margin 0
+    
+.calendar
+    float left
+    border 1px solid #d5d5d5
+    background-color #fafafa
+    font-family arial
+    width 30px
+    font-size 12px
+    line-height 12px
+    text-align center
+    margin-right 18px
+    padding-bottom 2px
+    border-radius 2px
+
+    .month
+        text-transform uppercase
+        background-color #757983
+        color #fff
+        font-size 8px
+        line-height 15px
+        height 15px
+        font-weight bold
+
+    .day
+        color #000
+        font-size 14px
+        margin-top 3px
+        font-weight bold
+
+    .year
+        color: #555;
+        font-size: 7px;
+        line-height: 7px;
+        
+// http://blog.binaryage.org/totalfinder-alpha/
+.blog-download
+    clear: both;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    position: relative;
+
+    img
+        float: left;
+        margin-right: 20px;
+        margin-left: 2px;
+
+    .download-link
+        font-size: 18px;
+        line-height: 50px;
+
+    .download-link div
+        display: inline;
+        position: relative;
+        top: -10px;
+
+    .download-note
+        position: absolute;
+        left: 80px;
+        top: 26px;

@@ -1,0 +1,40 @@
+#footer
+    clear both
+    padding-bottom 20px
+    margin-top 30px
+    font footer-font
+    color #d4d4d4
+    text-shadow #FFF 0px 1px 1px
+
+    .footerbox
+        padding 20px 0px
+        relative()
+
+        .copyright
+            transition all tspeed ease 0s
+            opacity 0.6
+            absolute(left 4px)
+            z-index 2
+            
+            &:hover
+                opacity 1
+
+        .copyright a
+            display block
+
+        .copyright img
+            display block
+
+        .footer-links
+            text-align right
+
+        .footer-links a
+            margin 0px 8px
+            
+        .facebook-like-button-wrapper
+            float left
+            relative(top -5px)
+            
+    .footer-separator
+        sprite(0px, 486px, 950px, 50px)
+

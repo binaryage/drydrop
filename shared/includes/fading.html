@@ -1,0 +1,22 @@
+<script type="text/javascript" charset="utf-8">
+    // give the custom font 5s to load, otherwise enable simple font visibility
+    setTimeout(function() {
+        $('html').addClass('wf-fake-active');
+    }, 2000);
+</script>
+<style type="text/css">
+    /* prevent visible font switching - this is also repeated in global.styl for fastspring compatibility!  */
+    .js .wf {
+        opacity: 0 !important;
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0) !important;
+        -webkit-transition: opacity 0.5s ease 0s;
+        -moz-transition: opacity 0.5s ease 0s;
+        -o-transition: opacity 0.5s ease 0s;
+        transition: opacity 0.5s ease 0s;
+    }
+    .wf-active .wf,
+    .wf-fake-active .wf {
+        opacity: 1 !important;
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100) !important;
+    }
+</style>

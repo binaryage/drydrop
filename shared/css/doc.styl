@@ -1,0 +1,262 @@
+.doc-content
+    padding-top: 20px;
+    padding-bottom: 10px;
+    
+    .sidebar
+        float left
+        margin-right 20px
+        width 230px
+        overflow hidden
+        padding-bottom 20px
+        relative()
+
+        .header-sidebar
+            margin-top 34px
+            height 42px
+            margin-bottom 34px
+            relative()
+
+            .back-button
+                tiny-button()
+                line-height 22px
+            
+            .hseparator
+                absolute(left 0px right 50px)
+                bottom 0px
+                height 4px
+                background transparent url('/shared/img2/assets.png') no-repeat -5px -605px
+
+        h2
+            font doc-side-title-font
+            color doc-side-title-color
+            text-shadow #FFF 0px 1px 1px
+            line-height 16px
+            
+        ul 
+            padding 0px
+            margin 0px
+            list-style-type none
+            
+        li 
+            font doc-side-font
+            padding-left 28px
+            line-height 22px
+            background transparent url('/shared/img2/assets.png') no-repeat -470px -387px
+            
+        li.selected
+            background-position -470px -405px
+            
+            a
+                color selection-color
+
+        .vseparator-top
+            absolute(top 0px right 0px)
+            right 0px
+            background transparent url('/shared/img2/doc-vsep.png') no-repeat -27px 0px
+            width 27px
+            height 20px
+
+        .vseparator-bottom
+            absolute(bottom 0px right 0px)
+            background transparent url('/shared/img2/doc-vsep.png') no-repeat -54px 0px
+            width 27px
+            height 20px
+        
+        .vseparator-body
+            absolute(top 20px bottom 20px)
+            right 0px
+            background transparent url('/shared/img2/doc-vsep.png') repeat-y 0px 0px
+            width 27px
+            
+    .doc-page
+        float: left;
+        width: 690px;
+        margin-top: 20px;
+
+        .header-content
+            height 44px
+            relative()
+            margin-bottom 26px
+
+            .title
+                font doc-main-title-font
+                color doc-main-title-color
+                text-shadow #FFF 0px 2px 1px
+                line-height 30px
+                margin-top 12px
+                font-weight bold
+
+            .hseparator
+                absolute(left 0px right 0px)
+                bottom 0px
+                height 4px
+                background transparent url('/shared/img2/assets.png') no-repeat -5px -605px
+                
+        h2
+            margin-top: 26px !important
+
+
+.doc-back
+    float:left;
+    width: 240px;
+    position: relative;
+    top: 24px;
+
+.doc-double
+    position: relative;
+    margin: 0 0 1.5em;
+
+.doc-image
+    width: 750px;
+    position: relative;
+    left: -22px;
+    margin-bottom: -20px;
+
+.doc-image1
+    position: relative;
+    left: -22px;
+    margin-bottom: -20px;
+    width: 380px;
+
+.doc-image2
+    position: absolute;
+    width: 380px;
+    left: 355px;
+    margin-bottom: -20px;
+
+.page-content
+    position: relative;
+    margin-top: 40px;
+    margin-bottom: 40px;
+
+.keyboard-shortcuts
+    width 400px
+    background-color #fff
+    border-radius 5px
+    border 1px solid #aaa
+    margin-bottom 20px
+
+    table
+        margin 0
+        margin-left 10px
+        margin-right 10px
+        width 380px
+
+    th
+        border-bottom 1px solid #ccc
+
+    td
+        vertical-align top
+
+.keyboard-shortcuts.full
+    width 690px
+        
+    table
+        width 670px
+
+.license-desk {
+    background-color: #fff;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;  
+    border: 2px solid #aaa;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.doc-side {
+    float: right;
+    margin-left: 20px;
+    position: relative;
+    left: 10px;
+    margin-bottom: -300px;
+    min-height: 700px;
+}
+
+.doc-side-inner {
+    width: 280px;
+    -moz-transform: scale(0.7);
+    -moz-transform-origin: 0 0;
+    -o-transform: scale(0.7);
+    -o-transform-origin: 0 0;
+    -webkit-transform: scale(0.7);
+    -webkit-transform-origin: 0 0;
+}
+
+.doc-side h2 {
+    margin-top: 2px;
+}
+
+.doc-pref {
+    position: relative;
+    top: -20px;
+    left: -26px;
+}
+
+.doc-home-side {
+    float: right;
+    width: 680px;
+    margin-left: 20px;
+}
+
+.doc-home-side div#gsfn_list_widget {
+    width: 100%;
+    border: none;
+    margin-bottom: 20px;
+}
+
+.doc-home-side div#gsfn_list_widget .widget_title {
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.doc-home-side div#gsfn_list_widget {
+    padding: 0;
+}
+
+.choice{margin-top: 6px;}
+.example{margin-left: 14px;margin-top: 2px;}
+
+.license-warning {
+    background-color: #fff;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;  
+    border: 2px solid #f00;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.license-exclamation {
+    background-color: #fff;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;  
+    border: 2px solid #f00;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.doc-inline-image {
+    position: relative;
+    left: -30px;
+    top: -20px;
+    margin-bottom: -40px;
+}
+
+.doc-inline-image-50 {
+    position: relative;
+    left: -15px;
+    top: -10px;
+    margin-bottom: -40px;
+    width: 50%;
+}
+
+div#gsfn_list_widget img { border: none; }
+div#gsfn_list_widget { font-size: 12px; width: 250px; border: 6px solid #DDD; padding: 10px; }
+div#gsfn_list_widget a.widget_title { color: #000; display: block; margin-bottom: 10px; font-weight: bold; }
+div#gsfn_list_widget .powered_by { margin-top: 8px; padding-top: 8px; border-top: 1px solid #DDD; }
+div#gsfn_list_widget .powered_by a { color: #333; font-size: 90%; }
+div#gsfn_list_widget div#gsfn_content { }
+div#gsfn_list_widget div#gsfn_content li { text-align:left; margin-bottom: 3px; }
+div#gsfn_list_widget div#gsfn_content a.gsfn_link { line-height: 1; }
+div#gsfn_list_widget div#gsfn_content span.time { font-size: 90%; padding-left: 3px; }
+div#gsfn_list_widget div#gsfn_content p.gsfn_summary { margin-top: 2px }
+div#gsfn_list_widget span.time { color: #999; margin-left: 3px; }

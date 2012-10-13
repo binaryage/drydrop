@@ -1,0 +1,11 @@
+<script type="text/javascript" charset="utf-8">
+   $(function() {
+        // trigger page states
+        setTimeout(function() { // give other code some time to init
+            var hash = location.hash.substring(1);
+            if (hash.substring(0,2)=="o-") {
+                $('#'+hash).trigger('click');
+            }
+        }, 500);
+    });
+</script>
