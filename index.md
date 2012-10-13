@@ -9,7 +9,7 @@ repo: http://github.com/binaryage/drydrop
 meta_title: DryDrop updates App Engine site after pushing to GitHub
 meta_keywords: python,github,google,app engine,binaryage,productivity,software,web,development
 meta_description: DryDrop is a tool that lets you host your static site on Google App Engine and update it by pushing to GitHub
-meta_image: http://www.binaryage.com/base/img/icons/drydrop-256.png
+meta_image: http://www.binaryage.com/shared/img/icons/drydrop-256.png
 downloadtitle: Install v0.3
 downloadsubtitle: or better use Github pages instead :-)
 facebook: 1
@@ -23,12 +23,12 @@ ogmeta: {
     type: "product",
     title: "DryDrop",
     url: "http://drydrop.binaryage.com",
-    image: "http://www.binaryage.com/base/img/icons/drydrop-256.png"
+    image: "http://www.binaryage.com/shared/img/icons/drydrop-256.png"
 }
 shots: [{
     title: "DryDrop welcome screen",
-    thumb: "/base/img/drydrop-mainshot.png",
-    full: "/base/img/drydrop-mainshot-full.png"
+    thumb: "/shared/img/drydrop-mainshot.png",
+    full: "/shared/img/drydrop-mainshot-full.png"
 }]
 ---
 
@@ -74,7 +74,7 @@ So your repository's content lives at <a href="http://github.com/darwin/web-app-
 
 Now you've created project called `drydropsample` like this:
 
-<a href="/base/img/drydrop-create-app.png"><img src="/base/img/drydrop-create-app.png" width="300"></a>
+<a href="/shared/img/drydrop-create-app.png"><img src="/shared/img/drydrop-create-app.png" width="300"></a>
 
 Then make sure you have latest <a href="http://code.google.com/appengine/downloads.html">Google App Engine SDK</a> available on your machine.
 
@@ -88,29 +88,29 @@ Note: You will be prompted for user name and password for your Google account by
 
 My session looked like this:
 
-<a href="/base/img/drydrop-upload.png"><img src="/base/img/drydrop-upload.png" width="300"></a>
+<a href="/shared/img/drydrop-upload.png"><img src="/shared/img/drydrop-upload.png" width="300"></a>
 
 Now you can visit your App Engine site at <a href="http://drydropsample.appspot.com">http://drydropsample.appspot.com</a> and you should see the welcome page:
 
-<a href="/base/img/drydrop-welcome.png"><img src="/base/img/drydrop-welcome.png" width="300"></a>
+<a href="/shared/img/drydrop-welcome.png"><img src="/shared/img/drydrop-welcome.png" width="300"></a>
 
 ### Step 3: point DryDrop site to your GitHub repo
 
 Go to the admin section of your DryDrop site and switch to the settings page:
 
-<a href="/base/img/drydrop-settings.png"><img src="/base/img/drydrop-settings.png" width="300"></a>
+<a href="/shared/img/drydrop-settings.png"><img src="/shared/img/drydrop-settings.png" width="300"></a>
 
 Set "Pull from" to `http://github.com/darwin/web-app-theme/raw/master`. That "raw" in the URL is important!!!
 
 When you go back to <a href="http://drydropsample.appspot.com">http://drydropsample.appspot.com</a>, you should see your repo's content (assuming you have an index.html there)
 
-<a href="/base/img/drydrop-site.png"><img src="/base/img/drydrop-site.png" width="300"></a>
+<a href="/shared/img/drydrop-site.png"><img src="/shared/img/drydrop-site.png" width="300"></a>
 
 ### Step 4 (optional): set up post-receive hook in GitHub repo pointing to your DryDrop site
 
 Go to the Admin section of your GitHub repo:
 
-<a href="/base/img/drydrop-hook.png"><img src="/base/img/drydrop-hook.png" width="300"></a>
+<a href="/shared/img/drydrop-hook.png"><img src="/shared/img/drydrop-hook.png" width="300"></a>
 
 Set `http://drydropsample.appspot.com/hook/github` as post-receive hook.
 
@@ -118,19 +118,19 @@ Set `http://drydropsample.appspot.com/hook/github` as post-receive hook.
 
 Now, let's try to push a change and check if it gets auto-published on <a href="http://drydropsample.appspot.com">http://drydropsample.appspot.com</a>.
 
-<a href="/base/img/drydrop-edit.png"><img src="/base/img/drydrop-edit.png" width="300"></a>
+<a href="/shared/img/drydrop-edit.png"><img src="/shared/img/drydrop-edit.png" width="300"></a>
 
 Push it to GitHub ...
 
-<a href="/base/img/drydrop-push.png"><img src="/base/img/drydrop-push.png" width="300"></a>
+<a href="/shared/img/drydrop-push.png"><img src="/shared/img/drydrop-push.png" width="300"></a>
 
 When you revisit <a href="http://drydropsample.appspot.com">http://drydropsample.appspot.com</a>, you should see an updated version:
 
-<a href="/base/img/drydrop-updated.png"><img src="/base/img/drydrop-updated.png" width="300"></a>
+<a href="/shared/img/drydrop-updated.png"><img src="/shared/img/drydrop-updated.png" width="300"></a>
 
 You can double-check the situation in the admin section under Dashboard events:
 
-<a href="/base/img/drydrop-events.png"><img src="/base/img/drydrop-events.png" width="300"></a>
+<a href="/shared/img/drydrop-events.png"><img src="/shared/img/drydrop-events.png" width="300"></a>
 
 The post-receive hook was triggered as you can see in the events list.
 
