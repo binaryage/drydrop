@@ -1,8 +1,3 @@
 ---
 url: http://drydrop.binaryage.com
 markdown: rdiscount
-layouts: shared/layouts
-plugins: ../.jekyll-plugins
-stylus:
-  compress: true
-  path: ./shared/css/site.styl
