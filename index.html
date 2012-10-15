@@ -1,824 +1,356 @@
 <!DOCTYPE html>
-<html xmlns:og="http://opengraphprotocol.org/schema/"
-      xmlns:fb="http://developers.facebook.com/schema/"
-      
->
-    <head>
-        <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-        <title>DryDrop updates App Engine site after pushing to GitHub</title>
-        
-<link rel="canonical" href="http://drydrop.binaryage.com">
-
-
-        
-<meta name="title" content="DryDrop updates App Engine site after pushing to GitHub" />
-
-
-<meta name="description" content="DryDrop is a tool that lets you host your static site on Google App Engine and update it by pushing to GitHub" />
-
-
-<meta name="keywords" content="python,github,google,app engine,binaryage,productivity,software,web,development" />
-
-
-<link rel="image_src" href="http://www.binaryage.com/shared/img/icons/drydrop-256.png" />
-
-<meta name="google-site-verification" content="N_xzdr6ymSUQFhAEvQg7f-sp1JAeJCdW2JuaRg-da0w" />
-<meta property="fb:admins" content="antonin.hildebrand" />
-
-    
-        <meta property="og:email" content="support@binaryage.com" />
-    
-    
-        <meta property="og:description" content="DryDrop updates App Engine site after pushing to GitHub" />
-    
-    
-        <meta property="og:site_name" content="BinaryAge website" />
-    
-    
-        <meta property="og:type" content="product" />
-    
-    
-        <meta property="og:title" content="DryDrop" />
-    
-    
-        <meta property="og:url" content="http://drydrop.binaryage.com" />
-    
-    
-        <meta property="og:image" content="http://www.binaryage.com/shared/img/icons/drydrop-256.png" />
-    
-
-        <link href="http://feeds.feedburner.com/binaryage-blog" type="application/atom+xml" rel="alternate" title="Ideas from BinaryAge" />
-
-        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
-
-        <script type="text/javascript" charset="utf-8">
-    // give the custom font 5s to load, otherwise enable simple font visibility
-    setTimeout(function() {
-        $('html').addClass('wf-fake-active');
-    }, 2000);
-</script>
-<style type="text/css">
-    /* prevent visible font switching - this is also repeated in global.styl for fastspring compatibility!  */
-    .js .wf {
-        opacity: 0 !important;
-        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0) !important;
-        -webkit-transition: opacity 0.5s ease 0s;
-        -moz-transition: opacity 0.5s ease 0s;
-        -o-transition: opacity 0.5s ease 0s;
-        transition: opacity 0.5s ease 0s;
-    }
-    .wf-active .wf,
-    .wf-fake-active .wf {
-        opacity: 1 !important;
-        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100) !important;
-    }
-</style>
-        
-
-        <link rel="stylesheet" href="/shared/css/site.css" type="text/css">
-    
-
-
-        <script type="text/javascript" charset="utf-8">
-    /*
-    CSS Browser Selector v0.4.0 (Nov 02, 2010)
-    Rafael Lima (http://rafael.adm.br)
-    http://rafael.adm.br/css_browser_selector
-    License: http://creativecommons.org/licenses/by/2.5/
-    Contributors: http://rafael.adm.br/css_browser_selector#contributors
-    */
-    function css_browser_selector(u){var ua=u.toLowerCase(),is=function(t){return ua.indexOf(t)>-1},g='gecko',w='webkit',s='safari',o='opera',m='mobile',h=document.documentElement,b=[(!(/opera|webtv/i.test(ua))&&/msie\s(\d)/.test(ua))?('ie ie'+RegExp.$1):is('firefox/2')?g+' ff2':is('firefox/3.5')?g+' ff3 ff3_5':is('firefox/3.6')?g+' ff3 ff3_6':is('firefox/3')?g+' ff3':is('gecko/')?g:is('opera')?o+(/version\/(\d+)/.test(ua)?' '+o+RegExp.$1:(/opera(\s|\/)(\d+)/.test(ua)?' '+o+RegExp.$2:'')):is('konqueror')?'konqueror':is('blackberry')?m+' blackberry':is('android')?m+' android':is('chrome')?w+' chrome':is('iron')?w+' iron':is('applewebkit/')?w+' '+s+(/version\/(\d+)/.test(ua)?' '+s+RegExp.$1:''):is('mozilla/')?g:'',is('j2me')?m+' j2me':is('iphone')?m+' iphone':is('ipod')?m+' ipod':is('ipad')?m+' ipad':is('mac')?'mac':is('darwin')?'mac':is('webtv')?'webtv':is('win')?'win'+(is('windows nt 6.0')?' vista':''):is('freebsd')?'freebsd':(is('x11')||is('linux'))?'linux':'','js']; c = b.join(' '); h.className += ' '+c; return c;}; css_browser_selector(navigator.userAgent);
-</script>
-<script type="text/javascript" charset="utf-8">
-    // define dummy replacements for firebug functionality (needed for Opera)
-    if (!window.console) {
-        window.console = {};
-        function fn() {
-            opera.postError(arguments);
-        };
-        ['log', 'debug', 'info', 'warn', 'error', 'assert', 'dir', 'dirxml', 'group', 'groupEnd', 
-        'time', 'timeEnd', 'count', 'trace', 'profile', 'profileEnd'].forEach(function(name) {
-            window.console[name] = fn;
-        });
-    }            
-    (function() {
-            var names = ["log", "debug", "info", "warn", "error", "assert", "dir", "dirxml", "group", "groupEnd", "time", "timeEnd", "count", "trace", "profile", "profileEnd"];
-            if(!window.console){
-                window.console = {};
-            }
-            for (var i in names) {
-                window.console[names[i]] = window.console[names[i]] || function(){
-                    return;
-                };
-            }
-    })();
-</script>
-
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-
-        <script type="text/javascript" charset="utf-8">
-    // https://github.com/carhartl/jquery-cookie
-    function bacookie(key, value, options) {
-        // key and at least value given, set cookie...
-        if (arguments.length > 1 && String(value) !== "[object Object]") {
-            options = options || {};
-
-            if (value === null || value === undefined) {
-                options.expires = -1;
-            }
-
-            if (typeof options.expires === 'number') {
-                var days = options.expires, t = options.expires = new Date();
-                t.setDate(t.getDate() + days);
-            }
-
-            value = String(value);
-
-            return (document.cookie = [
-                encodeURIComponent(key), '=',
-                options.raw ? value : encodeURIComponent(value),
-                options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
-                options.path ? '; path=' + options.path : '',
-                options.domain ? '; domain=' + options.domain : '',
-                options.secure ? '; secure' : ''
-            ].join(''));
-        }
-
-        // key and possibly options given, get cookie...
-        options = value || {};
-        var result, decode = options.raw ? function (s) { return s; } : decodeURIComponent;
-        return (result = new RegExp('(?:^|; )' + encodeURIComponent(key) + '=([^;]*)').exec(document.cookie)) ? decode(result[1]) : null;
-    };
-</script>
-
-        <script type="text/javascript" charset="utf-8">
-    // parseUri 1.2.2
-    // (c) Steven Levithan <stevenlevithan.com>
-    // MIT License
-
-    function parseUri (str) {
-        var o   = parseUri.options,
-            m   = o.parser[o.strictMode ? "strict" : "loose"].exec(str),
-            uri = {},
-            i   = 14;
-
-        while (i--) uri[o.key[i]] = m[i] || "";
-
-        uri[o.q.name] = {};
-        uri[o.key[12]].replace(o.q.parser, function ($0, $1, $2) {
-            if ($1) uri[o.q.name][$1] = $2;
-        });
-
-        return uri;
-    };
-
-    parseUri.options = {
-        strictMode: false,
-        key: ["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],
-        q:   {
-            name:   "queryKey",
-            parser: /(?:^|&)([^&=]*)=?([^&]*)/g
-        },
-        parser: {
-            strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
-            loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
-        }
-    };            
-</script>
-
-        
-
-        <script type="text/javascript">
-    WebFontConfig = { 
-        google: { families: [ 'Play:regular,bold' ] }
-    };
-    (function() {
-        var wf = document.createElement('script');
-        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-        wf.type = 'text/javascript';
-        wf.async = 'true';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(wf, s);
-    })();
-</script>
-
-        <script src="/shared/js/code.js"></script>
-
-        <script type="text/javascript">
-    var _gaq = _gaq || [];
-</script>
-
-  <script type="text/javascript">
-      _gaq.push(['_setAccount', 'UA-8404259-1']);
-      _gaq.push(['_addIgnoredRef', '.binaryage.com']); // do not count subdomains as referrer trafic
-      _gaq.push(['_setDomainName', '.binaryage.com']); // track all subdomains with shared cookie
-      _gaq.push(['_setAllowLinker', true]); // important for cross domain user tracking (the session may be passed in URL params)
-      _gaq.push(['_setAllowHash', false]); // do not use url-hash check
-      _gaq.push(['_trackPageview']);
-      (function() {
-          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-  </script>
-
-
-        
-
-        
-<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-
-
-    </head>
-    <body id="page-drydrop-index">
-        <div id="topbar">
-    <div class="container topbar">
+<html xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://developers.facebook.com/schema/">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+    <title>DryDrop updates App Engine site after pushing to GitHub</title>
+    <link rel="canonical" href="http://drydrop.binaryage.com"/>
+    <meta name="title" content="DryDrop updates App Engine site after pushing to GitHub"/>
+    <meta name="description" content="DryDrop is a tool that lets you host your static site on Google App Engine and update it by pushing to GitHub"/>
+    <meta name="keywords" content="python,github,google,app engine,binaryage,productivity,software,web,development"/>
+    <link rel="image_src" href="http://www.binaryage.com/shared/img/icons/drydrop-256.png"/>
+    <meta name="google-site-verification" content="N_xzdr6ymSUQFhAEvQg7f-sp1JAeJCdW2JuaRg-da0w"/>
+    <meta property="fb:admins" content="antonin.hildebrand"/>
+    <meta property="og:email" content="support@binaryage.com"/>
+    <meta property="og:description" content="DryDrop updates App Engine site after pushing to GitHub"/>
+    <meta property="og:site_name" content="BinaryAge website"/>
+    <meta property="og:type" content="product"/>
+    <meta property="og:title" content="DryDrop"/>
+    <meta property="og:url" content="http://drydrop.binaryage.com"/>
+    <meta property="og:image" content="http://www.binaryage.com/shared/img/icons/drydrop-256.png"/>
+    <link href="http://feeds.feedburner.com/binaryage-blog" type="application/atom+xml" rel="alternate" title="Ideas from BinaryAge"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+    <script type="text/javascript" charset="utf-8">
+      // give the custom font 5s to load, otherwise enable simple font visibility
+      setTimeout(function(){$("html").addClass("wf-fake-active")},2e3)
+    </script>
+    <style type="text/css">
+      .js .wf{opacity:0!important;filter:alpha(opacity=0)!important;-webkit-transition:opacity .5s ease 0s;-moz-transition:opacity .5s ease 0s;-o-transition:opacity .5s ease 0s;transition:opacity .5s ease 0s}.wf-active .wf,.wf-fake-active .wf{opacity:1!important;filter:alpha(opacity=100)!important}
+    </style>
+    <link rel="stylesheet" href="/shared/css/site.css" type="text/css"/>
+    <script type="text/javascript" charset="utf-8">
+      /*
+      CSS Browser Selector v0.4.0 (Nov 02, 2010)
+      Rafael Lima (http://rafael.adm.br)
+      http://rafael.adm.br/css_browser_selector
+      License: http://creativecommons.org/licenses/by/2.5/
+      Contributors: http://rafael.adm.br/css_browser_selector#contributors
+      */
+      function css_browser_selector(e){var t=e.toLowerCase(),n=function(e){return t.indexOf(e)>-1},r="gecko",i="webkit",s="safari",o="opera",u="mobile",a=document.documentElement,f=[!/opera|webtv/i.test(t)&&/msie\s(\d)/.test(t)?"ie ie"+RegExp.$1:n("firefox/2")?r+" ff2":n("firefox/3.5")?r+" ff3 ff3_5":n("firefox/3.6")?r+" ff3 ff3_6":n("firefox/3")?r+" ff3":n("gecko/")?r:n("opera")?o+(/version\/(\d+)/.test(t)?" "+o+RegExp.$1:/opera(\s|\/)(\d+)/.test(t)?" "+o+RegExp.$2:""):n("konqueror")?"konqueror":n("blackberry")?u+" blackberry":n("android")?u+" android":n("chrome")?i+" chrome":n("iron")?i+" iron":n("applewebkit/")?i+" "+s+(/version\/(\d+)/.test(t)?" "+s+RegExp.$1:""):n("mozilla/")?r:"",n("j2me")?u+" j2me":n("iphone")?u+" iphone":n("ipod")?u+" ipod":n("ipad")?u+" ipad":n("mac")?"mac":n("darwin")?"mac":n("webtv")?"webtv":n("win")?"win"+(n("windows nt 6.0")?" vista":""):n("freebsd")?"freebsd":n("x11")||n("linux")?"linux":"","js"];c=f.join(" ");a.className+=" "+c;return c}css_browser_selector(navigator.userAgent)
+    </script>
+    <script type="text/javascript" charset="utf-8">
+      // define dummy replacements for firebug functionality (needed for Opera)
+      if(!window.console){window.console={};function fn(){opera.postError(arguments)}["log","debug","info","warn","error","assert","dir","dirxml","group","groupEnd","time","timeEnd","count","trace","profile","profileEnd"].forEach(function(e){window.console[e]=fn})}(function(){var e=["log","debug","info","warn","error","assert","dir","dirxml","group","groupEnd","time","timeEnd","count","trace","profile","profileEnd"];if(!window.console){window.console={}}for(var t in e){window.console[e[t]]=window.console[e[t]]||function(){return}}})()
+    </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      // https://github.com/carhartl/jquery-cookie
+      function bacookie(e,t,n){if(arguments.length>1&&String(t)!=="[object Object]"){n=n||{};if(t===null||t===undefined){n.expires=-1}if(typeof n.expires==="number"){var r=n.expires,i=n.expires=new Date;i.setDate(i.getDate()+r)}t=String(t);return document.cookie=[encodeURIComponent(e),"=",n.raw?t:encodeURIComponent(t),n.expires?"; expires="+n.expires.toUTCString():"",n.path?"; path="+n.path:"",n.domain?"; domain="+n.domain:"",n.secure?"; secure":""].join("")}n=t||{};var s,o=n.raw?function(e){return e}:decodeURIComponent;return(s=(new RegExp("(?:^|; )"+encodeURIComponent(e)+"=([^;]*)")).exec(document.cookie))?o(s[1]):null}
+    </script>
+    <script type="text/javascript" charset="utf-8">
+      // parseUri 1.2.2
+      // (c) Steven Levithan <stevenlevithan.com>
+      // MIT License
+      function parseUri(e){var t=parseUri.options,n=t.parser[t.strictMode?"strict":"loose"].exec(e),r={},i=14;while(i--)r[t.key[i]]=n[i]||"";r[t.q.name]={};r[t.key[12]].replace(t.q.parser,function(e,n,i){if(n)r[t.q.name][n]=i});return r}parseUri.options={strictMode:false,key:["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],q:{name:"queryKey",parser:/(?:^|&)([^&=]*)=?([^&]*)/g},parser:{strict:/^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,loose:/^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/}}
+    </script>
+    <script type="text/javascript">
+      WebFontConfig={google:{families:["Play:regular,bold"]}};(function(){var e=document.createElement("script");e.src=("https:"==document.location.protocol?"https":"http")+"://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js";e.type="text/javascript";e.async="true";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})()
+    </script>
+    <script src="/shared/js/code.js"></script>
+    <script type="text/javascript">
+      var _gaq=_gaq||[]
+    </script>
+    <script type="text/javascript">
+      _gaq.push(["_setAccount","UA-8404259-1"]);_gaq.push(["_addIgnoredRef",".binaryage.com"]);_gaq.push(["_setDomainName",".binaryage.com"]);_gaq.push(["_setAllowLinker",true]);_gaq.push(["_setAllowHash",false]);_gaq.push(["_trackPageview"]);(function(){var e=document.createElement("script");e.type="text/javascript";e.async=true;e.src=("https:"==document.location.protocol?"https://ssl":"http://www")+".google-analytics.com/ga.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})()
+    </script>
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+  </head>
+  <body id="page-drydrop-index">
+    <div id="topbar">
+      <div class="container topbar">
         <div class="topbar-buttons">
-            <div class="topbar-labs wf">
-                labs
-            </div>
-            <div class="topbar-testimonials wf">
-                testimonials
-            </div>
+          <div class="topbar-labs wf">
+            labs
+          </div>
+          <div class="topbar-testimonials wf">
+            testimonials
+          </div>
         </div>
+      </div>
     </div>
-</div>
-
-        <div id="header" class="menu-products">
-    <div class="container header">
+    <div id="header" class="menu-products">
+      <div class="container header">
         <a href="http://www.binaryage.com" title="BinaryAge Software">
-            <div class="header-logo">
-                <div class="header-logo-hover"></div>
-            </div>
+          <div class="header-logo">
+            <div class="header-logo-hover"></div>
+          </div>
         </a>
-        
         <div class="header-motto arrow"></div>
         <div class="header-selector"></div>
         <ul class="header-menu">
-            <li class="menu-item-store wf"><a href="http://www.binaryage.com/store"><span>store</span></a></li>
-            <li class="menu-item-products wf"><a href="http://www.binaryage.com"><span>products</span></a></li>
-            <li class="menu-item-blog wf"><a href="http://blog.binaryage.com"><span>blog</span></a></li>  
-            <li class="menu-item-hints wf"><a href="http://hints.binaryage.com"><span>hints</span></a></li>
-            <li class="menu-item-support wf"><a href="http://support.binaryage.com"><span>support</span></a></li>
+          <li class="menu-item-store wf"><a href="http://www.binaryage.com/store"><span>store</span></a></li>
+          <li class="menu-item-products wf"><a href="http://www.binaryage.com"><span>products</span></a></li>
+          <li class="menu-item-blog wf"><a href="http://blog.binaryage.com"><span>blog</span></a></li>
+          <li class="menu-item-hints wf"><a href="http://hints.binaryage.com"><span>hints</span></a></li>
+          <li class="menu-item-support wf"><a href="http://support.binaryage.com"><span>support</span></a></li>
         </ul>
+      </div>
     </div>
-</div>
-        <div id="main">
-    
-    <div class="wf">
-    <div class="main-product" id="product-drydrop">
-    <div class="container">
-        <div class="main-product-left span-12">
-            <div class="product-logo-box">
-                <img class="product-icon" src="/shared/img/icons/drydrop-64.png">
+    <div id="main">
+      <div class="wf">
+        <div class="main-product" id="product-drydrop">
+          <div class="container">
+            <div class="main-product-left span-12">
+              <div class="product-logo-box">
+                <img class="product-icon" src="/shared/img/icons/drydrop-64.png"/>
                 <div class="product-tagline">
-                    <h1 class="product-title">DryDrop</h1><div class="plusone-wrapper"><g:plusone size="medium"></g:plusone></div>
-                    <h2 class="product-subtitle">update App Engine site by pushing to GitHub</h2>
+                  <h1 class="product-title">DryDrop</h1><div class="plusone-wrapper"><g:plusone size="medium"></g:plusone></div>
+                  <h2 class="product-subtitle">update App Engine site by pushing to GitHub</h2>
                 </div>
-            </div>
-            <div class="product-buttons-box">
+              </div>
+              <div class="product-buttons-box">
                 <div class="product-buttons">
-                    
-                    <a id="o-download" href="http://github.com/binaryage/drydrop" class="button product-button-download">
-                        <div><div>Install v0.3<div class="product-specs">or better use Github pages instead :-)</div></div></div>
-                    </a>
-                    
-                    
-                    <div class="clear"></div>
+                  <a id="o-download" href="http://github.com/binaryage/drydrop" class="button product-button-download">
+                    <div><div>Install v0.3<div class="product-specs">or better use Github pages instead :-)</div></div></div>
+                  </a>
+                  <div class="clear"></div>
                 </div>
                 <div class="product-note-box">
-                    
                 </div>
-            </div>
-            <div class="social-box">
+              </div>
+              <div class="social-box">
                 <div class="social-box-inner">
-                    
-                    <div class="retweet">
-                    </div>
-                    <script>
-                        $(".retweet").html(writeCapture.sanitize('<a href="http://twitter.com/share" class="twitter-share-button retweet" data-count="vertical" data-via="binaryage">Tweet</a><scr'+'ipt type="text/javascript" src="http://platform.twitter.com/widgets.js"></scr'+'ipt>'));
-                    </script>
-                    
-                    
-                    
-                    
-                    
+                  <div class="retweet">
+                  </div>
+                  <script>
+                    $(".retweet").html(writeCapture.sanitize('<a href="http://twitter.com/share" class="twitter-share-button retweet" data-count="vertical" data-via="binaryage">Tweet</a><scr'+'ipt type="text/javascript" src="http://platform.twitter.com/widgets.js"></scr'+"ipt>"))
+                  </script>
                 </div>
                 <div class="clear"></div>
-            </div>    
-        </div>
-        <div class="main-product-right span-12 last">
-            <div class="main-screenshot">
-                
-                <div id="screenshot-box-1" class="screenshot-box no-shadow" >
-                    
-                    <a id="o-shot1" href="http://drydrop.binaryage.com/shared/img/drydrop-mainshot-full.png" class="overlayable" title="DryDrop welcome screen">
-                    
-                        <img src="http://drydrop.binaryage.com/shared/img/drydrop-mainshot.png"/>
-                        
-                        <div class="zoom-icon"></div>
-                        
-                    
-                    </a>
-                    
-                </div>
-                
-                <div class="clear"></div>
+              </div>
             </div>
+            <div class="main-product-right span-12 last">
+              <div class="main-screenshot">
+                <div id="screenshot-box-1" class="screenshot-box no-shadow">
+                  <a id="o-shot1" href="http://drydrop.binaryage.com/shared/img/drydrop-mainshot-full.png" class="overlayable" title="DryDrop welcome screen">
+                    <img src="http://drydrop.binaryage.com/shared/img/drydrop-mainshot.png"/>
+                    <div class="zoom-icon"></div>
+                  </a>
+                </div>
+                <div class="clear"></div>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
-</div>
-
-<div class="main-tabs" id="tabs-drydrop">
-    <div class="container">
-        <div class="tab-bar">
-            <ul class="tabs"></ul> 
+        <div class="main-tabs" id="tabs-drydrop">
+          <div class="container">
+            <div class="tab-bar">
+              <ul class="tabs"></ul>
+            </div>
+            <div class="panes"></div>
+          </div>
         </div>
-        <div class="panes"></div>
+        <div class="main-content-here" style="display:none">
+          <h2>Features</h2>
+          <h4>Host your static site on Google App Engine and update it by pushing to GitHub.</h4>
+          <p>DryDrop is a tool that lets you host your static site on Google App Engine and update it by pushing to GitHub. Thanks to GitHub post-receive hooks your App Engine site can be updated automatically when you push new content.</p>
+          <ul>
+            <li>DRY principle (set it and forget it)</li>
+            <li>Zero cost (thanks to <a href="http://code.google.com/appengine">Google App Engine</a>)</li>
+            <li>Zero maintenance (thanks to <a href="http://github.com">GitHub</a>)</li>
+            <li>No Python knowledge needed, but you need to know the basics of Git</li>
+          </ul>
+          <p>For additional info read <a href="http://www.nata2.org/2011/01/26/how-to-use-app-engine-to-host-static-sites-for-free">blog post by Harper Reed</a>.</p>
+          <h3>How it works</h3>
+          <p>It's simple. Let's say you have a GitHub repository containing a static web site and you want to host it on App Engine. DryDrop is an application that's ready to be uploaded as your App Engine project. After you upload it for the first time, you should set up a post-receive hook in your GitHub repo to point to your App Engine project. This means that every change you push to GitHub will be reflected on your App Engine site immediately.</p>
+          <p>Let's say someone visits your App Engine site. DryDrop has a simple cache. If a requested page is not in the cache, DryDrop will try to fetch it from GitHub, store it in the cache and then serve it. Next time the same URL is requested, it will be served directly from the DryDrop cache.</p>
+          <p>Let's say you made some changes to your files. In the moment you push file changes into GitHub, the post-receive hook will ping DryDrop, which will invalidate modified files in the cache. The next request will trigger a download of fresh files from GitHub.</p>
+          <h2>Installation</h2>
+          <ul>
+            <li>upload your static files as a GitHub repository</li>
+            <li>create a GAE project and upload DryDrop</li>
+            <li>point your DryDrop site to your GitHub repo</li>
+            <li>(optional) set up a post-receive hook in GitHub repo pointing to your DryDrop site</li>
+          </ul>
+          <h4>After that, every change pushed to github project will automatically propagate to your static site hosted by Google.</h4>
+          <h3>Step 1: prepare your GitHub repository</h3>
+          <p>You already know how to work with GitHub, right?</p>
+          <p>Let's say you are user <code>darwin</code> and created repository <code>web-app-theme</code>.
+          So your repository's content lives at <a href="http://github.com/darwin/web-app-theme/tree/master">http://github.com/darwin/web-app-theme/tree/master</a></p>
+          <h3>Step 2: create your App Engine project and upload DryDrop</h3>
+          <p>Now you've created project called <code>drydropsample</code> like this:</p>
+          <p><a href="/shared/img/drydrop-create-app.png"><img src="/shared/img/drydrop-create-app.png" width="300"/></a></p>
+          <p>Then make sure you have latest <a href="http://code.google.com/appengine/downloads.html">Google App Engine SDK</a> available on your machine.</p>
+          <p>Then you have to download the latest DryDrop and upload it to your drydropsample project:</p>
+          <pre><code>git clone git://github.com/binaryage/drydrop.git
+              cd drydrop
+              rake upload project=drydropsample
+          </code></pre>
+          <p>Note: You will be prompted for user name and password for your Google account by appcfg.py script.</p>
+          <p>My session looked like this:</p>
+          <p><a href="/shared/img/drydrop-upload.png"><img src="/shared/img/drydrop-upload.png" width="300"/></a></p>
+          <p>Now you can visit your App Engine site at <a href="http://drydropsample.appspot.com">http://drydropsample.appspot.com</a> and you should see the welcome page:</p>
+          <p><a href="/shared/img/drydrop-welcome.png"><img src="/shared/img/drydrop-welcome.png" width="300"/></a></p>
+          <h3>Step 3: point DryDrop site to your GitHub repo</h3>
+          <p>Go to the admin section of your DryDrop site and switch to the settings page:</p>
+          <p><a href="/shared/img/drydrop-settings.png"><img src="/shared/img/drydrop-settings.png" width="300"/></a></p>
+          <p>Set "Pull from" to <code>http://github.com/darwin/web-app-theme/raw/master</code>. That "raw" in the URL is important!!!</p>
+          <p>When you go back to <a href="http://drydropsample.appspot.com">http://drydropsample.appspot.com</a>, you should see your repo's content (assuming you have an index.html there)</p>
+          <p><a href="/shared/img/drydrop-site.png"><img src="/shared/img/drydrop-site.png" width="300"/></a></p>
+          <h3>Step 4 (optional): set up post-receive hook in GitHub repo pointing to your DryDrop site</h3>
+          <p>Go to the Admin section of your GitHub repo:</p>
+          <p><a href="/shared/img/drydrop-hook.png"><img src="/shared/img/drydrop-hook.png" width="300"/></a></p>
+          <p>Set <code>http://drydropsample.appspot.com/hook/github</code> as post-receive hook.</p>
+          <h3>Step 5 (optional): test the hook</h3>
+          <p>Now, let's try to push a change and check if it gets auto-published on <a href="http://drydropsample.appspot.com">http://drydropsample.appspot.com</a>.</p>
+          <p><a href="/shared/img/drydrop-edit.png"><img src="/shared/img/drydrop-edit.png" width="300"/></a></p>
+          <p>Push it to GitHub ...</p>
+          <p><a href="/shared/img/drydrop-push.png"><img src="/shared/img/drydrop-push.png" width="300"/></a></p>
+          <p>When you revisit <a href="http://drydropsample.appspot.com">http://drydropsample.appspot.com</a>, you should see an updated version:</p>
+          <p><a href="/shared/img/drydrop-updated.png"><img src="/shared/img/drydrop-updated.png" width="300"/></a></p>
+          <p>You can double-check the situation in the admin section under Dashboard events:</p>
+          <p><a href="/shared/img/drydrop-events.png"><img src="/shared/img/drydrop-events.png" width="300"/></a></p>
+          <p>The post-receive hook was triggered as you can see in the events list.</p>
+          <h4>And that's it... Happy pushing! :-)</h4>
+          <h2>FAQ</h2>
+          <h4>Do I need to understand Python to use this?</h4>
+          <blockquote><p>Not at all. You just need to know how to use Git and how to create your App Engine project on appspot.com.</p></blockquote>
+          <h4>How does DryDrop compare to <a href="http://pages.github.com">GitHub Pages</a>?</h4>
+          <blockquote><p>GitHub Pages solves the same need of "live-hosting of GitHub repository as a static site on custom domain". I started this project before GitHub Pages was announced and GitHub pages made it somewhat obsolete, especially because they support <a href="http://github.com/mojombo/jekyll/tree/master">jekyll</a>, which is cool.</p></blockquote>
+          <h4>How can DryDrop serve files from GitHub?</h4>
+          <blockquote><p>It is simple. DryDrop has a simple cache. If a requested page is not in the cache, DryDrop will try to fetch it from GitHub, store it in the cache and then serve it. Next time the same URL is requested, it will be served directly from the DryDrop cache. Let's say you made some changes to your files. The moment you push file changes into GitHub, the post-receive hook will call DryDrop and DryDrop will invalidate modified files in the cache.</p></blockquote>
+          <h4>What if I want pretty URLs or some kind of routing?</h4>
+          <blockquote><p>You can create a <code>site.yaml</code> config file which defines mapping between your repository files and App Engine URLs. This config uses a subset of App Engine's <a href="http://code.google.com/appengine/docs/python/config/appconfig.html">app.yaml syntax</a> and is kept in your GitHub repo, so you don't need to re-upload DryDrop after changing it. See admin/settings section of your DryDrop site for more info.</p></blockquote>
+          <h4>What about markdown/textile or some kind of static site generator like jekyll?</h4>
+          <blockquote><p>You can use anything you want locally and pusht the generated output into your github repo. You can point your DryDrop site to a subfolder of your GitHub repo, even to different branch, so you have quite flexible options for how to keep your original source with generated output in one repo. I prefer to keep DryDrop simple, but you are welcome to add support for your favorite stack.</p></blockquote>
+          <h4>Are you going to support bitbucket or some other code repository services?</h4>
+          <blockquote><p>Maybe, if there is a demand for it.</p></blockquote>
+          <h2>Changelog</h2>
+          <ul>
+            <li><p><strong>v0.3</strong> (18.02.2010)</p>
+              <ul>
+                <li>[<a href="http://github.com/curiousdannii">curiousdannii</a>] added Last-Modified/If-Modified-Since support</li>
+                <li>[<a href="http://github.com/darwin">darwin</a>] serve simple not-found page for missing pages (can be overriden by /404.html file in your repo)</li>
+                <li>[<a href="http://github.com/darwin">darwin</a>] main routing routine is wrapped into try-catch block, better error page explaining possible steps to fix broken drydrop (<a href="http://github.com/binaryage/drydrop/issues#issue/1">closes #1</a>)</li>
+                <li>[<a href="http://github.com/darwin">darwin</a>] detect bogus status404 pages from github and treat them as real 404 pages (<a href="http://github.com/binaryage/drydrop/issues#issue/2">fixes #2</a>)</li>
+                <li>[<a href="http://github.com/mannkind">mannkind</a>] added "Content-Type: text/html" header for files without an extension (for clean-like URLs without .html)</li>
+              </ul>
+            </li>
+            <li><p><strong>v0.2</strong> (09.08.2009)</p>
+              <ul>
+                <li>[<a href="http://github.com/darwin">darwin</a>] introducing support for GitHub and GitHub hooks</li>
+                <li>[<a href="http://github.com/darwin">darwin</a>] initial public version</li>
+              </ul>
+            </li>
+            <li><p><strong>v0.1</strong> (13.12.2008)</p>
+              <ul>
+                <li>[<a href="http://github.com/darwin">darwin</a>] initial experimental implementation</li>
+              </ul>
+            </li>
+          </ul>
+          <h2>Links</h2>
+          <h3>Articles</h3>
+          <ul>
+            <li><a href="http://www.nata2.org/2011/01/26/how-to-use-app-engine-to-host-static-sites-for-free">OMG FREE HOSTING: How to use GAE to host static sites for free</a> (by Harper Reed)</li>
+            <li><a href="http://googleappengine.blogspot.com/2009/08/recent-happenings-ticktock-parallel.html">DryDrop announced</a> (via <a href="http://googleappengine.blogspot.com">Google App Engine Blog</a>)</li>
+            <li><a href="http://stackoverflow.com/questions/1675715/using-google-appengine-as-a-cache-for-personal-websites-wordpress-blogs-wikis">Using Google AppEngine as a “cache” for personal websites (wordpress blogs, wikis)</a> (via <a href="http://stackoverflow.com">Stack Overflow</a>)</li>
+            <li><a href="http://www.openalexandria.com/2009/09/drydrop">DryDrop – Manage static web site with GAE and Github</a> (via <a href="http://www.openalexandria.com">openalexandria.com</a>)</li>
+          </ul>
+          <h3>Related Sites</h3>
+          <ul>
+            <li><a href="http://github.com">GitHub</a> - social code hosting</li>
+          </ul>
+        </div>
+        <script>
+          $(function(){var e=$(".panes");var t=$(".tabs");var n;var r=$(".main-content-here > *");r.each(function(r){var i=$(this);var s=i.attr("tagName");if(s=="SCRIPT")return;if(s=="NOSCRIPT")return;if(s=="STYLE")return;if(i.hasClass("panes")||i.hasClass("tabs"))return;if(i.attr("tagName")=="H2"){var o=i.html();var u=o.toLowerCase().replace(/[^a-z0-9]/g,"-");var a=$("<li>");var f=$('<a class="tbx">').attr("href","#"+u).html(o);a.append(f);f.append('<div class="shadow"></div>');t.append(a);n=$("<div>").addClass("wikistyle").addClass(u);e.append(n);i.remove();n.append($("<h2>").html(o))}else{if(n){n.append(i)}}});$("ul.tabs").tabs("div.panes > div");$("ul.tabs a").history()})
+        </script>
+        <script>
+          $(function(){$(".product-thumbs-scrollable").scrollable({size:5});$(".product-thumbs-items img").click(function(){var e=$(this);var t=$(".screenshot-box:visible");var n=$(e.attr("rel"));if(n[0]===t[0])return;t.fadeOut();n.fadeIn()}).filter(":first").click()})
+        </script>
+        <div class="simple_overlay" id="overlay-gallery" style="display:none">
+          <a class="overlay-prev">prev</a>
+          <a class="overlay-next">next</a>
+          <div class="overlay-info"></div>
+          <img class="overlay-progress" src="http://drydrop.binaryage.com/shared/img/twitter-loader.gif"/>
+        </div>
+        <script>
+          (function(){$(".overlayable").overlay({expose:"#f1f1f1",target:"#overlay-gallery"}).gallery({disabledClass:"disabled-overlay",prev:".overlay-prev",next:".overlay-next",info:".overlay-info",progress:".overlay-progress",opacity:1,speed:200,template:"[${index}/${total}] ${title}"})})()
+        </script>
+      </div>
+      <div class="clear"></div>
     </div>
-</div>
-
-<div class="main-content-here" style="display:none">
-    <h2>Features</h2>
-
-<h4>Host your static site on Google App Engine and update it by pushing to GitHub.</h4>
-
-<p>DryDrop is a tool that lets you host your static site on Google App Engine and update it by pushing to GitHub. Thanks to GitHub post-receive hooks your App Engine site can be updated automatically when you push new content.</p>
-
-<ul>
-<li>DRY principle (set it and forget it)</li>
-<li>Zero cost (thanks to <a href="http://code.google.com/appengine">Google App Engine</a>)</li>
-<li>Zero maintenance (thanks to <a href="http://github.com">GitHub</a>)</li>
-<li>No Python knowledge needed, but you need to know the basics of Git</li>
-</ul>
-
-
-<p>For additional info read <a href="http://www.nata2.org/2011/01/26/how-to-use-app-engine-to-host-static-sites-for-free">blog post by Harper Reed</a>.</p>
-
-<h3>How it works</h3>
-
-<p>It's simple. Let's say you have a GitHub repository containing a static web site and you want to host it on App Engine. DryDrop is an application that's ready to be uploaded as your App Engine project. After you upload it for the first time, you should set up a post-receive hook in your GitHub repo to point to your App Engine project. This means that every change you push to GitHub will be reflected on your App Engine site immediately.</p>
-
-<p>Let's say someone visits your App Engine site. DryDrop has a simple cache. If a requested page is not in the cache, DryDrop will try to fetch it from GitHub, store it in the cache and then serve it. Next time the same URL is requested, it will be served directly from the DryDrop cache.</p>
-
-<p>Let's say you made some changes to your files. In the moment you push file changes into GitHub, the post-receive hook will ping DryDrop, which will invalidate modified files in the cache. The next request will trigger a download of fresh files from GitHub.</p>
-
-<h2>Installation</h2>
-
-<ul>
-<li>upload your static files as a GitHub repository</li>
-<li>create a GAE project and upload DryDrop</li>
-<li>point your DryDrop site to your GitHub repo</li>
-<li>(optional) set up a post-receive hook in GitHub repo pointing to your DryDrop site</li>
-</ul>
-
-
-<h4>After that, every change pushed to github project will automatically propagate to your static site hosted by Google.</h4>
-
-<h3>Step 1: prepare your GitHub repository</h3>
-
-<p>You already know how to work with GitHub, right?</p>
-
-<p>Let's say you are user <code>darwin</code> and created repository <code>web-app-theme</code>.
-So your repository's content lives at <a href="http://github.com/darwin/web-app-theme/tree/master">http://github.com/darwin/web-app-theme/tree/master</a></p>
-
-<h3>Step 2: create your App Engine project and upload DryDrop</h3>
-
-<p>Now you've created project called <code>drydropsample</code> like this:</p>
-
-<p><a href="/shared/img/drydrop-create-app.png"><img src="/shared/img/drydrop-create-app.png" width="300"></a></p>
-
-<p>Then make sure you have latest <a href="http://code.google.com/appengine/downloads.html">Google App Engine SDK</a> available on your machine.</p>
-
-<p>Then you have to download the latest DryDrop and upload it to your drydropsample project:</p>
-
-<pre><code>git clone git://github.com/binaryage/drydrop.git
-cd drydrop
-rake upload project=drydropsample
-</code></pre>
-
-<p>Note: You will be prompted for user name and password for your Google account by appcfg.py script.</p>
-
-<p>My session looked like this:</p>
-
-<p><a href="/shared/img/drydrop-upload.png"><img src="/shared/img/drydrop-upload.png" width="300"></a></p>
-
-<p>Now you can visit your App Engine site at <a href="http://drydropsample.appspot.com">http://drydropsample.appspot.com</a> and you should see the welcome page:</p>
-
-<p><a href="/shared/img/drydrop-welcome.png"><img src="/shared/img/drydrop-welcome.png" width="300"></a></p>
-
-<h3>Step 3: point DryDrop site to your GitHub repo</h3>
-
-<p>Go to the admin section of your DryDrop site and switch to the settings page:</p>
-
-<p><a href="/shared/img/drydrop-settings.png"><img src="/shared/img/drydrop-settings.png" width="300"></a></p>
-
-<p>Set "Pull from" to <code>http://github.com/darwin/web-app-theme/raw/master</code>. That "raw" in the URL is important!!!</p>
-
-<p>When you go back to <a href="http://drydropsample.appspot.com">http://drydropsample.appspot.com</a>, you should see your repo's content (assuming you have an index.html there)</p>
-
-<p><a href="/shared/img/drydrop-site.png"><img src="/shared/img/drydrop-site.png" width="300"></a></p>
-
-<h3>Step 4 (optional): set up post-receive hook in GitHub repo pointing to your DryDrop site</h3>
-
-<p>Go to the Admin section of your GitHub repo:</p>
-
-<p><a href="/shared/img/drydrop-hook.png"><img src="/shared/img/drydrop-hook.png" width="300"></a></p>
-
-<p>Set <code>http://drydropsample.appspot.com/hook/github</code> as post-receive hook.</p>
-
-<h3>Step 5 (optional): test the hook</h3>
-
-<p>Now, let's try to push a change and check if it gets auto-published on <a href="http://drydropsample.appspot.com">http://drydropsample.appspot.com</a>.</p>
-
-<p><a href="/shared/img/drydrop-edit.png"><img src="/shared/img/drydrop-edit.png" width="300"></a></p>
-
-<p>Push it to GitHub ...</p>
-
-<p><a href="/shared/img/drydrop-push.png"><img src="/shared/img/drydrop-push.png" width="300"></a></p>
-
-<p>When you revisit <a href="http://drydropsample.appspot.com">http://drydropsample.appspot.com</a>, you should see an updated version:</p>
-
-<p><a href="/shared/img/drydrop-updated.png"><img src="/shared/img/drydrop-updated.png" width="300"></a></p>
-
-<p>You can double-check the situation in the admin section under Dashboard events:</p>
-
-<p><a href="/shared/img/drydrop-events.png"><img src="/shared/img/drydrop-events.png" width="300"></a></p>
-
-<p>The post-receive hook was triggered as you can see in the events list.</p>
-
-<h4>And that's it... Happy pushing! :-)</h4>
-
-<h2>FAQ</h2>
-
-<h4>Do I need to understand Python to use this?</h4>
-
-<blockquote><p>Not at all. You just need to know how to use Git and how to create your App Engine project on appspot.com.</p></blockquote>
-
-<h4>How does DryDrop compare to <a href="http://pages.github.com">GitHub Pages</a>?</h4>
-
-<blockquote><p>GitHub Pages solves the same need of "live-hosting of GitHub repository as a static site on custom domain". I started this project before GitHub Pages was announced and GitHub pages made it somewhat obsolete, especially because they support <a href="http://github.com/mojombo/jekyll/tree/master">jekyll</a>, which is cool.</p></blockquote>
-
-<h4>How can DryDrop serve files from GitHub?</h4>
-
-<blockquote><p>It is simple. DryDrop has a simple cache. If a requested page is not in the cache, DryDrop will try to fetch it from GitHub, store it in the cache and then serve it. Next time the same URL is requested, it will be served directly from the DryDrop cache. Let's say you made some changes to your files. The moment you push file changes into GitHub, the post-receive hook will call DryDrop and DryDrop will invalidate modified files in the cache.</p></blockquote>
-
-<h4>What if I want pretty URLs or some kind of routing?</h4>
-
-<blockquote><p>You can create a <code>site.yaml</code> config file which defines mapping between your repository files and App Engine URLs. This config uses a subset of App Engine's <a href="http://code.google.com/appengine/docs/python/config/appconfig.html">app.yaml syntax</a> and is kept in your GitHub repo, so you don't need to re-upload DryDrop after changing it. See admin/settings section of your DryDrop site for more info.</p></blockquote>
-
-<h4>What about markdown/textile or some kind of static site generator like jekyll?</h4>
-
-<blockquote><p>You can use anything you want locally and pusht the generated output into your github repo. You can point your DryDrop site to a subfolder of your GitHub repo, even to different branch, so you have quite flexible options for how to keep your original source with generated output in one repo. I prefer to keep DryDrop simple, but you are welcome to add support for your favorite stack.</p></blockquote>
-
-<h4>Are you going to support bitbucket or some other code repository services?</h4>
-
-<blockquote><p>Maybe, if there is a demand for it.</p></blockquote>
-
-<h2>Changelog</h2>
-
-<ul>
-<li><p><strong>v0.3</strong> (18.02.2010)</p>
-
-<ul>
-<li>[<a href="http://github.com/curiousdannii">curiousdannii</a>] added Last-Modified/If-Modified-Since support</li>
-<li>[<a href="http://github.com/darwin">darwin</a>] serve simple not-found page for missing pages (can be overriden by /404.html file in your repo)</li>
-<li>[<a href="http://github.com/darwin">darwin</a>] main routing routine is wrapped into try-catch block, better error page explaining possible steps to fix broken drydrop (<a href="http://github.com/binaryage/drydrop/issues#issue/1">closes #1</a>)</li>
-<li>[<a href="http://github.com/darwin">darwin</a>] detect bogus status404 pages from github and treat them as real 404 pages (<a href="http://github.com/binaryage/drydrop/issues#issue/2">fixes #2</a>)</li>
-<li>[<a href="http://github.com/mannkind">mannkind</a>] added "Content-Type: text/html" header for files without an extension (for clean-like URLs without .html)</li>
-</ul>
-</li>
-<li><p><strong>v0.2</strong> (09.08.2009)</p>
-
-<ul>
-<li>[<a href="http://github.com/darwin">darwin</a>] introducing support for GitHub and GitHub hooks</li>
-<li>[<a href="http://github.com/darwin">darwin</a>] initial public version</li>
-</ul>
-</li>
-<li><p><strong>v0.1</strong> (13.12.2008)</p>
-
-<ul>
-<li>[<a href="http://github.com/darwin">darwin</a>] initial experimental implementation</li>
-</ul>
-</li>
-</ul>
-
-
-<h2>Links</h2>
-
-<h3>Articles</h3>
-
-<ul>
-<li><a href="http://www.nata2.org/2011/01/26/how-to-use-app-engine-to-host-static-sites-for-free">OMG FREE HOSTING: How to use GAE to host static sites for free</a> (by Harper Reed)</li>
-<li><a href="http://googleappengine.blogspot.com/2009/08/recent-happenings-ticktock-parallel.html">DryDrop announced</a> (via <a href="http://googleappengine.blogspot.com">Google App Engine Blog</a>)</li>
-<li><a href="http://stackoverflow.com/questions/1675715/using-google-appengine-as-a-cache-for-personal-websites-wordpress-blogs-wikis">Using Google AppEngine as a “cache” for personal websites (wordpress blogs, wikis)</a> (via <a href="http://stackoverflow.com">Stack Overflow</a>)</li>
-<li><a href="http://www.openalexandria.com/2009/09/drydrop">DryDrop – Manage static web site with GAE and Github</a> (via <a href="http://www.openalexandria.com">openalexandria.com</a>)</li>
-</ul>
-
-
-<h3>Related Sites</h3>
-
-<ul>
-<li><a href="http://github.com">GitHub</a> - social code hosting</li>
-</ul>
-
-
-</div>
-
-<script>
-$(function() { 
-    var panes = $('.panes');
-    var tabs = $('.tabs');
-    var cur;
-    var items = $('.main-content-here > *');
-    items.each(function(i) {
-        var el = $(this);
-        var tag = el.attr('tagName');
-        if (tag=='SCRIPT') return;
-        if (tag=='NOSCRIPT') return;
-        if (tag=='STYLE') return;
-        if (el.hasClass('panes') || el.hasClass('tabs')) return;
-        if (el.attr('tagName')=='H2') {
-            var name = el.html();
-            var id = name.toLowerCase().replace(/[^a-z0-9]/g, '-');
-            var li = $('<li/>');
-            var a = $('<a class=\"tbx\"/>').attr('href', '#'+id).html(name);
-            li.append(a);
-            a.append('<div class="shadow"></div>');
-            tabs.append(li);
-            cur = $('<div/>').addClass('wikistyle').addClass(id);
-            panes.append(cur);
-            el.remove();
-            cur.append($("<h2/>").html(name));
-        } else {
-            if (cur) {
-                cur.append(el);
-            }
-        }
-    });
-    $("ul.tabs").tabs("div.panes > div");
-    $("ul.tabs a").history();
-});
-</script>
-
-<script>
-    $(function() {
-        $(".product-thumbs-scrollable").scrollable({
-            size: 5
-        });
-
-        $(".product-thumbs-items img").click(function() {
-            var img = $(this);
-            var visible = $('.screenshot-box:visible');
-            var box = $(img.attr('rel'));
-            if (box[0] === visible[0]) return; // optimization to not fade when clicked same image or during initial load
-            visible.fadeOut();
-            box.fadeIn();
-        }).filter(":first").click(); // when page loads simulate a "click" on the first image
-    });
-</script>
-
-<div class="simple_overlay" id="overlay-gallery" style="display:none"> 
-    <a class="overlay-prev">prev</a> 
-    <a class="overlay-next">next</a> 
-    <div class="overlay-info"></div>
-    <img class="overlay-progress" src="http://drydrop.binaryage.com/shared/img/twitter-loader.gif" /> 
-</div>
-
-<script>
-(function() {
-    $('.overlayable').overlay({
-        expose: '#f1f1f1',
-        target: '#overlay-gallery'
-    }).gallery({
-        disabledClass: 'disabled-overlay',
-        prev: '.overlay-prev',
-        next: '.overlay-next',
-        info: '.overlay-info',
-        progress: '.overlay-progress',
-        opacity: 1,
-        speed: 200, 
-        template: '[${index}/${total}] ${title}'
-    });
-})();
-</script>
-
-    </div>
-    
-    <div class="clear"></div>
-</div>
-
-        <div id="tweets-section">
-    <div class="container" style="position: relative">
+    <div id="tweets-section">
+      <div class="container" style="position: relative">
         <ol id="tweets" class="statuses"></ol>
+      </div>
     </div>
-</div>
-
-        
-
-        <div id="footer">
-    <div class="container">
+    <div id="footer">
+      <div class="container">
         <div class="footer-separator"></div>
         <div class="footerbox">
-            
-            <div class="facebook-like-button-wrapper">
-                <fb:like width="650" href="http://drydrop.binaryage.com" layout="standard" show_faces="false" font="arial"></fb:like>
-            </div>
-            
-            <div class="footer-links wf">
-                
-                <a href="javascript:GSFNFeedbackWidget.show()">feedback</a> | 
-                
-                
-                <a href="http://github.com/binaryage/drydrop">source code</a> | 
-                
-                <a href="http://www.binaryage.com/about.html">contact</a>
-            </div>
+          <div class="facebook-like-button-wrapper">
+            <fb:like width="650" href="http://drydrop.binaryage.com" layout="standard" show_faces="false" font="arial"></fb:like>
+          </div>
+          <div class="footer-links wf">
+            <a href="javascript:GSFNFeedbackWidget.show()">feedback</a> |
+            <a href="http://github.com/binaryage/drydrop">source code</a> |
+            <a href="http://www.binaryage.com/about.html">contact</a>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-
-
-        
-
-        
-        
-<div id="fb-root"></div>
-<script type="text/javascript">
-    window.fbAsyncInit = function() {
-        FB.init({appId: '332451499524', status: true, cookie: true, xfbml: true});
-    };
-    (function() {
-        var e = document.createElement('script'); e.async = true;
-        e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
-        document.getElementById('fb-root').appendChild(e);
-    }());
-</script>
-
-        
-        <script type="text/javascript" charset="utf-8">
-    $(function() {
-        var initialized;
-        $('.topbar-testimonials').bind('click', function() {
-            if (window.SSTracker) {
-                SSTracker.pushState('praise');
-            }
-            
-            if (!initialized) {
-                $("#tweets").tweet({
-                    user: "binaryage"
-                });
-                initialized = true;
-            }
-        });
-    });
-</script>
-
-        <script type="text/javascript" charset="utf-8">
-   $(function() {
-        // trigger page states
-        setTimeout(function() { // give other code some time to init
-            var hash = location.hash.substring(1);
-            if (hash.substring(0,2)=="o-") {
-                $('#'+hash).trigger('click');
-            }
-        }, 500);
-    });
-</script>
-
-        <script type="text/javascript" charset="utf-8">
-$(function() {
-    var host = document.location.host;
-    if (host.substring(host.length-3)=='org') {
-        $('a').each(function() {
-            var el = $(this);
-            var href = el.attr('href');
-            if (href) {
-                if (href.match('binaryage.com')) {
-                    href = href.replace('binaryage.com', 'binaryage.org');
-                }
-                var loc = document.location+"";
-                if (href.substring(0, 4)!="http" && href.match(/\/[^.]+$/i)) { 
-                    // this is for local jekyll server inconsistency
-                    if (host.substring(loc.length-1)=="2") { 
-                        // next website version
-                        href += "2";
-                    }
-                    if (loc.substring(loc.length-6)=="2.html") { 
-                        // next website version
-                        href += "2";
-                    }
-                    href += ".html";
-                }
-                el.attr('href', href);
-            }
-        });
-    }
-});
-</script>
-        <script type="text/javascript" charset="utf-8">
-  (function(){
-      // store the referrer in cookie for later reuse
-      var parts = parseUri(document.location+"");
-      var referrer = parts.queryKey["referrer"];
-      if (referrer) {
-          bacookie("bareferrer", referrer, {path: '/', expires: 14});
-      }
-  })();
-  
-  // cross-domain tracking
-  // http://code.google.com/apis/analytics/docs/tracking/gaTrackingSite.html
-  $('a').live('click', function() {
-      var href = $(this).attr("href")+"";
-      // pass referrer if available, FastSpring will report it on final order
-      var referrer = bacookie("bareferrer");
-      if (referrer) {
-          href += (href.indexOf("?")==-1?"?":"&")+"referrer="+encodeURIComponent(referrer);
-      }
-      var current = document.location+"";
-      // just for switching domains between binaryage.com <-> fastspring.com
-      if ((current.match(/fastspring\.com/) && href.match(/binaryage\.com/)) || 
-          (current.match(/binaryage\.com/) && href.match(/fastspring\.com/))) {
-          _gaq.push(['_link', href]);
-          return false;
-      }
-  });
-</script>
-        
-<div id="getsatifucktion"></div>
-<div id="getsatifucktion2"></div>
-<script type="text/javascript" charset="utf-8">
-    $("#getsatifucktion").html(writeCapture.sanitize('<scr'+'ipt type="text/javascript" src="http://s3.amazonaws.com/getsatisfaction.com/javascripts/feedback-v2.js"></scr'+'ipt>', {
-        done: function() {
-            if (typeof window.GSFN == "object") {
-                window.GSFNFeedbackWidget = new GSFN.feedback_widget({
-                    container: "getsatifucktion2",
-                    display: "overlay",
-                    company: "binaryage",
-                    placement: "hidden",
-                    color: "#656565",
-                    style: "idea"
-                });
-            }
-        }
-    }));
-</script>
-
-
-        
-
-        
-<script type="text/javascript">
-  var _gauges = _gauges || [];
-  (function() {
-    var t   = document.createElement('script');
-    t.type  = 'text/javascript';
-    t.async = true;
-    t.id    = 'gauges-tracker';
-    
-    t.setAttribute('data-site-id', '4f10d65d844d52139500000b');
-    
-    t.src = '//secure.gaug.es/track.js';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(t, s);
-  })();
-</script>
-
-
-        
-<div class="suck-area">
-    <div class="container">
+    <div id="fb-root"></div>
+    <script type="text/javascript">
+      window.fbAsyncInit=function(){FB.init({appId:"332451499524",status:true,cookie:true,xfbml:true})};(function(){var e=document.createElement("script");e.async=true;e.src=document.location.protocol+"//connect.facebook.net/en_US/all.js";document.getElementById("fb-root").appendChild(e)})()
+    </script>
+    <script type="text/javascript" charset="utf-8">
+      $(function(){var e;$(".topbar-testimonials").bind("click",function(){if(window.SSTracker){SSTracker.pushState("praise")}if(!e){$("#tweets").tweet({user:"binaryage"});e=true}})})
+    </script>
+    <script type="text/javascript" charset="utf-8">
+      $(function(){setTimeout(function(){var e=location.hash.substring(1);if(e.substring(0,2)=="o-"){$("#"+e).trigger("click")}},500)})
+    </script>
+    <script type="text/javascript" charset="utf-8">
+      $(function(){var e=document.location.host;if(e.substring(e.length-3)=="org"){$("a").each(function(){var t=$(this);var n=t.attr("href");if(n){if(n.match("binaryage.com")){n=n.replace("binaryage.com","binaryage.org")}var r=document.location+"";if(n.substring(0,4)!="http"&&n.match(/\/[^.]+$/i)){if(e.substring(r.length-1)=="2"){n+="2"}if(r.substring(r.length-6)=="2.html"){n+="2"}n+=".html"}t.attr("href",n)}})}})
+    </script>
+    <script type="text/javascript" charset="utf-8">
+      (function(){var e=parseUri(document.location+"");var t=e.queryKey["referrer"];if(t){bacookie("bareferrer",t,{path:"/",expires:14})}})();$("a").live("click",function(){var e=$(this).attr("href")+"";var t=bacookie("bareferrer");if(t){e+=(e.indexOf("?")==-1?"?":"&")+"referrer="+encodeURIComponent(t)}var n=document.location+"";if(n.match(/fastspring\.com/)&&e.match(/binaryage\.com/)||n.match(/binaryage\.com/)&&e.match(/fastspring\.com/)){_gaq.push(["_link",e]);return false}})
+    </script>
+    <div id="getsatifucktion"></div>
+    <div id="getsatifucktion2"></div>
+    <script type="text/javascript" charset="utf-8">
+      $("#getsatifucktion").html(writeCapture.sanitize("<scr"+'ipt type="text/javascript" src="http://s3.amazonaws.com/getsatisfaction.com/javascripts/feedback-v2.js"></scr'+"ipt>",{done:function(){if(typeof window.GSFN=="object"){window.GSFNFeedbackWidget=new GSFN.feedback_widget({container:"getsatifucktion2",display:"overlay",company:"binaryage",placement:"hidden",color:"#656565",style:"idea"})}}}))
+    </script>
+    <script type="text/javascript">
+      var _gauges=_gauges||[];(function(){var e=document.createElement("script");e.type="text/javascript";e.async=true;e.id="gauges-tracker";e.setAttribute("data-site-id","4f10d65d844d52139500000b");e.src="//secure.gaug.es/track.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})()
+    </script>
+    <div class="suck-area">
+      <div class="container">
         <div class="fixed-wrapper">
-            <div class="suck-dialog suck-ie5" style="display:none">
-                This page is using the latest HTML5 techniques. You are using old Internet Explorer 5. Please <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home">upgrade to Internet Explorer 9</a> for pixel-perfect experience. Thanks!
-                <div class="suck-close" onclick="$(this).parent().addClass('suck-closed'); bacookie('suck-closed', '1', {path: '/'})"></div>
-                <div class="suck-icon"></div>
-            </div>
-            <div class="suck-dialog suck-ie6" style="display:none">
-                This page is using the latest HTML5 techniques. You are using old Internet Explorer 6. Please <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home">upgrade to Internet Explorer 9</a> for pixel-perfect experience. Thanks!
-                <div class="suck-close" onclick="$(this).parent().addClass('suck-closed'); bacookie('suck-closed', '1', {path: '/'})"></div>
-                <div class="suck-icon"></div>
-            </div>
-            <div class="suck-dialog suck-ie7" style="display:none">
-                This page is using the latest HTML5 techniques. You are using old Internet Explorer 7. Please <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home">upgrade to Internet Explorer 9</a> for pixel-perfect experience. Thanks!
-                <div class="suck-close" onclick="$(this).parent().addClass('suck-closed'); bacookie('suck-closed', '1', {path: '/'})"></div>
-                <div class="suck-icon"></div>
-            </div>
-            <div class="suck-dialog suck-ie8" style="display:none">
-                This page is using the latest HTML5 techniques. You are using old Internet Explorer 8. Please <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home">upgrade to Internet Explorer 9</a> for pixel-perfect experience. Thanks!
-                <div class="suck-close" onclick="$(this).parent().addClass('suck-closed'); bacookie('suck-closed', '1', {path: '/'})"></div>
-                <div class="suck-icon"></div>
-            </div>
+          <div class="suck-dialog suck-ie5" style="display:none">
+            This page is using the latest HTML5 techniques. You are using old Internet Explorer 5. Please <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home">upgrade to Internet Explorer 9</a> for pixel-perfect experience. Thanks!
+            <div class="suck-close" onclick="$(this).parent().addClass('suck-closed'); bacookie('suck-closed', '1', {path: '/'})"></div>
+            <div class="suck-icon"></div>
+          </div>
+          <div class="suck-dialog suck-ie6" style="display:none">
+            This page is using the latest HTML5 techniques. You are using old Internet Explorer 6. Please <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home">upgrade to Internet Explorer 9</a> for pixel-perfect experience. Thanks!
+            <div class="suck-close" onclick="$(this).parent().addClass('suck-closed'); bacookie('suck-closed', '1', {path: '/'})"></div>
+            <div class="suck-icon"></div>
+          </div>
+          <div class="suck-dialog suck-ie7" style="display:none">
+            This page is using the latest HTML5 techniques. You are using old Internet Explorer 7. Please <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home">upgrade to Internet Explorer 9</a> for pixel-perfect experience. Thanks!
+            <div class="suck-close" onclick="$(this).parent().addClass('suck-closed'); bacookie('suck-closed', '1', {path: '/'})"></div>
+            <div class="suck-icon"></div>
+          </div>
+          <div class="suck-dialog suck-ie8" style="display:none">
+            This page is using the latest HTML5 techniques. You are using old Internet Explorer 8. Please <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home">upgrade to Internet Explorer 9</a> for pixel-perfect experience. Thanks!
+            <div class="suck-close" onclick="$(this).parent().addClass('suck-closed'); bacookie('suck-closed', '1', {path: '/'})"></div>
+            <div class="suck-icon"></div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-<script type="text/javascript" charset="utf-8">
-    if (bacookie('suck-closed')) {
-        $('.suck-dialog').addClass('suck-closed');
-    }
-</script>
-
-
-    </body>
+    <script type="text/javascript" charset="utf-8">
+      if(bacookie("suck-closed")){$(".suck-dialog").addClass("suck-closed")}
+    </script>
+  </body>
 </html>
