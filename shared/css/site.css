@@ -461,7 +461,7 @@ div#gsfn_list_widget span.time{color:#999;margin-left:3px}
 .changelogx div.infobox h3{font-size:8pt;border-bottom:1px solid #c0c0c0;background-color:#e2ecfe;padding:3px 5px;color:#000}
 .changelogx div.infobox p{padding:5px;font-size:8pt}
 .changelogx div.infobox img.left{float:left}
-.changelogx ul.changes{margin:0;padding-left:30px;list-style-type:none;padding-right:0}
+.changelogx ul.changes{margin:0 !important;padding-left:30px;list-style-type:none;padding-right:0}
 .changelogx ul.changes li{margin-bottom:1px;clear:both}
 .changelogx .titlebox{line-height:20px}
 .changelogx h4{margin:0;-webkit-user-select:none;-moz-user-select:none;-o-user-select:none;user-select:none;display:inline-block;text-decoration:none;position:relative;cursor:pointer;font:bold 20px 'Play',arial,serif;color:#8d9198;border:1px solid #ccc;padding:2px 0 2px 0;text-shadow:#fff 0 1px 1px;-webkit-border-radius:8px;-moz-border-radius:8px;-o-border-radius:8px;border-radius:8px;min-height:38px;line-height:38px;margin-bottom:12px;-webkit-box-shadow:0 1px 4px #ccc;-moz-box-shadow:0 1px 4px #ccc;-o-box-shadow:0 1px 4px #ccc;box-shadow:0 1px 4px #ccc;background-color:#fff;background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #f4f4f4));background:-moz-linear-gradient(top, #fff 0%, #f4f4f4 100%);background:linear-gradient(top, #fff 0%, #f4f4f4 100%);-webkit-transition:all .5s ease 0;-moz-transition:all .5s ease 0;-o-transition:all .5s ease 0;transition:all .5s ease 0;font:bold 16px 'Play',arial,serif;color:minor-button-color;line-height:26px;float:left;min-height:26px;min-width:110px;}
@@ -534,7 +534,7 @@ div#gsfn_list_widget span.time{color:#999;margin-left:3px}
 .webkit .main-product .main-product-left .product-buttons-box .product-buttons .product-button-thumbup .trial-note,.gecko .main-product .main-product-left .product-buttons-box .product-buttons .product-button-thumbup .trial-note,.opera .main-product .main-product-left .product-buttons-box .product-buttons .product-button-thumbup .trial-note{display:block}
 .main-product .main-product-left .product-buttons-box .product-buttons .product-button-thumbup .trial-note{background-color:#3aaa00}
 .main-product .main-product-left .product-buttons-box .product-buttons .price-tag{background:transparent url("http://static.binaryage.com/cbbb5804_shared_img2_assets.png") no-repeat -544px -253px !important;width:68px;height:28px;display:block;position:absolute;position:absolute;right:-14px;top:8px}
-.main-product .main-product-left .product-buttons-box .product-buttons .price-tag-totalspaces{background:transparent url("http://static.binaryage.com/cbbb5804_shared_img2_assets.png") no-repeat -464px -253px !important;width:68px;height:28px;display:block;position:absolute;position:absolute;right:-14px;top:8px}
+.main-product .main-product-left .product-buttons-box .product-buttons .price-tag-totalspaces{background:transparent url("http://static.binaryage.com/cbbb5804_shared_img2_assets.png") no-repeat -544px -253px !important;width:68px;height:28px;display:block;position:absolute;position:absolute;right:-14px;top:8px}
 .main-product .main-product-left .product-buttons-box .product-buttons .reasons-to-buy{position:relative;top:-3px;text-align:right;text-shadow:#fff 0 1px 1px;font-size:10px;line-height:13px;}
 .main-product .main-product-left .product-buttons-box .product-buttons .reasons-to-buy a{color:#555}
 .main-product .main-product-right{position:relative;}
@@ -629,10 +629,14 @@ div#gsfn_list_widget span.time{color:#999;margin-left:3px}
 #buy.overlay .buy-pack .button{width:190px}
 #buy.overlay .buy-pack .image{background:transparent url("http://static.binaryage.com/9a87c4d2_shared_img2_overlay-buy.png") no-repeat -173px -21px !important;width:200px;height:144px;display:block;position:absolute;position:absolute;left:40px;top:60px}
 #buy.overlay .buy-pack .price-tag{background:transparent url("http://static.binaryage.com/cbbb5804_shared_img2_assets.png") no-repeat -544px -221px !important;width:68px;height:28px;display:block;position:absolute;position:absolute;right:-14px;top:8px}
-#teaser.overlay{background-image:url("http://static.binaryage.com/3e088e65_shared_img2_overlay-664x400.png");width:664px;height:400px;}
+#teaser.overlay{background-image:url("http://static.binaryage.com/3e088e65_shared_img2_overlay-664x400.png");width:664px;}
 #teaser.overlay .overlay-content{text-align:center;z-index:20000;position:absolute;left:11px;top:9px}
 #teaser.overlay .overlay-content object{display:block;border:1px solid #444;-webkit-border-radius:4px;-moz-border-radius:4px;-o-border-radius:4px;border-radius:4px}
 #teaser.overlay .close{background-image:url("http://static.binaryage.com/692e332d_shared_img2_overlay-close.png");position:absolute;left:16px;top:16px;z-index:30000;cursor:pointer;height:13px;width:13px}
+#ts-teaser.overlay{background-image:url("http://static.binaryage.com/0cd216fb_shared_img2_overlay-664x442.png");width:664px;}
+#ts-teaser.overlay .overlay-content{text-align:center;z-index:20000;position:absolute;left:11px;top:9px}
+#ts-teaser.overlay .overlay-content object{display:block;border:1px solid #444;-webkit-border-radius:4px;-moz-border-radius:4px;-o-border-radius:4px;border-radius:4px}
+#ts-teaser.overlay .close{background-image:url("http://static.binaryage.com/692e332d_shared_img2_overlay-close.png");position:absolute;left:16px;top:16px;z-index:30000;cursor:pointer;height:13px;width:13px}
 #download.overlay{background-image:url("http://static.binaryage.com/fcbf63fe_shared_img2_overlay-664x349.png");width:664px;height:349px;}
 #download.overlay .overlay-content{text-align:center;padding:22px 20px}
 #download.overlay .close{background-image:url("http://static.binaryage.com/692e332d_shared_img2_overlay-close.png");position:absolute;left:16px;top:16px;z-index:30000;cursor:pointer;height:13px;width:13px}
@@ -812,8 +816,10 @@ html.support #main *{width:100%;height:100%}
 #main-about .about-blog{font-weight:bold;margin-bottom:26px;margin-top:4px}
 #main-about .about-blog img{vertical-align:middle;border:0;position:relative;top:-1px}
 #main-about .about-side{text-align:right;position:relative}
-#main-about .about-side-photo{position:relative;height:480px}
-#main-about .about-side-photo img{display:block;position:absolute;right:0}
+#main-about .about-side-photo{position:relative;height:280px}
+#main-about .about-side-photo-stephen{position:relative;top:0}
+#main-about .about-side-photo img{display:block;position:absolute;right:0;height:280px}
+#main-about .about-side-photo-stephen img{height:240px}
 #page-store-template .topbar-testimonials{display:none !important}
 #store-variation-selection-body{width:300px !important}
 #main-store .container{text-align:center}
