@@ -725,10 +725,6 @@ div#gsfn_list_widget span.time{color:#999;margin-left:3px}
 #free-software .products .product .desc{font:10px 'Play',arial,serif;color:#555;text-shadow:#fff 0 2px 1px;line-height:13px}
 #free-software .products .product:hover .title{color:#0f56b3 !important}
 #free-software .products .product:hover .icon{-webkit-transform:scale(1.2);-moz-transform:scale(1.2);-o-transform:scale(1.2);transform:scale(1.2)}
-html.support{height:100%}
-html.support #footer{display:none}
-html.support #main{position:fixed;left:0;right:0;bottom:0;top:96px}
-html.support #main *{width:100%;height:100%}
 #blog .post-content{font-size:12px;margin-top:30px;margin-left:44px;clear:both;}
 #blog .post-content .intro-icon{float:left;margin-right:16px;margin-bottom:10px;position:relative;top:-10px}
 #blog .post-content h2{font-size:18px;font-weight:bold;color:#000;margin-top:50px;clear:both}
@@ -907,7 +903,6 @@ html.support #main *{width:100%;height:100%}
 .store-product-detail .store-product-detail-quantity{position:absolute;right:0;top:78px}
 .store-product-detail .store-product-detail-pricing{position:absolute;right:0;top:50px}
 .store-product-detail .store-product-detail-offers{margin-top:0}
-#hints .addthis_toolbox{float:left;padding-left:48px}
 #hints .post-content{margin-top:60px}
 #tabs-firelogger{margin-top:150px}
 #product-firelogger{min-height:350px;}
