@@ -1,21 +1,23 @@
 ---
-layout: product
+layout: product-home
 title: DryDrop updates App Engine site after pushing to GitHub
 product: drydrop
 product_title: DryDrop
 product_subtitle: update App Engine site by pushing to GitHub
+product_icon: /shared/img/icons/drydrop-256.png
 download: http://github.com/binaryage/drydrop
 repo: http://github.com/binaryage/drydrop
 meta_title: DryDrop updates App Engine site after pushing to GitHub
 meta_keywords: python,github,google,app engine,binaryage,productivity,software,web,development
 meta_description: DryDrop is a tool that lets you host your static site on Google App Engine and update it by pushing to GitHub
-meta_image: http://www.binaryage.com/shared/img/icons/drydrop-256.png
+meta_image: /shared/img/icons/drydrop-256.png
 downloadtitle: Install v0.3
 downloadsubtitle: or better use Github pages instead :-)
 facebook: 1
 retweet: 1
 buzz: 1
 fbsdk: 1
+build_tabs: 1
 ogmeta: {
     site_name: "BinaryAge website",
     description: "DryDrop updates App Engine site after pushing to GitHub",
@@ -25,16 +27,14 @@ ogmeta: {
     url: "http://drydrop.binaryage.com",
     image: "http://www.binaryage.com/shared/img/icons/drydrop-256.png"
 }
-shots: [{
-    title: "DryDrop welcome screen",
-    thumb: "/shared/img/drydrop-mainshot.png",
-    full: "/shared/img/drydrop-mainshot-full.png"
-}]
 ---
 
+{% contentfor product-buttons %}
+{% endcontentfor %}
 
 ## Features
 
+<a href="/shared/img/drydrop-mainshot-full.png"><img src="/shared/img/drydrop-mainshot-full.png" width="800"></a>
 #### Host your static site on Google App Engine and update it by pushing to GitHub.
 
 DryDrop is a tool that lets you host your static site on Google App Engine and update it by pushing to GitHub. Thanks to GitHub post-receive hooks your App Engine site can be updated automatically when you push new content.
