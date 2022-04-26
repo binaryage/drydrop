@@ -3,3 +3,4 @@ _site
 dryapp
 gae
 tmp
+.jekyll*

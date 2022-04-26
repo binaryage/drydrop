@@ -82,7 +82,7 @@ Then make sure you have latest <a href="http://code.google.com/appengine/downloa
 
 Then you have to download the latest DryDrop and upload it to your drydropsample project:
 
-    git clone git://github.com/binaryage/drydrop.git
+    git clone https://github.com/binaryage/drydrop.git
     cd drydrop
     rake upload project=drydropsample
     
