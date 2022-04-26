@@ -5,9 +5,9 @@
     <link rel="canonical" href="https://drydrop.binaryage.com/"/>
     <link rel="shortcut icon" href="https://static.binaryage.com/5604bda0_favicon.ico" type="image/x-icon"/>
     <link rel="icon" href="https://static.binaryage.com/5604bda0_favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="https://static.binaryage.com/493de12c_shared_css_site.css" type="text/css"/>
     <script src="//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script>
     <script>WebFont.load({google:{families:["Play:400,700:latin"]}})</script>
-    <link rel="stylesheet" href="https://static.binaryage.com/26f8d85b_shared_css_site.css" type="text/css"/>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="google-site-verification" content="N_xzdr6ymSUQFhAEvQg7f-sp1JAeJCdW2JuaRg-da0w"/>
@@ -24,9 +24,9 @@
     <meta property="og:url" content="http://drydrop.binaryage.com"/>
     <meta property="og:image" content="http://www.binaryage.com/shared/img/icons/drydrop-256.png"/>
     <link href="https://feeds.feedburner.com/binaryage-blog" type="application/atom+xml" rel="alternate" title="Ideas from BinaryAge"/>
-    <script>function defer$(e){if(window.jQuery){e()}else{setTimeout(function(){defer$(e)},50)}}</script>
+    <script>function defer$(e){window.jQuery?e():setTimeout(function(){defer$(e)},50)}</script>
   </head>
-  <body id="page-drydrop-index">
+  <body id="page-drydrop-index" class="site-drydrop">
     <div id="header">
       <div class="container">
         <div class="row">
@@ -61,7 +61,6 @@
             </div>
             <div class="relativize">
               <ul class="header-menu menu-selected-products">
-                <li class="menu-item-store"><a href="https://sites.fastspring.com/binaryage/product/store"><i class="fa fa-shopping-cart"></i><span>store</span></a></li>
                 <li class="menu-item-products"><a href="//www.binaryage.com"><i class="fa fa-star"></i><span>products</span></a></li>
                 <li class="menu-item-blog"><a href="//blog.binaryage.com"><i class="fa fa-bullhorn"></i><span>blog</span></a></li>
                 <li class="menu-item-support"><a href="//discuss.binaryage.com"><i class="fa fa-comments"></i><span>support</span></a></li>
@@ -109,9 +108,9 @@
       </div>
       <div id="drydrop-content" class="product-content" style="display:none">
         <div class="container">
-          <h2>Features</h2>
+          <h2 id="features">Features</h2>
           <p><a href="https://static.binaryage.com/b2467e91_shared_img_drydrop-mainshot-full.png"><img src="https://static.binaryage.com/b2467e91_shared_img_drydrop-mainshot-full.png" width="800"/></a></p>
-          <h4>Host your static site on Google App Engine and update it by pushing to GitHub.</h4>
+          <h4 id="host-your-static-site-on-google-app-engine-and-update-it-by-pushing-to-github">Host your static site on Google App Engine and update it by pushing to GitHub.</h4>
           <p>DryDrop is a tool that lets you host your static site on Google App Engine and update it by pushing to GitHub. Thanks to GitHub post-receive hooks your App Engine site can be updated automatically when you push new content.</p>
           <ul>
             <li>DRY principle (set it and forget it)</li>
@@ -120,102 +119,114 @@
             <li>No Python knowledge needed, but you need to know the basics of Git</li>
           </ul>
           <p>For additional info read <a href="http://www.nata2.org/2011/01/26/how-to-use-app-engine-to-host-static-sites-for-free">blog post by Harper Reed</a>.</p>
-          <h3>How it works</h3>
-          <p>It's simple. Let's say you have a GitHub repository containing a static web site and you want to host it on App Engine. DryDrop is an application that's ready to be uploaded as your App Engine project. After you upload it for the first time, you should set up a post-receive hook in your GitHub repo to point to your App Engine project. This means that every change you push to GitHub will be reflected on your App Engine site immediately.</p>
-          <p>Let's say someone visits your App Engine site. DryDrop has a simple cache. If a requested page is not in the cache, DryDrop will try to fetch it from GitHub, store it in the cache and then serve it. Next time the same URL is requested, it will be served directly from the DryDrop cache.</p>
-          <p>Let's say you made some changes to your files. In the moment you push file changes into GitHub, the post-receive hook will ping DryDrop, which will invalidate modified files in the cache. The next request will trigger a download of fresh files from GitHub.</p>
-          <h2>Installation</h2>
+          <h3 id="how-it-works">How it works</h3>
+          <p>It’s simple. Let’s say you have a GitHub repository containing a static web site and you want to host it on App Engine. DryDrop is an application that’s ready to be uploaded as your App Engine project. After you upload it for the first time, you should set up a post-receive hook in your GitHub repo to point to your App Engine project. This means that every change you push to GitHub will be reflected on your App Engine site immediately.</p>
+          <p>Let’s say someone visits your App Engine site. DryDrop has a simple cache. If a requested page is not in the cache, DryDrop will try to fetch it from GitHub, store it in the cache and then serve it. Next time the same URL is requested, it will be served directly from the DryDrop cache.</p>
+          <p>Let’s say you made some changes to your files. In the moment you push file changes into GitHub, the post-receive hook will ping DryDrop, which will invalidate modified files in the cache. The next request will trigger a download of fresh files from GitHub.</p>
+          <h2 id="installation">Installation</h2>
           <ul>
             <li>upload your static files as a GitHub repository</li>
             <li>create a GAE project and upload DryDrop</li>
             <li>point your DryDrop site to your GitHub repo</li>
             <li>(optional) set up a post-receive hook in GitHub repo pointing to your DryDrop site</li>
           </ul>
-          <h4>After that, every change pushed to github project will automatically propagate to your static site hosted by Google.</h4>
-          <h3>Step 1: prepare your GitHub repository</h3>
+          <h4 id="after-that-every-change-pushed-to-github-project-will-automatically-propagate-to-your-static-site-hosted-by-google">After that, every change pushed to github project will automatically propagate to your static site hosted by Google.</h4>
+          <h3 id="step-1-prepare-your-github-repository">Step 1: prepare your GitHub repository</h3>
           <p>You already know how to work with GitHub, right?</p>
-          <p>Let's say you are user <code>darwin</code> and created repository <code>web-app-theme</code>.
-          So your repository's content lives at <a href="http://github.com/darwin/web-app-theme/tree/master">http://github.com/darwin/web-app-theme/tree/master</a></p>
-          <h3>Step 2: create your App Engine project and upload DryDrop</h3>
-          <p>Now you've created project called <code>drydropsample</code> like this:</p>
+          <p>Let’s say you are user <code class="language-plaintext highlighter-rouge">darwin</code> and created repository <code class="language-plaintext highlighter-rouge">web-app-theme</code>.
+          So your repository’s content lives at <a href="http://github.com/darwin/web-app-theme/tree/master">http://github.com/darwin/web-app-theme/tree/master</a></p>
+          <h3 id="step-2-create-your-app-engine-project-and-upload-drydrop">Step 2: create your App Engine project and upload DryDrop</h3>
+          <p>Now you’ve created project called <code class="language-plaintext highlighter-rouge">drydropsample</code> like this:</p>
           <p><a href="https://static.binaryage.com/6aea1ac1_shared_img_drydrop-create-app.png"><img src="https://static.binaryage.com/6aea1ac1_shared_img_drydrop-create-app.png" width="300"/></a></p>
           <p>Then make sure you have latest <a href="http://code.google.com/appengine/downloads.html">Google App Engine SDK</a> available on your machine.</p>
           <p>Then you have to download the latest DryDrop and upload it to your drydropsample project:</p>
-          <pre><code>git clone git://github.com/binaryage/drydrop.git
+          <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/binaryage/drydrop.git
 cd drydrop
 rake upload project=drydropsample
-</code></pre>
+</code></pre></div></div>
           <p>Note: You will be prompted for user name and password for your Google account by appcfg.py script.</p>
           <p>My session looked like this:</p>
           <p><a href="https://static.binaryage.com/90a3fcd3_shared_img_drydrop-upload.png"><img src="https://static.binaryage.com/90a3fcd3_shared_img_drydrop-upload.png" width="300"/></a></p>
           <p>Now you can visit your App Engine site at <a href="http://drydropsample.appspot.com">http://drydropsample.appspot.com</a> and you should see the welcome page:</p>
           <p><a href="https://static.binaryage.com/99cafd08_shared_img_drydrop-welcome.png"><img src="https://static.binaryage.com/99cafd08_shared_img_drydrop-welcome.png" width="300"/></a></p>
-          <h3>Step 3: point DryDrop site to your GitHub repo</h3>
+          <h3 id="step-3-point-drydrop-site-to-your-github-repo">Step 3: point DryDrop site to your GitHub repo</h3>
           <p>Go to the admin section of your DryDrop site and switch to the settings page:</p>
           <p><a href="https://static.binaryage.com/9044e803_shared_img_drydrop-settings.png"><img src="https://static.binaryage.com/9044e803_shared_img_drydrop-settings.png" width="300"/></a></p>
-          <p>Set "Pull from" to <code>http://github.com/darwin/web-app-theme/raw/master</code>. That "raw" in the URL is important!!!</p>
-          <p>When you go back to <a href="http://drydropsample.appspot.com">http://drydropsample.appspot.com</a>, you should see your repo's content (assuming you have an index.html there)</p>
+          <p>Set “Pull from” to <code class="language-plaintext highlighter-rouge">http://github.com/darwin/web-app-theme/raw/master</code>. That “raw” in the URL is important!!!</p>
+          <p>When you go back to <a href="http://drydropsample.appspot.com">http://drydropsample.appspot.com</a>, you should see your repo’s content (assuming you have an index.html there)</p>
           <p><a href="https://static.binaryage.com/a65439df_shared_img_drydrop-site.png"><img src="https://static.binaryage.com/a65439df_shared_img_drydrop-site.png" width="300"/></a></p>
-          <h3>Step 4 (optional): set up post-receive hook in GitHub repo pointing to your DryDrop site</h3>
+          <h3 id="step-4-optional-set-up-post-receive-hook-in-github-repo-pointing-to-your-drydrop-site">Step 4 (optional): set up post-receive hook in GitHub repo pointing to your DryDrop site</h3>
           <p>Go to the Admin section of your GitHub repo:</p>
           <p><a href="https://static.binaryage.com/9d0990ec_shared_img_drydrop-hook.png"><img src="https://static.binaryage.com/9d0990ec_shared_img_drydrop-hook.png" width="300"/></a></p>
-          <p>Set <code>http://drydropsample.appspot.com/hook/github</code> as post-receive hook.</p>
-          <h3>Step 5 (optional): test the hook</h3>
-          <p>Now, let's try to push a change and check if it gets auto-published on <a href="http://drydropsample.appspot.com">http://drydropsample.appspot.com</a>.</p>
+          <p>Set <code class="language-plaintext highlighter-rouge">http://drydropsample.appspot.com/hook/github</code> as post-receive hook.</p>
+          <h3 id="step-5-optional-test-the-hook">Step 5 (optional): test the hook</h3>
+          <p>Now, let’s try to push a change and check if it gets auto-published on <a href="http://drydropsample.appspot.com">http://drydropsample.appspot.com</a>.</p>
           <p><a href="https://static.binaryage.com/d8fe7119_shared_img_drydrop-edit.png"><img src="https://static.binaryage.com/d8fe7119_shared_img_drydrop-edit.png" width="300"/></a></p>
-          <p>Push it to GitHub ...</p>
+          <p>Push it to GitHub …</p>
           <p><a href="https://static.binaryage.com/5e07c1ed_shared_img_drydrop-push.png"><img src="https://static.binaryage.com/5e07c1ed_shared_img_drydrop-push.png" width="300"/></a></p>
           <p>When you revisit <a href="http://drydropsample.appspot.com">http://drydropsample.appspot.com</a>, you should see an updated version:</p>
           <p><a href="https://static.binaryage.com/240e9758_shared_img_drydrop-updated.png"><img src="https://static.binaryage.com/240e9758_shared_img_drydrop-updated.png" width="300"/></a></p>
           <p>You can double-check the situation in the admin section under Dashboard events:</p>
           <p><a href="https://static.binaryage.com/0244ce33_shared_img_drydrop-events.png"><img src="https://static.binaryage.com/0244ce33_shared_img_drydrop-events.png" width="300"/></a></p>
           <p>The post-receive hook was triggered as you can see in the events list.</p>
-          <h4>And that's it... Happy pushing! :-)</h4>
-          <h2>FAQ</h2>
-          <h4>Do I need to understand Python to use this?</h4>
-          <blockquote><p>Not at all. You just need to know how to use Git and how to create your App Engine project on appspot.com.</p></blockquote>
-          <h4>How does DryDrop compare to <a href="http://pages.github.com">GitHub Pages</a>?</h4>
-          <blockquote><p>GitHub Pages solves the same need of "live-hosting of GitHub repository as a static site on custom domain". I started this project before GitHub Pages was announced and GitHub pages made it somewhat obsolete, especially because they support <a href="http://github.com/mojombo/jekyll/tree/master">jekyll</a>, which is cool.</p></blockquote>
-          <h4>How can DryDrop serve files from GitHub?</h4>
-          <blockquote><p>It is simple. DryDrop has a simple cache. If a requested page is not in the cache, DryDrop will try to fetch it from GitHub, store it in the cache and then serve it. Next time the same URL is requested, it will be served directly from the DryDrop cache. Let's say you made some changes to your files. The moment you push file changes into GitHub, the post-receive hook will call DryDrop and DryDrop will invalidate modified files in the cache.</p></blockquote>
-          <h4>What if I want pretty URLs or some kind of routing?</h4>
-          <blockquote><p>You can create a <code>site.yaml</code> config file which defines mapping between your repository files and App Engine URLs. This config uses a subset of App Engine's <a href="http://code.google.com/appengine/docs/python/config/appconfig.html">app.yaml syntax</a> and is kept in your GitHub repo, so you don't need to re-upload DryDrop after changing it. See admin/settings section of your DryDrop site for more info.</p></blockquote>
-          <h4>What about markdown/textile or some kind of static site generator like jekyll?</h4>
-          <blockquote><p>You can use anything you want locally and pusht the generated output into your github repo. You can point your DryDrop site to a subfolder of your GitHub repo, even to different branch, so you have quite flexible options for how to keep your original source with generated output in one repo. I prefer to keep DryDrop simple, but you are welcome to add support for your favorite stack.</p></blockquote>
-          <h4>Are you going to support bitbucket or some other code repository services?</h4>
-          <blockquote><p>Maybe, if there is a demand for it.</p></blockquote>
-          <h2>Changelog</h2>
+          <h4 id="and-thats-it-happy-pushing--">And that’s it… Happy pushing! :-)</h4>
+          <h2 id="faq">FAQ</h2>
+          <h4 id="do-i-need-to-understand-python-to-use-this">Do I need to understand Python to use this?</h4>
+          <blockquote>
+            <p>Not at all. You just need to know how to use Git and how to create your App Engine project on appspot.com.</p>
+          </blockquote>
+          <h4 id="how-does-drydrop-compare-to-github-pages">How does DryDrop compare to <a href="http://pages.github.com">GitHub Pages</a>?</h4>
+          <blockquote>
+            <p>GitHub Pages solves the same need of “live-hosting of GitHub repository as a static site on custom domain”. I started this project before GitHub Pages was announced and GitHub pages made it somewhat obsolete, especially because they support <a href="http://github.com/mojombo/jekyll/tree/master">jekyll</a>, which is cool.</p>
+          </blockquote>
+          <h4 id="how-can-drydrop-serve-files-from-github">How can DryDrop serve files from GitHub?</h4>
+          <blockquote>
+            <p>It is simple. DryDrop has a simple cache. If a requested page is not in the cache, DryDrop will try to fetch it from GitHub, store it in the cache and then serve it. Next time the same URL is requested, it will be served directly from the DryDrop cache. Let’s say you made some changes to your files. The moment you push file changes into GitHub, the post-receive hook will call DryDrop and DryDrop will invalidate modified files in the cache.</p>
+          </blockquote>
+          <h4 id="what-if-i-want-pretty-urls-or-some-kind-of-routing">What if I want pretty URLs or some kind of routing?</h4>
+          <blockquote>
+            <p>You can create a <code class="language-plaintext highlighter-rouge">site.yaml</code> config file which defines mapping between your repository files and App Engine URLs. This config uses a subset of App Engine’s <a href="http://code.google.com/appengine/docs/python/config/appconfig.html">app.yaml syntax</a> and is kept in your GitHub repo, so you don’t need to re-upload DryDrop after changing it. See admin/settings section of your DryDrop site for more info.</p>
+          </blockquote>
+          <h4 id="what-about-markdowntextile-or-some-kind-of-static-site-generator-like-jekyll">What about markdown/textile or some kind of static site generator like jekyll?</h4>
+          <blockquote>
+            <p>You can use anything you want locally and pusht the generated output into your github repo. You can point your DryDrop site to a subfolder of your GitHub repo, even to different branch, so you have quite flexible options for how to keep your original source with generated output in one repo. I prefer to keep DryDrop simple, but you are welcome to add support for your favorite stack.</p>
+          </blockquote>
+          <h4 id="are-you-going-to-support-bitbucket-or-some-other-code-repository-services">Are you going to support bitbucket or some other code repository services?</h4>
+          <blockquote>
+            <p>Maybe, if there is a demand for it.</p>
+          </blockquote>
+          <h2 id="changelog">Changelog</h2>
           <ul>
-            <li><p><strong>v0.3</strong> (18.02.2010)</p>
+            <li><strong>v0.3</strong> (18.02.2010)
               <ul>
                 <li>[<a href="http://github.com/curiousdannii">curiousdannii</a>] added Last-Modified/If-Modified-Since support</li>
                 <li>[<a href="http://github.com/darwin">darwin</a>] serve simple not-found page for missing pages (can be overriden by /404.html file in your repo)</li>
                 <li>[<a href="http://github.com/darwin">darwin</a>] main routing routine is wrapped into try-catch block, better error page explaining possible steps to fix broken drydrop (<a href="http://github.com/binaryage/drydrop/issues#issue/1">closes #1</a>)</li>
                 <li>[<a href="http://github.com/darwin">darwin</a>] detect bogus status404 pages from github and treat them as real 404 pages (<a href="http://github.com/binaryage/drydrop/issues#issue/2">fixes #2</a>)</li>
-                <li>[<a href="http://github.com/mannkind">mannkind</a>] added "Content-Type: text/html" header for files without an extension (for clean-like URLs without .html)</li>
+                <li>[<a href="http://github.com/mannkind">mannkind</a>] added “Content-Type: text/html” header for files without an extension (for clean-like URLs without .html)</li>
               </ul>
             </li>
-            <li><p><strong>v0.2</strong> (09.08.2009)</p>
+            <li><strong>v0.2</strong> (09.08.2009)
               <ul>
                 <li>[<a href="http://github.com/darwin">darwin</a>] introducing support for GitHub and GitHub hooks</li>
                 <li>[<a href="http://github.com/darwin">darwin</a>] initial public version</li>
               </ul>
             </li>
-            <li><p><strong>v0.1</strong> (13.12.2008)</p>
+            <li><strong>v0.1</strong> (13.12.2008)
               <ul>
                 <li>[<a href="http://github.com/darwin">darwin</a>] initial experimental implementation</li>
               </ul>
             </li>
           </ul>
-          <h2>Links</h2>
-          <h3>Articles</h3>
+          <h2 id="links">Links</h2>
+          <h3 id="articles">Articles</h3>
           <ul>
             <li><a href="http://www.nata2.org/2011/01/26/how-to-use-app-engine-to-host-static-sites-for-free">OMG FREE HOSTING: How to use GAE to host static sites for free</a> (by Harper Reed)</li>
             <li><a href="http://googleappengine.blogspot.com/2009/08/recent-happenings-ticktock-parallel.html">DryDrop announced</a> (via <a href="http://googleappengine.blogspot.com">Google App Engine Blog</a>)</li>
             <li><a href="http://stackoverflow.com/questions/1675715/using-google-appengine-as-a-cache-for-personal-websites-wordpress-blogs-wikis">Using Google AppEngine as a “cache” for personal websites (wordpress blogs, wikis)</a> (via <a href="http://stackoverflow.com">Stack Overflow</a>)</li>
             <li><a href="http://www.openalexandria.com/2009/09/drydrop">DryDrop – Manage static web site with GAE and Github</a> (via <a href="http://www.openalexandria.com">openalexandria.com</a>)</li>
           </ul>
-          <h3>Related Sites</h3>
+          <h3 id="related-sites">Related Sites</h3>
           <ul>
             <li><a href="http://github.com">GitHub</a> - social code hosting</li>
           </ul>
@@ -240,9 +251,9 @@ rake upload project=drydropsample
         </div>
       </div>
     </div>
-    <script src="https://static.binaryage.com/0518c6ed_shared_js_code.js"></script>
-    <script type="text/javascript">window["ga"]=function(){}</script>
-    <script>window["ga"]=undefined;(function(e,n,a,t,i,o,r){e["GoogleAnalyticsObject"]=i;e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},e[i].l=1*new Date;o=n.createElement(a),r=n.getElementsByTagName(a)[0];o.async=1;o.src=t;r.parentNode.insertBefore(o,r)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");ga("create","UA-8404259-1","auto",{allowLinker:true});ga("send","pageview");ga("require","linker");ga("linker:autoLink",["fastspring.com"],true)</script>
-    <script type="text/javascript" charset="utf-8">defer$(function(){$(function(){setTimeout(function(){var i=location.hash.substring(1);if(i.substring(0,2)=="o-"){$("#"+i).trigger("click")}},500)})})</script>
+    <script src="https://static.binaryage.com/bb6250cd_shared_js_code.js"></script>
+    <script type="text/javascript">window.ga=function(){}</script>
+    <script>window.ga=undefined,function(e,n,a,t,i,o,c){e.GoogleAnalyticsObject=i,e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},e[i].l=1*new Date,o=n.createElement(a),c=n.getElementsByTagName(a)[0],o.async=1,o.src=t,c.parentNode.insertBefore(o,c)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","UA-8404259-1","auto",{allowLinker:!0}),ga("send","pageview"),ga("require","linker"),ga("linker:autoLink",["fastspring.com"],!0)</script>
+    <script type="text/javascript" charset="utf-8">defer$(function(){$(function(){setTimeout(function(){var i=location.hash.substring(1);"o-"==i.substring(0,2)&&$("#"+i).trigger("click")},500)})})</script>
   </body>
 </html>

@@ -1,0 +1,14 @@
+{
+	"version": 3,
+	"file": "test.css",
+	"sources": [
+		"test.scss",
+		"shared/css/_constants.scss"
+	],
+	"sourcesContent": [
+		"@import \"constants\";\n\nbody {\n    p {\n        color: $test-color;\n    }\n}\n",
+		"$test-color: red;\n"
+	],
+	"names": [],
+	"mappings": "AAEA,AACI,IADA,CACA,CAAC,CAAC,EACE,KAAK,ECJA,GAAG,GDKX"
+}
